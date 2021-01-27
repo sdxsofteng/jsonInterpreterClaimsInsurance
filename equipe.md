@@ -18,11 +18,11 @@
 **Forces/Faibless/Compétences:** 
 ------
 **Nom complet: Désormeaux, Simon**
-**Code Permanent:** ``
-**Email UQAM:** [](mailto:)
-**Moyen de communication préféré:** 
-**Heures de disponibilités:** 
-**Forces/Faibless/Compétences:** 
+**Code Permanent:** `DESS21079605`
+<br/>**Email UQAM:** [desormeaux.simon@courrier.uqam.ca](mailto:desormeaux.simon@courrier.uqam.ca)
+<br/>**Moyen de communication préféré:** Par courriel à l'adresse [desormeaux.simon@courrier.uqam.ca](mailto:desormeaux.simon@courrier.uqam.ca)
+<br/>**Heures de disponibilités:** 9h à 19h du lundi au samedi.
+<br/>**Forces/Faibless/Compétences:** Je n'ai pas eu de formation préalable au début dans le Baccalauréat en informatique et génie logiciel. Toutefois, j'ai majoritairement passé mes années préalables au Baccalauréat à faire de l'apprentissage par moi-même. Une de mes forces est la conception logique de logiciel et la planification de logiciel. Une de mes faiblesses serait le travail formel en équipe sur un projet. Mes précédant projets étant majoritairement réalisé individuellement. J'ai des compétences en Java, C++, Git et Unix.
 ------
 **Nom complet: Lalonde, Mathieu**
 **Code Permanent:** ``
