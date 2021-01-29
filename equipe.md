@@ -3,11 +3,11 @@
 ------
 ## Composition de l'équipe
 ------
-**Nom complet: Génois, David**
-**Code Permanent:** `GEND13119801`
-**Email UQAM:** [fc591912@ens.uqam.ca](mailto:fc591912@ens.uqam.ca)
-**Moyen de communication préféré:** Par courriel à l'adresse [david.genois13@gmail.com](mailto:david.genois13@gmail.com)
-**Heures de disponibilités:** 11h à 22h à n'importe quel jour de la semaine.
+**Nom complet: Génois, David**\
+**Code Permanent:** `GEND13119801`\
+**Email UQAM:** [fc591912@ens.uqam.ca](mailto:fc591912@ens.uqam.ca)\
+**Moyen de communication préféré:** Par courriel à l'adresse [david.genois13@gmail.com](mailto:david.genois13@gmail.com)\
+**Heures de disponibilités:** 11h à 22h à n'importe quel jour de la semaine.\
 **Forces/Faiblesses/Compétences:** J'ai un DEC en technique de l'informatique (option de gestion), j'ai suivi plusieurs cours de mon propre gré, j'ai fait partie du laboratoire de recherche informatique à mon Cégep, je travaille présentement en développement logiciel et je suis démonstrateur pour un cours de web à l'UdeM, donc je suis très à l'aise avec tout le contenu du cours. Mon langage préféré est le JavaScript/TypeScript et j'ai un penchant pour les langages fonctionnels, je dirais que ma faiblesse est mon manque d'intérêt pour Java. 
 ------
 **Nom complet: Crémet, Augustin**\
@@ -17,19 +17,19 @@
 **Heures de disponibilités:** 9h à 19h du lundi au vendredi ainsi que de 6h à 22h les samedis et dimanches.\
 **Forces/Faiblesses/Compétences:** Je suis présentement dans ma deuxième session du baccalauréat en informatique et génie logiciel. Je suis, à temps perdu, un cours sur l'utilation de Unity. J'ai une grande volonté d'apprendre dans le domaine de l'informatique et une la patience requise pour résoudre les problèmes qui s'en suivent. Ma difficulté à me souvenir des terminologie serait ma faiblesse.
 ------
-**Nom complet: Désormeaux, Simon**
-**Code Permanent:** `DESS21079605`
-<br/>**Email UQAM:** [desormeaux.simon@courrier.uqam.ca](mailto:desormeaux.simon@courrier.uqam.ca)
-<br/>**Moyen de communication préféré:** Par courriel à l'adresse [desormeaux.simon@courrier.uqam.ca](mailto:desormeaux.simon@courrier.uqam.ca)
-<br/>**Heures de disponibilités:** 9h à 19h du lundi au samedi.
-<br/>**Forces/Faiblesses/Compétences:** Je n'ai pas eu de formation préalable au début dans le Baccalauréat en informatique et génie logiciel. Toutefois, j'ai majoritairement passé mes années préalables au Baccalauréat à faire de l'apprentissage par moi-même. Une de mes forces est la conception logique de logiciel et la planification de logiciel. Une de mes faiblesses serait le travail formel en équipe sur un projet. Mes précédant projets étant majoritairement réalisé individuellement. J'ai des compétences en Java, C++, Git et Unix.
+**Nom complet: Désormeaux, Simon**\
+**Code Permanent:** `DESS21079605`\
+**Email UQAM:** [desormeaux.simon@courrier.uqam.ca](mailto:desormeaux.simon@courrier.uqam.ca)\
+**Moyen de communication préféré:** Par courriel à l'adresse [desormeaux.simon@courrier.uqam.ca](mailto:desormeaux.simon@courrier.uqam.ca)\
+**Heures de disponibilités:** 9h à 19h du lundi au samedi.\
+**Forces/Faiblesses/Compétences:** Je n'ai pas eu de formation préalable au début dans le Baccalauréat en informatique et génie logiciel. Toutefois, j'ai majoritairement passé mes années préalables au Baccalauréat à faire de l'apprentissage par moi-même. Une de mes forces est la conception logique de logiciel et la planification de logiciel. Une de mes faiblesses serait le travail formel en équipe sur un projet. Mes précédant projets étant majoritairement réalisé individuellement. J'ai des compétences en Java, C++, Git et Unix.
 ------
-**Nom complet: Lalonde, Mathieu**
-**Code Permanent:** `LALM14127501`
-**Email UQAM:** [lalonde.mathieu.3@courrier.uqam.ca](mailto:lalonde.mathieu.3@courrier.uqam.ca)
-**Moyen de communication préféré:** Par courriel à l'adresse [lalonde.mathieu.3@courrier.uqam.ca](mailto:lalonde.mathieu.3@courrier.uqam.ca)
-**Heures de disponibilités:** 9h à 17h du lundi au vendredi, 9h à 22h la fin de semaine.
-**Forces/Faiblesses/Compétences:** Moi non plus, n'ai pas eu de formation en programation avant mon arrivée à l'UQAM. Par contre, je baigne dans l'informatique depuis plus d'une trentaine d'années avec la programation Basic et MS-DOS 4! J'ai ensuite travaillé comme technicien en support technique pour l'un des grands fournisseurs internet des années '90. En bout de ligne, mon background est assez hétéroclite mais ce sont tous des éléments qui aident en programamtion;  j'ai l'habitude de fignoler les détails tout en gardant en tête une vue d'ensemble du projet à livrer, de résoudre des bogues et d'apprendre en autodidacte.
+**Nom complet: Lalonde, Mathieu**\
+**Code Permanent:** `LALM14127501`\
+**Email UQAM:** [lalonde.mathieu.3@courrier.uqam.ca](mailto:lalonde.mathieu.3@courrier.uqam.ca)\
+**Moyen de communication préféré:** Par courriel à l'adresse [lalonde.mathieu.3@courrier.uqam.ca](mailto:lalonde.mathieu.3@courrier.uqam.ca)\
+**Heures de disponibilités:** 9h à 17h du lundi au vendredi, 9h à 22h la fin de semaine.\
+**Forces/Faiblesses/Compétences:** Moi non plus, n'ai pas eu de formation en programmation avant mon arrivée à l'UQAM. Par contre, je baigne dans l'informatique depuis plus d'une trentaine d'années avec la programmation Basic et MS-DOS 4! J'ai ensuite travaillé comme technicien en support technique pour l'un des grands fournisseurs internet des années '90. En bout de ligne, mon background est assez hétéroclite mais ce sont tous des éléments qui aident en programmation;  j'ai l'habitude de fignoler les détails tout en gardant en tête une vue d'ensemble du projet à livrer, de résoudre des bogues et d'apprendre en autodidacte.
 ------
 ------
 ## Charte de l'équipe
