@@ -10,12 +10,12 @@
 **Heures de disponibilités:** 11h à 22h à n'importe quel jour de la semaine.
 **Forces/Faiblesses/Compétences:** J'ai un DEC en technique de l'informatique (option de gestion), j'ai suivi plusieurs cours de mon propre gré, j'ai fait partie du laboratoire de recherche informatique à mon Cégep, je travaille présentement en développement logiciel et je suis démonstrateur pour un cours de web à l'UdeM, donc je suis très à l'aise avec tout le contenu du cours. Mon langage préféré est le JavaScript/TypeScript et j'ai un penchant pour les langages fonctionnels, je dirais que ma faiblesse est mon manque d'intérêt pour Java. 
 ------
-**Nom complet: Crémet, Augustin**
-**Code Permanent:** ``
-**Email UQAM:** [](mailto:)
-**Moyen de communication préféré:** 
-**Heures de disponibilités:** 
-**Forces/Faiblesses/Compétences:** 
+**Nom complet: Crémet, Augustin**\
+**Code Permanent:** `CREA29019209`\
+**Email UQAM:** [eh291047@ens.uqam.ca](mailto:eh291047@ens.uqam.ca)\
+**Moyen de communication préféré:** Par courriel à l'adresse [eh291047@ens.uqam.ca](mailto:eh291047@ens.uqam.ca)\
+**Heures de disponibilités:** 9h à 19h du lundi au vendredi ainsi que de 6h à 22h les samedis et dimanches.\
+**Forces/Faiblesses/Compétences:** Je suis présentement dans ma deuxième session du baccalauréat en informatique et génie logiciel. Je suis, à temps perdu, un cours sur l'utilation de Unity. J'ai une grande volonté d'apprendre dans le domaine de l'informatique et une la patience requise pour résoudre les problèmes qui s'en suivent. Ma difficulté à me souvenir des terminologie serait ma faiblesse.
 ------
 **Nom complet: Désormeaux, Simon**
 **Code Permanent:** `DESS21079605`
