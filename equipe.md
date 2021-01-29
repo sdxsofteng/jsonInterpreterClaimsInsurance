@@ -27,9 +27,9 @@
 **Nom complet: Lalonde, Mathieu**
 **Code Permanent:** `LALM14127501`
 **Email UQAM:** [lalonde.mathieu.3@courrier.uqam.ca](mailto:lalonde.mathieu.3@courrier.uqam.ca)
-**Moyen de communication préféré:** 
-**Heures de disponibilités:** 9h à 17h du lundi au vendredi.
-**Forces/Faiblesses/Compétences:**Moi non plus, n'ai pas eu de formation en programation avant mon arrivée à l'UQAM. Par contre, je baigne dans l'informatique depuis plus d'une trentaine d'années avec la programation Basic et MS-DOS 4! J'ai ensuite travaillé comme technicien en support technique pour l'un des grands fournisseurs internet des années '90. En bout de ligne, mon background est assez hétéroclite mais ce sont tous des éléments qui aident en programamtion;  j'ai l'habitude de fignoler les détails tout en gardant en tête une vue d'ensemble du projet à livrer, de résoudre des bogues et d'apprendre en autodidacte.
+**Moyen de communication préféré:** Par courriel à l'adresse [lalonde.mathieu.3@courrier.uqam.ca](mailto:lalonde.mathieu.3@courrier.uqam.ca)
+**Heures de disponibilités:** 9h à 17h du lundi au vendredi, 9h à 22h la fin de semaine.
+**Forces/Faiblesses/Compétences:** Moi non plus, n'ai pas eu de formation en programation avant mon arrivée à l'UQAM. Par contre, je baigne dans l'informatique depuis plus d'une trentaine d'années avec la programation Basic et MS-DOS 4! J'ai ensuite travaillé comme technicien en support technique pour l'un des grands fournisseurs internet des années '90. En bout de ligne, mon background est assez hétéroclite mais ce sont tous des éléments qui aident en programamtion;  j'ai l'habitude de fignoler les détails tout en gardant en tête une vue d'ensemble du projet à livrer, de résoudre des bogues et d'apprendre en autodidacte.
 ------
 ------
 ## Charte de l'équipe
