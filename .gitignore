@@ -1,0 +1,9 @@
+# Configurations de projet (IntelliJ)
+.idea
+out/
+
+# Fichier de Maven
+*.iml
+*.ipr
+target
+
