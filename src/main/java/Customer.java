@@ -1,12 +1,12 @@
 public class Customer {
 
     private int clientNumber;
-    private char contractNumber;
+    private char contractLetter;
     private int claimPeriod;
 
-    public Customer(int clientNumber, char contractNumber, int claimPeriod) {
+    public Customer(int clientNumber, char contractLetter, int claimPeriod) {
         this.clientNumber = clientNumber;
-        this.contractNumber = contractNumber;
+        this.contractLetter = contractLetter;
         this.claimPeriod = claimPeriod;
     }
 
@@ -14,8 +14,8 @@ public class Customer {
         return clientNumber;
     }
 
-    public char getContractNumber() {
-        return contractNumber;
+    public char getContractLetter() {
+        return contractLetter;
     }
 
     public int getClaimPeriod() {
@@ -26,8 +26,8 @@ public class Customer {
         this.clientNumber = clientNumber;
     }
 
-    public void setContractNumber(char contractNumber) {
-        this.contractNumber = contractNumber;
+    public void setContractLetter(char contractLetter) {
+        this.contractLetter = contractLetter;
     }
 
     public void setClaimPeriod(int claimPeriod) {
