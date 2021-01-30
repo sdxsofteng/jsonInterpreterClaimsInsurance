@@ -5,7 +5,7 @@
 ------
 ------
 ### Nomenclature
-* Les noms de classes, fonctions et variables commencent par une majuscule et suivent le style "CamelCase".
+* Les noms de classes, fonctions et variables commencent par une majuscule et suivent le style "CamelCase".<br>-Classe: ExempleClasse.<br>-Méthodes: exempleMéthode.<br>-Constantes: CONSTANTE_EXEMPLE.<br>-Variables: exempleVariable.
 * Les constantes sont écrites exclusivement en majuscule, séparées par des `_`. Exemple: `int LEFT_MOTOR_PWM_PORT = 0`.
 * Les noms des fichiers, classes, variables, etc. sont strictement en anglais. L'usage du français est utilisé seulement pour les commentaires, les commits et les fichiers textes/markdown demandés par le professeur tel que celui-ci.
 * Un plus haut niveau d'abstraction nécessite un nom plus général qu'une implémentation concrète. Le nom de l'implémentation concrète doit débuter par le nom de l'abstraction. Par exemple: La méthode concrète `ValidateAllProperties` qui utilise la méthode `Validate` de la classe d'une propriété.
