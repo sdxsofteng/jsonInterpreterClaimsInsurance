@@ -26,7 +26,7 @@
     * Il y a un espace entre les accolades et une parenthèse ou mot clé qui précède ladite accolade.
 * Le style des accolades est `1TBS`.
 ### Autres conventions
-* Les variables de classes seront privées, rendues accessibles via des getters/setters lorsqu'approprié. 
+* Les variables de classes seront privées, rendues accessibles via des getters/setters lorsqu'appropriés. 
 ------
 ## Convention d'utilisation de Git
 ------
@@ -52,7 +52,7 @@
     * En test: Une tâche qui semble être accomplie. Un ou plusieurs membres la réviseront afin de la valider. Si une tâche "en test" nécessite plus de travail, elle doit être retournée au statut de "en cours" puisque ce statut désigne des tâches prêtes à être validées.
     * Complété: Une tâche qui a été fusionnée à la branche `master` et qui ne nécessite plus de travail.
 * Les tâches peuvent avoir les libellés suivants:
-    * Piorité basse (vert): tâche qui peut être reportée à plus tard, généralement lorsqu'elle dépend d'un autre module.
+    * Piorité basse (vert): tâche qui peut être reportée plus tard, généralement lorsqu'elle dépend d'un autre module.
     * Piorité moyenne (jaune): tâche qui n'a pas nécessairement à être faite maintenant, mais qui devrait minimalement commencer à être planifiée.
     * Piorité élevée (rouge): tâche qui doit être faite maintenant puisque d'autres en dépendent, ou une contrainte de temps arrive à échéance.
-    * Bug (violet): Désigne une tâche qui est un problème à règler plutôt qu'une fonctionnalité à ajouter/modifier.
+    * Bug (violet): Désigne une tâche qui est un problème à régler plutôt qu'une fonctionnalité à ajouter/modifier.
