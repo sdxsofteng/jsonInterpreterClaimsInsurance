@@ -1,45 +1,41 @@
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Claims {
 
-    private int treatmentNumber;
-    private int claimDate;
-    private float treatmentCost;
-    private float refundAmount;
+    private String treatmentNumber;
+    private String claimDate;
+    private String treatmentCost;
+    private String refundAmount;
 
-    public Claims(int treatmentNumber, int claimDate, float treatmentCost) {
-        this.treatmentNumber = treatmentNumber;
-        this.claimDate = claimDate;
-        this.treatmentCost = treatmentCost;
-    }
-
-    public int getTreatmentNumber() {
+    public String getTreatmentNumber() {
         return treatmentNumber;
     }
 
-    public int getClaimDate() {
+    public String getClaimDate() {
         return claimDate;
     }
 
-    public float getTreatmentCost() {
+    public String getTreatmentCost() {
         return treatmentCost;
     }
 
-    public float getRefundAmount() {
+    public String getRefundAmount() {
         return refundAmount;
     }
-
-    public void setTreatmentNumber(int treatmentNumber) {
+    @JsonProperty("soin")
+    public void setTreatmentNumber(String treatmentNumber) {
         this.treatmentNumber = treatmentNumber;
     }
-
-    public void setClaimDate(int claimDate) {
+    @JsonProperty("date")
+    public void setClaimDate(String claimDate) {
         this.claimDate = claimDate;
     }
-
-    public void setTreatmentCost(float treatmentCost) {
+    @JsonProperty("montant")
+    public void setTreatmentCost(String treatmentCost) {
         this.treatmentCost = treatmentCost;
     }
 
-    public void setRefundAmount(float refundAmount) {
+    public void setRefundAmount(String refundAmount) {
         this.refundAmount = refundAmount;
     }
 }
