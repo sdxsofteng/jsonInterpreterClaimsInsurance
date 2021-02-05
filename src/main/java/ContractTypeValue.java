@@ -9,7 +9,6 @@ public class ContractTypeValue {
     public String getType() {
         return type;
     }
-
     @JsonProperty("type")
     public void setType(String type) {
         this.type = type;
@@ -27,7 +26,6 @@ public class ContractTypeValue {
     public float getRefundPercentage() {
         return refundPercentage;
     }
-
     @JsonProperty("refundPercentage")
     public void setRefundPercentage(float refundPercentage) {
         this.refundPercentage = refundPercentage;
