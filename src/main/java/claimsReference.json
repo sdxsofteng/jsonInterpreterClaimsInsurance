@@ -1,0 +1,220 @@
+{
+  "cares": [
+    {
+      "name": "massotherapy",
+      "careNumberMax": 0,
+      "careNumberMin": 0,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0.25
+        },
+        {
+          "type": "B",
+          "max": 40,
+          "refundPercentage": 0.50
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.90
+        },
+        {
+          "type": "D",
+          "max": 85,
+          "refundPercentage": 1
+        }
+      ]
+    },
+    {
+      "name": "osteopathy",
+      "careNumberMax": 100,
+      "careNumberMin": 100,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0.25
+        },
+        {
+          "type": "B",
+          "max": 50,
+          "refundPercentage": 0.50
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.90
+        },
+        {
+          "type": "D",
+          "max": 75,
+          "refundPercentage": 1
+        }
+      ]
+    },
+    {
+      "name": "psychology",
+      "careNumberMax": 200,
+      "careNumberMin": 200,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0.25
+        },
+        {
+          "type": "B",
+          "max": 70,
+          "refundPercentage": 1
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.90
+        },
+        {
+          "type": "D",
+          "max": 100,
+          "refundPercentage": 1
+        }
+      ]
+    },
+    {
+      "name": "dentistry",
+      "careNumberMax": 399,
+      "careNumberMin": 300,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0
+        },
+        {
+          "type": "B",
+          "max": 0,
+          "refundPercentage": 0.50
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.90
+        },
+        {
+          "type": "D",
+          "max": 0,
+          "refundPercentage": 1
+        }
+      ]
+    },
+    {
+      "name": "naturopathy",
+      "careNumberMax": 400,
+      "careNumberMin": 400,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0
+        },
+        {
+          "type": "B",
+          "max": 0,
+          "refundPercentage": 0
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.90
+        },
+        {
+          "type": "D",
+          "max": 65,
+          "refundPercentage": 1
+        }
+      ]
+    },
+    {
+      "name": "chiropractic",
+      "careNumberMax": 500,
+      "careNumberMin": 500,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0.25
+        },
+        {
+          "type": "B",
+          "max": 50,
+          "refundPercentage": 0.50
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.90
+        },
+        {
+          "type": "D",
+          "max": 75,
+          "refundPercentage": 1
+        }
+      ]
+    },
+    {
+      "name": "physiotherapy",
+      "careNumberMax": 600,
+      "careNumberMin": 600,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0.40
+        },
+        {
+          "type": "B",
+          "max": 0,
+          "refundPercentage": 1
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.90
+        },
+        {
+          "type": "D",
+          "max": 100,
+          "refundPercentage": 1
+        }
+      ]
+    },
+    {
+      "name": "speechTherapy",
+      "careNumberMax": 700,
+      "careNumberMin": 700,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0
+        },
+        {
+          "type": "B",
+          "max": 0,
+          "refundPercentage": 0.70
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.90
+        },
+        {
+          "type": "D",
+          "max": 90,
+          "refundPercentage": 1
+        }
+      ]
+    }
+  ]
+}
