@@ -12,4 +12,15 @@ public class CareReference {
     public void setCaresList(List<Cares> caresList) {
         this.caresList = caresList;
     }
+
+    public Cares getAppropriateCareObject(int referenceNumber){
+        Cares returnedObject = null;
+        for (Cares cares: caresList){
+            if (cares.getCareNumberMax() >= referenceNumber
+                    && cares.getCareNumberMin() <= referenceNumber){
+                returnedObject = cares;
+            }
+        }
+        return returnedObject;
+    }
 }

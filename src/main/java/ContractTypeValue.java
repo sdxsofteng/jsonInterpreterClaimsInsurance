@@ -3,7 +3,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ContractTypeValue {
 
     String type;
-    float maximumDeductibleAmount;
+    float maxDeductibleAmount;
     float refundPercentage;
 
     public String getType() {
@@ -14,12 +14,13 @@ public class ContractTypeValue {
         this.type = type;
     }
 
-    public float getMaximumDeductibleAmount() {
-        return maximumDeductibleAmount;
+    public float getMaxDeductibleAmount() {
+        return maxDeductibleAmount;
     }
+
     @JsonProperty("max")
-    public void setMaximumDeductibleAmount(float maximumDeductibleAmount) {
-        this.maximumDeductibleAmount = maximumDeductibleAmount;
+    public void setMaxDeductibleAmount(float maxDeductibleAmount) {
+        this.maxDeductibleAmount = maxDeductibleAmount;
     }
 
     public float getRefundPercentage() {

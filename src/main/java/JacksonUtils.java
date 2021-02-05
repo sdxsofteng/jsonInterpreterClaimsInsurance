@@ -9,25 +9,14 @@ public class JacksonUtils {
 
     private static ObjectMapper mapper = GenerateAndConfigureMapper();
 
-    private static ObjectMapper GenerateAndConfigureMapper() {
 
+    private static ObjectMapper GenerateAndConfigureMapper() {
         ObjectMapper newMapper = new ObjectMapper();
         newMapper.registerModule(new JavaTimeModule());
-
         return newMapper;
     }
 
-    public static File transformToFile(String argInput){
-        File inputFile = null;
-
-            inputFile = new File(argInput);
-
-        return inputFile;
-
-    }
-
-    public static Customer JsonToObjectInput(File src){
-
+    public static Customer JsonToCustomerInput(File src){
         Customer programInput = null;
         try {
             programInput = mapper.readValue(src, Customer.class);
@@ -36,11 +25,9 @@ public class JacksonUtils {
         }
         return programInput;
     }
-    //TODO essayer de mettre les deux en un
+
     public static CareReference JsonToReference(File src){
-
         CareReference referenceInput = null;
-
         try {
             referenceInput = mapper.readValue(src, CareReference.class);
         } catch (IOException e) {
@@ -48,6 +35,4 @@ public class JacksonUtils {
         }
         return referenceInput;
     }
-
-    //TODO Faire la sortie en cas d'erreur fatale. Le doc JSON.
 }
