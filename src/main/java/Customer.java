@@ -1,3 +1,7 @@
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
 public class Customer {
 
     private int clientNumber;
@@ -10,7 +14,7 @@ public class Customer {
         this.claimPeriod = claimPeriod;
     }
 
-    public int getClientNumber() {
+    public String getClientNumber() {
         return clientNumber;
     }
 
@@ -18,19 +22,27 @@ public class Customer {
         return contractLetter;
     }
 
-    public int getClaimPeriod() {
+    public String getClaimPeriod() {
         return claimPeriod;
     }
 
-    public void setClientNumber(int clientNumber) {
+    public List<Claims> getClaimsList() {
+        return claimsList;
+    }
+    @JsonProperty("client")
+    public void setClientNumber(String clientNumber) {
         this.clientNumber = clientNumber;
     }
 
     public void setContractLetter(char contractLetter) {
         this.contractLetter = contractLetter;
     }
-
-    public void setClaimPeriod(int claimPeriod) {
+    @JsonProperty("mois")
+    public void setClaimPeriod(String claimPeriod) {
         this.claimPeriod = claimPeriod;
+    }
+    @JsonProperty("reclamations")
+    public void setClaimsList(List<Claims> claimsList) {
+        this.claimsList = claimsList;
     }
 }
