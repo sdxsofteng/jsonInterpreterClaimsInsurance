@@ -39,6 +39,4 @@ public class JacksonUtils {
         }
         return referenceInput;
     }
-
-    //TODO Faire la sortie en cas d'erreur fatale. Le doc JSON.
 }
