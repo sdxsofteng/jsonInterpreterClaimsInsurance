@@ -2,12 +2,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class JacksonUtils {
 
     private static ObjectMapper mapper = GenerateAndConfigureMapper();
+
 
     private static ObjectMapper GenerateAndConfigureMapper() {
 
@@ -17,16 +17,7 @@ public class JacksonUtils {
         return newMapper;
     }
 
-    public static File transformToFile(String argInput){
-        File inputFile = null;
-
-            inputFile = new File(argInput);
-
-        return inputFile;
-
-    }
-
-    public static Customer JsonToObjectInput(File src){
+    public static Customer JsonToCustomerInput(File src){
 
         Customer programInput = null;
         try {
@@ -36,7 +27,7 @@ public class JacksonUtils {
         }
         return programInput;
     }
-    //TODO essayer de mettre les deux en un
+
     public static CareReference JsonToReference(File src){
 
         CareReference referenceInput = null;

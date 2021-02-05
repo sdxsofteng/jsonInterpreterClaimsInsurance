@@ -9,6 +9,27 @@ public class Cares {
     int careNumberMin;
     private List<ContractTypeValue> contractTypeValues;
 
+    public float getAppropriateMaxAmount(String contractType){
+        ContractTypeValue verifiedContractTypeObject = getContractTypeObject(contractType);
+        return verifiedContractTypeObject.getMaximumDeductibleAmount();
+    }
+
+    public float getAppropriateRefundPercentage(String contractType){
+        ContractTypeValue verifiedContractTypeObject = getContractTypeObject(contractType);
+        return verifiedContractTypeObject.getRefundPercentage();
+    }
+
+    private ContractTypeValue getContractTypeObject(String contractType){
+        ContractTypeValue contractTypeReturned = null;
+        for (ContractTypeValue contractTypesObjects: contractTypeValues){
+            if(contractTypesObjects.getType().equals(contractType)){
+                contractTypeReturned = contractTypesObjects;
+            }
+        }
+        return contractTypeReturned;
+    }
+
+
     public String getCareName() {
         return careName;
     }
