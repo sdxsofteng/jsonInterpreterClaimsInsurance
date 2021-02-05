@@ -11,7 +11,7 @@ public class Cares {
 
     public float getAppropriateMaxAmount(String contractType){
         ContractTypeValue verifiedContractTypeObject = getContractTypeObject(contractType);
-        return verifiedContractTypeObject.getMaximumDeductibleAmount();
+        return verifiedContractTypeObject.getMaxDeductibleAmount();
     }
 
     public float getAppropriateRefundPercentage(String contractType){
@@ -21,9 +21,9 @@ public class Cares {
 
     private ContractTypeValue getContractTypeObject(String contractType){
         ContractTypeValue contractTypeReturned = null;
-        for (ContractTypeValue contractTypesObjects: contractTypeValues){
-            if(contractTypesObjects.getType().equals(contractType)){
-                contractTypeReturned = contractTypesObjects;
+        for (ContractTypeValue contractTypesObject: contractTypeValues){
+            if(contractTypesObject.getType().equals(contractType)){
+                contractTypeReturned = contractTypesObject;
             }
         }
         return contractTypeReturned;
@@ -33,6 +33,7 @@ public class Cares {
     public String getCareName() {
         return careName;
     }
+
     @JsonProperty("name")
     public void setCareName(String careName) {
         this.careName = careName;
@@ -41,6 +42,7 @@ public class Cares {
     public int getCareNumberMax() {
         return careNumberMax;
     }
+
     @JsonProperty("careNumberMax")
     public void setCareNumberMax(int careNumberMax) {
         this.careNumberMax = careNumberMax;
@@ -49,6 +51,7 @@ public class Cares {
     public int getCareNumberMin() {
         return careNumberMin;
     }
+
     @JsonProperty("careNumberMin")
     public void setCareNumberMin(int careNumberMin) {
         this.careNumberMin = careNumberMin;
@@ -57,6 +60,7 @@ public class Cares {
     public List<ContractTypeValue> getContractTypeValues() {
         return contractTypeValues;
     }
+
     @JsonProperty("contractType")
     public void setContractTypeValues(List<ContractTypeValue> contractTypeValues) {
         this.contractTypeValues = contractTypeValues;

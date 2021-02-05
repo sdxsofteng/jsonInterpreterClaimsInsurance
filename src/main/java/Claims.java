@@ -22,14 +22,17 @@ public class Claims {
     public String getRefundAmount() {
         return refundAmount;
     }
+
     @JsonProperty("soin")
     public void setTreatmentNumber(String treatmentNumber) {
         this.treatmentNumber = treatmentNumber;
     }
+
     @JsonProperty("date")
     public void setClaimDate(String claimDate) {
         this.claimDate = claimDate;
     }
+
     @JsonProperty("montant")
     public void setTreatmentCost(String treatmentCost) {
         this.treatmentCost = treatmentCost;
