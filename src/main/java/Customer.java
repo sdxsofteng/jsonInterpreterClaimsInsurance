@@ -4,21 +4,17 @@ import java.util.List;
 
 public class Customer {
 
-    private int clientNumber;
-    private char contractLetter;
-    private int claimPeriod;
+    private String clientNumber;
+    private String contractLetter;
+    private String claimPeriod;
 
-    public Customer(int clientNumber, char contractLetter, int claimPeriod) {
-        this.clientNumber = clientNumber;
-        this.contractLetter = contractLetter;
-        this.claimPeriod = claimPeriod;
-    }
+    private List<Claims> claimsList;
 
     public String getClientNumber() {
         return clientNumber;
     }
 
-    public char getContractLetter() {
+    public String getContractLetter() {
         return contractLetter;
     }
 
@@ -35,7 +31,8 @@ public class Customer {
         this.clientNumber = clientNumber;
     }
 
-    public void setContractLetter(char contractLetter) {
+    @JsonProperty("contrat")
+    public void setContractLetter(String contractLetter) {
         this.contractLetter = contractLetter;
     }
 
