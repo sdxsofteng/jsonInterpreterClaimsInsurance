@@ -28,10 +28,4 @@ public class Main {
            jUtil.ErrorOutputToJsonFile();
         }
     }
-    public static void initializeObjects(String commandLineArgumentPath, String referencePath) {
-        File firstCliArgument = new File(commandLineArgumentPath);
-        customerInfo = JacksonUtils.JsonToCustomerInput(firstCliArgument);
-        File referenceFile = new File(referencePath);
-        referenceObject = JacksonUtils.JsonToReference(referenceFile);
-    }
 }
