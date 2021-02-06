@@ -11,6 +11,7 @@ public class Conversion {
     }
 
     public static String removeAllButNumbersAndPeriods(String value){
-        return value.replaceAll("\\.(?![^.]+$)|[^0-9.]","");
+        value = "0" + value.replaceAll("\\.(?![^.]+$)|[^0-9.]","");
+        return value;
     }
 }
