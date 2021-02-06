@@ -24,6 +24,7 @@ public class Customer {
     public List<Claims> getClaimsList() {
         return claimsList;
     }
+
     @JsonProperty("client")
     public void setClientNumber(String clientNumber) {
         this.clientNumber = clientNumber;
@@ -33,10 +34,12 @@ public class Customer {
     public void setContractLetter(String contractLetter) {
         this.contractLetter = contractLetter;
     }
+
     @JsonProperty("mois")
     public void setClaimPeriod(String claimPeriod) {
         this.claimPeriod = claimPeriod;
     }
+
     @JsonProperty("reclamations")
     public void setClaimsList(List<Claims> claimsList) {
         this.claimsList = claimsList;

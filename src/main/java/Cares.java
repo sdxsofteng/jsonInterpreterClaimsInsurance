@@ -42,8 +42,8 @@ public class Cares {
     public int getCareNumberMax() {
         return careNumberMax;
     }
-
     @JsonProperty("careNumberMax")
+
     public void setCareNumberMax(int careNumberMax) {
         this.careNumberMax = careNumberMax;
     }
@@ -51,8 +51,8 @@ public class Cares {
     public int getCareNumberMin() {
         return careNumberMin;
     }
-
     @JsonProperty("careNumberMin")
+
     public void setCareNumberMin(int careNumberMin) {
         this.careNumberMin = careNumberMin;
     }
