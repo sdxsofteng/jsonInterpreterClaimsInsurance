@@ -3,7 +3,6 @@ import java.io.IOException;
 
 public class Main {
 
-
     private static final String JSON_REFERENCE_PATH = "claimsReference.json";
     public static String outputPath;
     public static Customer customerInfo;
@@ -28,5 +27,11 @@ public class Main {
         if (argsLength != 2){
            jUtil.ErrorOutputToJsonFile();
         }
+    }
+    public static void initializeObjects(String commandLineArgumentPath, String referencePath) {
+        File firstCliArgument = new File(commandLineArgumentPath);
+        customerInfo = JacksonUtils.JsonToCustomerInput(firstCliArgument);
+        File referenceFile = new File(referencePath);
+        referenceObject = JacksonUtils.JsonToReference(referenceFile);
     }
 }
