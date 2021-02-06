@@ -32,7 +32,7 @@ public class JacksonUtils {
         return programInput;
     }
 
-    public CareReference JsonToReference(File src){
+    public CareReference JsonToReference(InputStream src){
         CareReference referenceInput = null;
         try {
             referenceInput = mapper.readValue(src, CareReference.class);

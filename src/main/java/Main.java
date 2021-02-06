@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.InputStream;
 
 public class Main {
 
@@ -11,14 +12,14 @@ public class Main {
     public static void main(String[] args) {
         verifyArgsLength(args.length);
         outputPath = args[1];
-        initializeObjects(args[0], JSON_REFERENCE_PATH);
+        initializeObjects(args[0]);
         Validation.isValidInvoice(customerInfo, referenceObject);
     }
 
-    public static void initializeObjects(String commandLineArgumentPath, String ressourceFileSource) {
+    public static void initializeObjects(String commandLineArgumentPath) {
         File firstCliArgument = new File(commandLineArgumentPath);
         customerInfo = jUtil.JsonToCustomerInput(firstCliArgument);
-        File referenceFile = new File(JSON_REFERENCE_PATH);
+        InputStream referenceFile = Main.class.getClassLoader().getResourceAsStream(JSON_REFERENCE_PATH);
         referenceObject = jUtil.JsonToReference(referenceFile);
     }
 
