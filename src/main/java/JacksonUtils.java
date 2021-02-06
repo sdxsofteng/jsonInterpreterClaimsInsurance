@@ -12,7 +12,7 @@ public class JacksonUtils {
 
     private final String INVALID_DATA_OUTPUT_PATH = "invalidData.json";
     private ObjectMapper mapper = GenerateAndConfigureMapper();
-    //InputStream configStream = this.getClass().getResourceAsStream("claimsReference.json");
+
 
 
     private ObjectMapper GenerateAndConfigureMapper() {
@@ -36,7 +36,7 @@ public class JacksonUtils {
         CareReference referenceInput = null;
         try {
             referenceInput = mapper.readValue(src, CareReference.class);
-        } catch (IOException | IllegalArgumentException e) {
+        } catch (IOException e) {
             ErrorOutputToJsonFile();
         }
         return referenceInput;
