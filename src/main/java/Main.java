@@ -1,13 +1,17 @@
 import java.io.File;
+import java.io.IOException;
 
 public class Main {
 
 
-    private static final String JSON_REFERENCE_PATH = "src/main/java/claimsReference.json";
+    private static final String JSON_REFERENCE_PATH = "claimsReference.json";
+    public static String outputPath;
     public static Customer customerInfo;
     public static CareReference referenceObject;
 
     public static void main(String[] args) {
+        verifyArgsLength(args.length);
+        outputPath = args[1];
         initializeObjects(args[0],JSON_REFERENCE_PATH);
     }
 
@@ -16,5 +20,11 @@ public class Main {
         customerInfo = JacksonUtils.JsonToCustomerInput(firstCliArgument);
         File referenceFile = new File(referencePath);
         referenceObject = JacksonUtils.JsonToReference(referenceFile);
+    }
+
+    private static void verifyArgsLength(int argsLength){
+        if (argsLength != 2){
+           JacksonUtils.ErrorOutputToJsonFile();
+        }
     }
 }
