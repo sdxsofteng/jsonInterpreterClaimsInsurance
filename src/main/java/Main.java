@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         initializeObjects(args[0],JSON_REFERENCE_PATH);
-        System.out.println(Validation.isValidInvoice(customerInfo, referenceObject));
+        Validation.isValidInvoice(customerInfo, referenceObject);
     }
 
     public static void initializeObjects(String commandLineArgumentPath, String referencePath){
