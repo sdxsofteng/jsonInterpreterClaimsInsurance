@@ -5,7 +5,7 @@ public class Claims {
     private int treatmentNumber;
     private String claimDate;
     private String treatmentCost;
-    private String refundAmount;
+    private float refundAmount;
 
     public int getTreatmentNumber() {
         return treatmentNumber;
@@ -24,7 +24,7 @@ public class Claims {
 
     }
 
-    public String getRefundAmount() {
+    public float getRefundAmount() {
         return refundAmount;
     }
 
@@ -43,7 +43,7 @@ public class Claims {
         this.treatmentCost = treatmentCost;
     }
 
-    public void setRefundAmount(String refundAmount) {
+    public void setRefundAmount(float refundAmount) {
         this.refundAmount = refundAmount;
     }
 }
