@@ -2,12 +2,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Claims {
 
-    private String treatmentNumber;
+    private int treatmentNumber;
     private String claimDate;
     private String treatmentCost;
     private String refundAmount;
 
-    public String getTreatmentNumber() {
+    public int getTreatmentNumber() {
         return treatmentNumber;
     }
 
@@ -24,7 +24,7 @@ public class Claims {
     }
 
     @JsonProperty("soin")
-    public void setTreatmentNumber(String treatmentNumber) {
+    public void setTreatmentNumber(int treatmentNumber) {
         this.treatmentNumber = treatmentNumber;
     }
 
