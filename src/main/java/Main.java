@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.IOException;
 
 public class Main {
 
@@ -13,7 +12,7 @@ public class Main {
         verifyArgsLength(args.length);
         outputPath = args[1];
         initializeObjects(args[0], JSON_REFERENCE_PATH);
-
+        Validation.isValidInvoice(customerInfo, referenceObject);
     }
 
     public static void initializeObjects(String commandLineArgumentPath, String ressourceFileSource) {
