@@ -19,6 +19,11 @@ public class Claims {
         return treatmentCost;
     }
 
+    public float getTreatmentCost(Claims claims) {
+        return Conversion.convertCostStringToFloat(claims.getTreatmentCost());
+
+    }
+
     public String getRefundAmount() {
         return refundAmount;
     }

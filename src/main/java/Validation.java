@@ -7,7 +7,6 @@ public class Validation {
     /** CONSTANTES **/
     // TODO: 2021-02-05 Placer les constantes de validation dans un endroit strategique 
     public final static String VALID_CONTRACT_TYPES = "A,B,C,D";
-    public final static String CURRENT_DATE = ("" + LocalDate.now());
     public final static int CLIENT_NUM_LENGTH = 6;
 
     /**
@@ -19,7 +18,8 @@ public class Validation {
      *
      *      Verifie les reclamationS
      */
-    public static boolean isValidInvoice(Customer customer, CareReference referenceObject){
+    public static boolean isValidInvoice(Customer customer,
+                                         CareReference referenceObject) {
         boolean isValid = (isValidClientNo(customer.getClientNumber())
                 && isValidContractType(customer.getContractLetter())
                 && isValidInvoiceDate(customer.getClaimPeriod())
@@ -85,7 +85,8 @@ public class Validation {
 
     // Compare une date AAAA-MM à la date courante AAAA-MM
     public static boolean isThisMonthOrEarlier(String claimMonth){
-        if (claimMonth.compareTo(removeDayFromDate(CURRENT_DATE)) <= 0 ){
+        if (claimMonth.compareTo(removeDayFromDate(LocalDate.now().toString()))
+                <= 0 ){
             return true;
         }
         return false;
@@ -135,7 +136,8 @@ public class Validation {
     /**
      * Methodes pour valider la date d'une réclamation
      */
-    public static boolean isValidClaimDate(String claimPeriod, String claimDate){
+    public static boolean isValidClaimDate(String claimPeriod,
+                                           String claimDate){
         boolean isValid = (isValidDateFormatYMD(claimDate)
                 && isCorrectClaimPeriod(claimPeriod, claimDate)
                 && isTodayOrEarlier(claimDate));
@@ -143,16 +145,19 @@ public class Validation {
     }
 
     public static boolean isValidDateFormatYMD(String date){
-        boolean isValid = (GenericValidator.isDate(date.trim(), "yyyy-MM-dd", true));
+        boolean isValid = (GenericValidator.isDate(date.trim(),
+                          "yyyy-MM-dd", true));
         return isValid;
     }
 
     public static boolean isTodayOrEarlier(String claimDate){
-        boolean isValid = (claimDate.compareTo(CURRENT_DATE) <= 0 );
+        boolean isValid = (claimDate.compareTo(LocalDate.now().toString())
+                           <= 0 );
         return isValid;
     }
 
-    public static boolean isCorrectClaimPeriod(String claimPeriod, String claimDate){
+    public static boolean isCorrectClaimPeriod(String claimPeriod,
+                                               String claimDate){
         boolean isValid = (removeDayFromDate(claimDate).equals(claimPeriod));
         return isValid;
     }
