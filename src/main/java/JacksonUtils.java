@@ -1,3 +1,7 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -16,7 +20,12 @@ public class JacksonUtils {
     private ObjectMapper generateAndConfigureMapper() {
         ObjectMapper newMapper = new ObjectMapper();
         newMapper.registerModule(new JavaTimeModule());
-        newMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        newMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter();
+        prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
+        newMapper.setDefaultPrettyPrinter(prettyPrinter);
+
+
         return newMapper;
     }
 
@@ -46,6 +55,17 @@ public class JacksonUtils {
         try {
             mapper.writeValue(outputErrorFile, errorData);
             System.exit(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void normalOutputToJsonFile(File path, CustomerOut customerOut){
+
+        try {
+            mapper.writeValue(path, customerOut);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(path, customerOut);
+            System.exit(0);
         } catch (IOException e) {
             e.printStackTrace();
         }
