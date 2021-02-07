@@ -22,7 +22,7 @@ public class RefundCalculation {
     }
 
     private void calculateRefund(Claims claim){
-        float treatmentCost = 100.00f; //TODO
+        float treatmentCost = claim.getTreatmentCostFloat();
         float refund = treatmentCost * refundPercentage;
         if (refund > maxAmount && maxAmount != 0){
             refund = maxAmount;
