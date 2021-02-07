@@ -1,4 +1,10 @@
+package utils;
+
+import models.input.Claims;
+import models.input.Customer;
+
 import org.apache.commons.validator.GenericValidator;
+
 import java.time.LocalDate;
 import java.util.List;
 

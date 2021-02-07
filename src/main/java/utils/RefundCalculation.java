@@ -1,3 +1,10 @@
+package utils;
+
+
+import models.input.Cares;
+import models.input.Claims;
+import models.input.Customer;
+
 import java.util.List;
 
 public class RefundCalculation {

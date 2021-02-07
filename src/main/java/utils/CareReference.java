@@ -1,4 +1,8 @@
+package utils;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import models.input.Cares;
 
 import java.util.List;
 

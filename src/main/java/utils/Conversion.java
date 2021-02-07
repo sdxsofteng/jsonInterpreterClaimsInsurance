@@ -1,3 +1,5 @@
+package utils;
+
 public class Conversion {
 
     public static float convertCostStringToFloat(String amount){

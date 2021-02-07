@@ -1,3 +1,10 @@
+package utils;
+
+import models.input.Claims;
+import models.input.Customer;
+import models.output.ClaimsOut;
+import models.output.CustomerOut;
+
 import java.util.ArrayList;
 import java.util.List;
 

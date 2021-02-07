@@ -1,3 +1,5 @@
+package models.output;
+
 public class ErrorOut {
 
     private final String message = "Données invalides";
