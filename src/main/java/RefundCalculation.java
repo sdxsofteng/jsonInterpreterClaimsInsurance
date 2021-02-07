@@ -28,7 +28,6 @@ public class RefundCalculation {
             refund = maxAmount;
         }
         claim.setRefundAmount(refund);
-        System.out.println(refund);
     }
 
 
