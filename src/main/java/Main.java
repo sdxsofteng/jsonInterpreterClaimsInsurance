@@ -21,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
         verifyArgsLength(args.length);
         initializeObjects(args[0], args[1]);
-        Validation.isValidInvoice(customerInfo, referenceObject);
+        Validation.ValidateInvoice(customerInfo, referenceObject);
         refundCalculation.refund(customerInfo, referenceObject);
         customerOut = OutputObjects.customerToOut(customerInfo);
         jUtil.normalOutputToJsonFile(normalOutputFile, customerOut);

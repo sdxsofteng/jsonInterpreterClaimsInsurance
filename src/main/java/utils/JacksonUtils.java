@@ -30,7 +30,6 @@ public class JacksonUtils {
         prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
         newMapper.setDefaultPrettyPrinter(prettyPrinter);
 
-
         return newMapper;
     }
 
@@ -62,6 +61,7 @@ public class JacksonUtils {
             System.exit(1);
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
 
