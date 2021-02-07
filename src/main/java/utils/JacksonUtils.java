@@ -30,7 +30,6 @@ public class JacksonUtils {
         prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
         newMapper.setDefaultPrettyPrinter(prettyPrinter);
 
-
         return newMapper;
     }
 

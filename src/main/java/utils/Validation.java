@@ -33,7 +33,7 @@ public class Validation {
                 && validateAllClaims(customer.getClaimsList(),
                                      customer.getClaimPeriod(),
                                      referenceObject)){
-        } else jUtil.ErrorOutputToJsonFile();
+        } else jUtil.errorOutputToJsonFile();
     }
 
     /**
@@ -110,7 +110,6 @@ public class Validation {
                                             String claimPeriod,
                                             CareReference referenceObject){
         boolean isValid = true;
-
         for (Claims c: claimList
              ) {
             if (!isValidClaim(c, claimPeriod, referenceObject)){

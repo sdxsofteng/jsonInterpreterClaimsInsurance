@@ -25,7 +25,6 @@ public class Main {
         refundCalculation.refund(customerInfo, referenceObject);
         customerOut = OutputObjects.customerToOut(customerInfo);
         jUtil.normalOutputToJsonFile(normalOutputFile, customerOut);
->>>>>>> src/main/java/Main.java
     }
 
     public static void initializeObjects(String commandLineArgOne, String commandLineArgTwo) {
