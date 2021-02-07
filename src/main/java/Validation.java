@@ -8,6 +8,7 @@ public class Validation {
     // TODO: 2021-02-05 Placer les constantes de validation dans un endroit strategique 
     public final static String VALID_CONTRACT_TYPES = "A,B,C,D";
     public final static int CLIENT_NUM_LENGTH = 6;
+    public static JacksonUtils jUtil = new JacksonUtils();
 
     /**
      * Methode qui valide la demande
@@ -18,15 +19,15 @@ public class Validation {
      *
      *      Verifie les reclamationS
      */
-    public static boolean isValidInvoice(Customer customer,
-                                         CareReference referenceObject) {
-        boolean isValid = (isValidClientNo(customer.getClientNumber())
+    public static void ValidateInvoice(Customer customer,
+                                       CareReference referenceObject) {
+        if (isValidClientNo(customer.getClientNumber())
                 && isValidContractType(customer.getContractLetter())
                 && isValidInvoiceDate(customer.getClaimPeriod())
                 && validateAllClaims(customer.getClaimsList(),
                                      customer.getClaimPeriod(),
-                                     referenceObject));
-        return isValid;
+                                     referenceObject)){
+        } else jUtil.ErrorOutputToJsonFile();
     }
 
     /**
@@ -58,7 +59,6 @@ public class Validation {
     public static boolean isValidContractType(String contractType){
         boolean isValid = false;
         contractType = contractType.trim();
-
         String[] result = VALID_CONTRACT_TYPES.split(",");
         for (int i=0; i<result.length; i++) {
             if (contractType.equals (result[i])) {
