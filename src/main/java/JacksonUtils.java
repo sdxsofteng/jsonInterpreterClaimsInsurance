@@ -4,6 +4,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 
 public class JacksonUtils {
@@ -30,7 +31,7 @@ public class JacksonUtils {
         return programInput;
     }
 
-    public CareReference jsonToReference(File src){
+    public CareReference jsonToReference(InputStream src){
         CareReference referenceInput = null;
         try {
             referenceInput = mapper.readValue(src, CareReference.class);
