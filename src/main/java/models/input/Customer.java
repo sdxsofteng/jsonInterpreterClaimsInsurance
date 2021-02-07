@@ -1,4 +1,7 @@
+package models.input;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Customer {

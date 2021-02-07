@@ -1,4 +1,8 @@
+package models.input;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import utils.Conversion;
 
 public class Claims {
 

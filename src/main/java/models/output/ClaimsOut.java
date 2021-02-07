@@ -1,5 +1,6 @@
+package models.output;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 public class ClaimsOut {
 
@@ -34,9 +35,9 @@ public class ClaimsOut {
         this.refundAmount = refundAmount;
     }
 
-    ClaimsOut(){}
+    public ClaimsOut(){}
 
-    ClaimsOut(int careNumber, String date, String refundAmount){
+    public ClaimsOut(int careNumber, String date, String refundAmount){
         this.careNumber = careNumber;
         this.date = date;
         this.refundAmount = refundAmount;
