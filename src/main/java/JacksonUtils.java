@@ -3,46 +3,44 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 
 
 public class JacksonUtils {
 
     private final String INVALID_DATA_OUTPUT_PATH = "invalidData.json";
-    private ObjectMapper mapper = GenerateAndConfigureMapper();
+    private ObjectMapper mapper = generateAndConfigureMapper();
 
 
 
-    private ObjectMapper GenerateAndConfigureMapper() {
+    private ObjectMapper generateAndConfigureMapper() {
         ObjectMapper newMapper = new ObjectMapper();
         newMapper.registerModule(new JavaTimeModule());
         newMapper.enable(SerializationFeature.INDENT_OUTPUT);
         return newMapper;
     }
 
-    public Customer JsonToCustomerInput(File src){
+    public Customer jsonToCustomerInput(File src){
         Customer programInput = null;
         try {
             programInput = mapper.readValue(src, Customer.class);
         } catch (IOException e) {
-            ErrorOutputToJsonFile();
+            errorOutputToJsonFile();
         }
         return programInput;
     }
 
-    public CareReference JsonToReference(File src){
+    public CareReference jsonToReference(File src){
         CareReference referenceInput = null;
         try {
             referenceInput = mapper.readValue(src, CareReference.class);
         } catch (IOException e) {
-            ErrorOutputToJsonFile();
+            errorOutputToJsonFile();
         }
         return referenceInput;
     }
 
-    public void ErrorOutputToJsonFile(){
+    public void errorOutputToJsonFile(){
         File outputErrorFile = new File(INVALID_DATA_OUTPUT_PATH);
         ErrorOut errorData = new ErrorOut();
         try {
