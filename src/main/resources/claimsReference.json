@@ -1,4 +1,10 @@
 {
+  "contractTypes": [
+    "A",
+    "B",
+    "C",
+    "D"
+    ],
   "cares": [
     {
       "name": "massotherapy",
