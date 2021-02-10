@@ -1,6 +1,8 @@
 package utils;
 
+import models.input.CaresValues;
 import models.input.Claims;
+import models.input.ContractTypeValue;
 import models.input.Customer;
 
 import org.apache.commons.validator.GenericValidator;
@@ -9,169 +11,126 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Validation {
-
-    /** CONSTANTES **/
-    // TODO: 2021-02-05 Placer les constantes de validation dans un endroit strategique 
-    public final static String VALID_CONTRACT_TYPES = "A,B,C,D";
     public final static int CLIENT_NUM_LENGTH = 6;
     public static JacksonUtils jUtil = new JacksonUtils();
+    private static Customer client;
+    private static CareReference presets;
+    private static String clientNo;
+    private static String invoiceDate;
+    private static int treatmentNumber;
+    private static String claimDate;
+    private static String treatmentCost;
 
-    /**
-     * Methode qui valide la demande
-     *
-     *      Verifie le numero de client
-     *      Verifie le type de contrat
-     *      Verifie le mois
-     *
-     *      Verifie les reclamationS
-     */
-    public static void ValidateInvoice(Customer customer,
-                                       CareReference referenceObject) {
-        if (isValidClientNo(customer.getClientNumber())
-                && isValidContractType(customer.getContractType())
-                && isValidInvoiceDate(customer.getClaimPeriod())
-                && validateAllClaims(customer.getClaimsList(),
-                                     customer.getClaimPeriod(),
-                                     referenceObject)){
-        } else jUtil.errorOutputToJsonFile();
+    public static void ValidateInvoice(Customer clientObject, CareReference referenceObject) {
+        setVariables(clientObject, referenceObject);
+        startValidation();
     }
 
-    /**
-     * Methodes qui valident le numero client.
-     *
-     * @param
-     * @return
-     */
-    public static boolean isValidClientNo(String clientNo) {
-        boolean isValid = (isSpecificLength(clientNo, CLIENT_NUM_LENGTH)
-                && isOnlyDigits(clientNo) );
-        return isValid;
+    public static void setVariables(Customer clientObject, CareReference referenceObject) {
+        client = clientObject;
+        presets = referenceObject;
+        clientNo = client.getClientNumber();
+        invoiceDate = client.getClaimPeriod();
     }
 
-    public static boolean isSpecificLength(String clientNo, int lenght) {
-        boolean isValid = (clientNo != null
-                && clientNo.trim().length() == lenght);
-        return isValid;
-    }
-
-    public static boolean isOnlyDigits(String clientNo) {
-        boolean isValid = (clientNo.matches("^[0-9]+$"));
-        return isValid;
-    }
-
-    /**
-     * Methode qui valide le type de contrat.
-     */
-    public static boolean isValidContractType(String contractType){
-        boolean isValid = false;
-        contractType = contractType.trim();
-        String[] result = VALID_CONTRACT_TYPES.split(",");
-        for (int i=0; i<result.length; i++) {
-            if (contractType.equals (result[i])) {
-                isValid = true;
-            }
+    public static void startValidation() {
+        if (!isValidClientNo()
+                || !isValidContractType()
+                || !isValidInvoiceDate()
+                || !validateAllClaims(client.getClaimsList())){
+            jUtil.errorOutputToJsonFile();
         }
-        return isValid;
     }
 
-    /**
-     * Methodes qui valident la date de la facture.
-     */
-    public static boolean isValidInvoiceDate(String invoiceDate){
-        boolean isValid = (isValidDateFormatYM(invoiceDate)
-                && isThisMonthOrEarlier(invoiceDate));
-        return isValid;
+    public static boolean isValidClientNo() {
+        return (isSpecificLength(CLIENT_NUM_LENGTH)
+                && isOnlyDigits(clientNo) );
     }
 
-    // Verifie date en format AAAA-MM
-    public static boolean isValidDateFormatYM(String date){
-        boolean isValid = (GenericValidator.isDate(date, "yyyy-MM", false));
-        return isValid;
+    public static boolean isSpecificLength(int length) {
+        return (clientNo != null
+                && clientNo.trim().length() == length);
     }
 
-    // Compare une date AAAA-MM à la date courante AAAA-MM
-    public static boolean isThisMonthOrEarlier(String claimMonth){
-        if (claimMonth.compareTo(removeDayFromDate(LocalDate.now().toString()))
-                <= 0 ){
-            return true;
+    public static boolean isOnlyDigits(String number) {
+        return (number.matches("^[0-9]+$"));
+    }
+
+    // compare le type de contrat aux données du fichier reference
+    public static boolean isValidContractType() {
+        for (CaresValues singleCare : presets.getCaresValuesList()) {
+            for (ContractTypeValue contractTypeValues :  singleCare.getContractTypeValues()) {
+                if (contractTypeValues.getType().equals(client.getContractType()))
+                    return true;
+            }
         }
         return false;
     }
 
-    // Enleve les 3 derniers characteres d'une date AAAA-MM-JJ
-    public static String removeDayFromDate(String inputDate){
-        return inputDate.substring(0, inputDate.length() - 3);
+    public static boolean isValidInvoiceDate(){
+        return (isValidYearAndMonthDate(invoiceDate)
+                && isThisMonthOrEarlier(invoiceDate));
     }
 
-    /**
-     * Methode pour valider toutes les reclamation
-     */
-    public static boolean validateAllClaims(List<Claims> claimList,
-                                            String claimPeriod,
-                                            CareReference referenceObject){
+    public static boolean isValidYearAndMonthDate(String date){
+        return (GenericValidator.isDate(date, "yyyy-MM", false));
+    }
+
+    public static boolean isThisMonthOrEarlier(String yearAndMonth){
+        return yearAndMonth.compareTo(removeDayFromDate(LocalDate.now().toString())) <= 0;
+    }
+
+    public static String removeDayFromDate(String yearMonthAndDayDate){
+        return yearMonthAndDayDate.substring(0, yearMonthAndDayDate.length() - 3);
+    }
+
+    public static boolean validateAllClaims(List<Claims> claimList){
         boolean isValid = true;
-        for (Claims c: claimList
-             ) {
-            if (!isValidClaim(c, claimPeriod, referenceObject)){
+        for (Claims singleClaim: claimList) {
+            setClaimVariables(singleClaim);
+            if (!isValidClaim()){
                 isValid = false;
             }
         }
         return isValid;
     }
 
-    /**
-     * Methode pour valider une reclamation
-     */
-    public static boolean isValidClaim(Claims claims, String claimPeriod,
-                                       CareReference referenceObject){
-        boolean isValid = (isValidClaimType(claims.getTreatmentNumber(),
-                                            referenceObject)
-                && isValidClaimDate(claimPeriod, claims.getClaimDate())
-                && isValidCost(claims.getTreatmentCost()));
-        return isValid;
+    public static void setClaimVariables(Claims singleClaim){
+        treatmentNumber = singleClaim.getTreatmentNumber();
+        claimDate = singleClaim.getClaimDate();
+        treatmentCost = singleClaim.getTreatmentCost();
     }
 
-    public static boolean isValidClaimType(int claimType,
-                                           CareReference referenceObject){
-        boolean isValid = (referenceObject.getAppropriateCareObject(claimType)
-                           != null);
-        return isValid;
+    public static boolean isValidClaim(){
+        return (isValidClaimType()
+                && isValidClaimDate()
+                && isValidCost(treatmentCost));
     }
 
-    /**
-     * Methodes pour valider la date d'une réclamation
-     */
-    public static boolean isValidClaimDate(String claimPeriod,
-                                           String claimDate){
-        boolean isValid = (isValidDateFormatYMD(claimDate)
-                && isCorrectClaimPeriod(claimPeriod, claimDate)
-                && isTodayOrEarlier(claimDate));
-        return isValid;
+    public static boolean isValidClaimType(){
+        return (presets.getAppropriateCareObject(treatmentNumber) != null);
+    }
+
+    public static boolean isValidClaimDate(){
+        return (isValidDateFormatYMD(claimDate)
+                && isTodayOrEarlier(claimDate)
+                && isCorrectClaimPeriod());
     }
 
     public static boolean isValidDateFormatYMD(String date){
-        boolean isValid = (GenericValidator.isDate(date.trim(),
-                          "yyyy-MM-dd", true));
-        return isValid;
+        return (GenericValidator.isDate(date.trim(),
+                "yyyy-MM-dd", true));
     }
 
-    public static boolean isTodayOrEarlier(String claimDate){
-        boolean isValid = (claimDate.compareTo(LocalDate.now().toString())
-                           <= 0 );
-        return isValid;
+    public static boolean isTodayOrEarlier(String date){
+        return (date.compareTo(LocalDate.now().toString()) <= 0 );
     }
 
-    public static boolean isCorrectClaimPeriod(String claimPeriod,
-                                               String claimDate){
-        boolean isValid = (removeDayFromDate(claimDate).equals(claimPeriod));
-        return isValid;
+    public static boolean isCorrectClaimPeriod(){
+        return (removeDayFromDate(claimDate).equals(invoiceDate));
     }
 
-    /**
-     * Methodes pour valider le cout d'une réclamation
-     */
     public static boolean isValidCost(String cost){
-        boolean isValid = (cost.trim().matches("^[0-9]+(,|.)[0-9]{2}\\$$"));
-        return isValid;
+        return (cost.trim().matches("^[0-9]+(,|.)([0-9]{2})?\\$$"));
     }
 }

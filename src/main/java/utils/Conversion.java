@@ -8,12 +8,11 @@ public class Conversion {
         return Float.parseFloat(amount);
     }
 
-    public static String replaceCommasByPeriods(String value){
-        return value.replace(',', '.');
+    public static String replaceCommasByPeriods(String amount){
+        return amount.replace(',', '.');
     }
 
-    public static String removeAllButNumbersAndPeriods(String value){
-        value = "0" + value.replaceAll("\\.(?![^.]+$)|[^0-9.]","");
-        return value;
+    public static String removeAllButNumbersAndPeriods(String amount){
+        return "0" + amount.replaceAll("\\.(?![^.]+$)|[^0-9.]","");
     }
 }
