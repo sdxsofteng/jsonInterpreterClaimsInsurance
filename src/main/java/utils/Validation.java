@@ -44,7 +44,7 @@ public class Validation {
 
     public static boolean isValidClientNo() {
         return (isSpecificLength(CLIENT_NUM_LENGTH)
-                && isOnlyDigits(clientNo) );
+                && isOnlyDigits(clientNo));
     }
 
     public static boolean isSpecificLength(int length) {
@@ -59,7 +59,7 @@ public class Validation {
     // compare le type de contrat aux données du fichier reference
     public static boolean isValidContractType() {
         for (CaresValues singleCare : presets.getCaresValuesList()) {
-            for (ContractTypeValue contractTypeValues :  singleCare.getContractTypeValues()) {
+            for (ContractTypeValue contractTypeValues : singleCare.getContractTypeValues()) {
                 if (contractTypeValues.getType().equals(client.getContractType()))
                     return true;
             }
@@ -67,7 +67,7 @@ public class Validation {
         return false;
     }
 
-    public static boolean isValidInvoiceDate(){
+    public static boolean isValidInvoiceDate() {
         return (isValidYearAndMonthDate(invoiceDate)
                 && isThisMonthOrEarlier(invoiceDate));
     }
@@ -86,9 +86,9 @@ public class Validation {
 
     public static boolean validateAllClaims(List<Claims> claimList) {
         boolean isValid = true;
-        for (Claims singleClaim: claimList) {
+        for (Claims singleClaim : claimList) {
             setClaimVariables(singleClaim);
-            if (!isValidClaim()){
+            if (!isValidClaim()) {
                 isValid = false;
             }
         }
@@ -123,7 +123,7 @@ public class Validation {
     }
 
     public static boolean isTodayOrEarlier(String date) {
-        return (date.compareTo(LocalDate.now().toString()) <= 0 );
+        return (date.compareTo(LocalDate.now().toString()) <= 0);
     }
 
     public static boolean isCorrectClaimPeriod() {

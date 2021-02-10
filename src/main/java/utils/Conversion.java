@@ -13,6 +13,6 @@ public class Conversion {
     }
 
     public static String removeAllButNumbersAndPeriods(String amount) {
-        return "0" + amount.replaceAll("\\.(?![^.]+$)|[^0-9.]","");
+        return "0" + amount.replaceAll("\\.(?![^.]+$)|[^0-9.]", "");
     }
 }
