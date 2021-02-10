@@ -28,7 +28,7 @@ public class Validation {
     public static void ValidateInvoice(Customer customer,
                                        CareReference referenceObject) {
         if (isValidClientNo(customer.getClientNumber())
-                && isValidContractType(customer.getContractLetter())
+                && isValidContractType(customer.getContractType())
                 && isValidInvoiceDate(customer.getClaimPeriod())
                 && validateAllClaims(customer.getClaimsList(),
                                      customer.getClaimPeriod(),

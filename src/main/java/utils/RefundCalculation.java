@@ -1,7 +1,7 @@
 package utils;
 
 
-import models.input.Cares;
+import models.input.CaresValues;
 import models.input.Claims;
 import models.input.Customer;
 
@@ -13,7 +13,7 @@ public class RefundCalculation {
     private float refundPercentage;
 
     public void refund(Customer customerInfo, CareReference referenceInfo){
-        String contractLetter = customerInfo.getContractLetter();
+        String contractLetter = customerInfo.getContractType();
         List<Claims> claimsList = customerInfo.getClaimsList();
         for (Claims claim: claimsList){
             getRefundMaxAndPercentage(claim, contractLetter, referenceInfo);
@@ -23,7 +23,7 @@ public class RefundCalculation {
 
     private void getRefundMaxAndPercentage(Claims claim, String contractLetter, CareReference referenceInfo){
         int treatmentNumber = claim.getTreatmentNumber();
-        Cares care = referenceInfo.getAppropriateCareObject(treatmentNumber);
+        CaresValues care = referenceInfo.getAppropriateCareObject(treatmentNumber);
         maxAmount = care.getAppropriateMaxAmount(contractLetter);
         refundPercentage = care.getAppropriateRefundPercentage(contractLetter);
     }
