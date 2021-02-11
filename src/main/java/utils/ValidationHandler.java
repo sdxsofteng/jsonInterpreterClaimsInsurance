@@ -127,6 +127,6 @@ public class ValidationHandler {
     }
 
     public static boolean isValidCost(String cost) {
-        return cost.trim().matches("^[0-9]+(,|.)([0-9]{2})?\\$$");
+        return cost.trim().matches("^[0-9]+((,|.)([0-9]{2}))?\\$$");
     }
 }
