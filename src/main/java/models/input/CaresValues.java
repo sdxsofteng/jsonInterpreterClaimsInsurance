@@ -18,19 +18,19 @@ public class CaresValues {
     private List<ContractTypeValue> contractTypeValues;
 
     //Cette méthode va chercher le montant maximum du remboursement selon le type du contrat du client
-    public float getAppropriateMaxAmount(String contractType){
-        ContractTypeValue verifiedContractTypeObject = getContractTypeObject(contractType);
+    public float getMaxRefundAmount(String contractType){
+        ContractTypeValue verifiedContractTypeObject = getContractTypeData(contractType);
         return verifiedContractTypeObject.getMaxDeductibleAmount();
     }
 
     //Même chose que la méthode ci-haut pour le pourcentage
-    public float getAppropriateRefundPercentage(String contractType){
-        ContractTypeValue verifiedContractTypeObject = getContractTypeObject(contractType);
+    public float getRefundPercentage(String contractType){
+        ContractTypeValue verifiedContractTypeObject = getContractTypeData(contractType);
         return verifiedContractTypeObject.getRefundPercentage();
     }
 
     //Cette méthode retourne l'objet ContractTypeValue associé à la lettre fournie
-    private ContractTypeValue getContractTypeObject(String contractType){
+    private ContractTypeValue getContractTypeData(String contractType){
         ContractTypeValue contractTypeReturned = null;
         for (ContractTypeValue contractTypesObject: contractTypeValues){
             if(contractTypesObject.getType().equals(contractType)){

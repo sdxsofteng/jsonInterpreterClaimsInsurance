@@ -16,7 +16,7 @@ public class RefundHandler {
     private float refundPercentage;
 
     //Cette méthode est la méthode générale appelé depuis le main pour calculer les remboursements.
-    public void refund(Customer customerInfo, CareReference referenceInfo){
+    public void processRefund(Customer customerInfo, CareReference referenceInfo){
         String contractLetter = customerInfo.getContractType();
         List<Claim> claimList = customerInfo.getClaimsList();
         for (Claim claim: claimList){
@@ -29,8 +29,8 @@ public class RefundHandler {
     private void getRefundMaxAndPercentage(Claim claim, String contractType, CareReference referenceInfo){
         int treatmentNumber = claim.getTreatmentNumber();
         CaresValues careValue = referenceInfo.getAppropriateCareObject(treatmentNumber);
-        maxAmount = careValue.getAppropriateMaxAmount(contractType);
-        refundPercentage = careValue.getAppropriateRefundPercentage(contractType);
+        maxAmount = careValue.getMaxRefundAmount(contractType);
+        refundPercentage = careValue.getRefundPercentage(contractType);
     }
 
     //Calcul le remboursement selon le maxAmount et le refundPercentage

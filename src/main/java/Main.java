@@ -22,7 +22,7 @@ public class Main {
         verifyArgsLength(args.length);
         initializeObjects(args[0], args[1]);
         ValidationHandler.ValidateInvoice(customerInfo, referenceObject);
-        refundHandler.refund(customerInfo, referenceObject);
+        refundHandler.processRefund(customerInfo, referenceObject);
         customerOut = OutputHandler.customerToOut(customerInfo);
         jUtil.normalOutputToJsonFile(normalOutputFile, customerOut);
     }
