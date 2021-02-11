@@ -19,8 +19,12 @@ import java.io.InputStream;
  */
 public class JacksonUtils {
 
-    private final String INVALID_DATA_OUTPUT_PATH = "invalidData.json";
+    private String invalidOutputPath = "output.json";
     private ObjectMapper mapper = generateAndConfigureMapper();
+
+    public void setInvalidOutputPath(String path) {
+        invalidOutputPath = path;
+    }
 
     //Cette méthode permet de générer le object mapper et de le configurer selon nos spécifications
     private ObjectMapper generateAndConfigureMapper() {
@@ -57,7 +61,7 @@ public class JacksonUtils {
 
     //Lorsqu'une erreur est détectée on sort du programme et créer un fichier de sortie en JSON
     public void errorOutputToJsonFile(){
-        File outputErrorFile = new File(INVALID_DATA_OUTPUT_PATH);
+        File outputErrorFile = new File(invalidOutputPath);
         ErrorOut errorData = new ErrorOut();
         try {
             mapper.writeValue(outputErrorFile, errorData);
