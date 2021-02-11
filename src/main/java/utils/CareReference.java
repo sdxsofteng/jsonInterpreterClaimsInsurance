@@ -28,7 +28,7 @@ public class CareReference {
 
     //Dirige le parser dans la liste des CaresValues pour créer les objets CaresValues
     @JsonProperty("cares")
-    private void setCaresValuesList(List<CaresValues> caresValuesList) {
+    public void setCaresValuesList(List<CaresValues> caresValuesList) {
         this.caresValuesList = caresValuesList;
     }
 
