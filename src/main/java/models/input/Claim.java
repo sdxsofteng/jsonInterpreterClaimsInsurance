@@ -1,11 +1,11 @@
 package models.input;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import utils.Conversion;
+import utils.ConversionUtils;
 /**
  * Cette classe permet de représenter les différentes réclamations sous forme d'objets. Les objets de cette classe
  * seront dans un liste à l'intérieur de l'objet Customer.
  */
-public class Claims {
+public class Claim {
 
     private int treatmentNumber;        //Variables d'objet
     private String claimDate;
@@ -26,7 +26,7 @@ public class Claims {
 
     //Transfert le montant dans TreatmentCost(String) en float pour effectuer le calcul du remboursement
     public float getTreatmentCostFloat(){
-        return Conversion.convertCostStringToFloat(treatmentCost);
+        return ConversionUtils.convertCostStringToFloat(treatmentCost);
     }
 
     public float getRefundAmount() {

@@ -9,7 +9,7 @@ public class Customer {
     private String clientNumber;      //Variables d'objet
     private String contractType;
     private String claimPeriod;
-    private List<Claims> claimsList;  //Liste de claims contenant toutes les réclamations du client. Voir classe Claims.
+    private List<Claim> claimList;  //Liste de claims contenant toutes les réclamations du client. Voir classe Claims.
 
     public String getClientNumber() {
         return clientNumber;
@@ -23,8 +23,8 @@ public class Customer {
         return claimPeriod;
     }
 
-    public List<Claims> getClaimsList() {
-        return claimsList;
+    public List<Claim> getClaimsList() {
+        return claimList;
     }
 
     @JsonProperty("client")//Les propriétés JSON permettent de générer les informations entrantes dans les bons setters.
@@ -43,7 +43,7 @@ public class Customer {
     }
 
     @JsonProperty("reclamations")//C'est ici que l'on génére une liste d'objet claims contenant toutes les réclamations.
-    private void setClaimsList(List<Claims> claimsList) {
-        this.claimsList = claimsList;
+    private void setClaimsList(List<Claim> claimList) {
+        this.claimList = claimList;
     }
 }

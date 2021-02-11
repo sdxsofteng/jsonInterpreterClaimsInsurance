@@ -1,11 +1,14 @@
 package models.input;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
+
 /**
  * Cette classe crée des objets soins(Cares) depuis le fichier JSON de référence et contient leurs attributs ainsi
  * qu'une liste des valeur de pourcentage et de max possible selon le type(dans la liste ContractTypeValues).
  *
- * Pour avoir un apperçu de la logique utilisée pour les objets de référence voir JavaDoc CareReference
+ * Pour avoir un aperçu de la logique utilisée pour les objets de référence voir JavaDoc CareReference
  */
 public class CaresValues {
 
@@ -14,7 +17,7 @@ public class CaresValues {
     int careNumberMin;
     private List<ContractTypeValue> contractTypeValues;
 
-    //Cette méthode va checher le montant maximum du remboursement selon le type du contrat du client
+    //Cette méthode va chercher le montant maximum du remboursement selon le type du contrat du client
     public float getAppropriateMaxAmount(String contractType){
         ContractTypeValue verifiedContractTypeObject = getContractTypeObject(contractType);
         return verifiedContractTypeObject.getMaxDeductibleAmount();

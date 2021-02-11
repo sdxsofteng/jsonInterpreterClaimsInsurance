@@ -12,7 +12,7 @@ public class Main {
     public static String outputPath;
     public static Customer customerInfo;
     public static CareReference referenceObject;
-    public static RefundCalculation refundCalculation;
+    public static RefundHandler refundHandler;
     public static CustomerOut customerOut;
     public static JacksonUtils jUtil = new JacksonUtils();
     public static File normalOutputFile;
@@ -21,9 +21,9 @@ public class Main {
     public static void main(String[] args) {
         verifyArgsLength(args.length);
         initializeObjects(args[0], args[1]);
-        Validation.ValidateInvoice(customerInfo, referenceObject);
-        refundCalculation.refund(customerInfo, referenceObject);
-        customerOut = OutputObjects.customerToOut(customerInfo);
+        ValidationHandler.ValidateInvoice(customerInfo, referenceObject);
+        refundHandler.refund(customerInfo, referenceObject);
+        customerOut = OutputHandler.customerToOut(customerInfo);
         jUtil.normalOutputToJsonFile(normalOutputFile, customerOut);
     }
 
@@ -32,7 +32,7 @@ public class Main {
         customerInfo = jUtil.jsonToCustomerInput(firstCliArgument);
         InputStream referenceFile = Main.class.getClassLoader().getResourceAsStream(JSON_REFERENCE_PATH);
         referenceObject = jUtil.jsonToReference(referenceFile);
-        refundCalculation = new RefundCalculation();
+        refundHandler = new RefundHandler();
         normalOutputFile = new File(commandLineArgTwo);
     }
 

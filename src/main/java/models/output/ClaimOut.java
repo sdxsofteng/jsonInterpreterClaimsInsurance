@@ -1,16 +1,17 @@
 package models.output;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
- * Cette classe permet de storer les claims sortant qui iront dans le JSON
+ * Cette classe permet de représenter les claims sortants qui seront présent dans le JSON résultant.
  */
-public class ClaimsOut {
+public class ClaimOut {
 
     private int careNumber;
     private String date;
     private String refundAmount;
 
-
-    //Permet au parser de mettre information dans le JSON
+    // L'annotation permet au parser de mettre information dans le JSON
     @JsonProperty("soin")
     private int getCareNumber() {
         return careNumber;
@@ -26,9 +27,9 @@ public class ClaimsOut {
         return refundAmount;
     }
 
-    public ClaimsOut(){}
+    public ClaimOut(){}
 
-    public ClaimsOut(int careNumber, String date, String refundAmount){
+    public ClaimOut(int careNumber, String date, String refundAmount){
         this.careNumber = careNumber;
         this.date = date;
         this.refundAmount = refundAmount;
