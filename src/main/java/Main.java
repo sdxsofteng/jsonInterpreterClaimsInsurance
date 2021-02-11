@@ -6,6 +6,8 @@ import utils.*;
 import java.io.File;
 import java.io.InputStream;
 
+import static utils.ValidationHandler.hasValidArgs;
+
 public class Main {
 
     private static final String JSON_REFERENCE_PATH = "claimsReference.json";
@@ -19,7 +21,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        verifyArgsLength(args.length);
+        if (!hasValidArgs(args.length)) {
+            jUtil.errorOutputToJsonFile();
+        }
         initializeObjects(args[0], args[1]);
         ValidationHandler.ValidateInvoice(customerInfo, referenceObject);
         refundHandler.processRefund(customerInfo, referenceObject);
@@ -34,11 +38,5 @@ public class Main {
         referenceObject = jUtil.jsonToReference(referenceFile);
         refundHandler = new RefundHandler();
         normalOutputFile = new File(commandLineArgTwo);
-    }
-
-    private static void verifyArgsLength(int argsLength){
-        if (argsLength != 2){
-           jUtil.errorOutputToJsonFile();
-        }
     }
 }

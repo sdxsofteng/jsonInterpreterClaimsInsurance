@@ -15,4 +15,8 @@ public class ConversionUtils {
     public static String removeAllButNumbersAndPeriods(String amount) {
         return "0" + amount.replaceAll("\\.(?![^.]+$)|[^0-9.]", "");
     }
+    
+    public static String floatToString(float refundAmount){
+        return String.format("%.2f$", refundAmount);
+    }
 }

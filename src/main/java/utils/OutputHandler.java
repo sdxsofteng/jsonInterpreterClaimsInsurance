@@ -8,6 +8,8 @@ import models.output.CustomerOut;
 import java.util.ArrayList;
 import java.util.List;
 
+import static utils.ConversionUtils.floatToString;
+
 /**
  * Cette classe permet de prendre l'objet Customer après le calcul et le transforme en CustomerOut et ClaimsOut
  * qui sera utilisé par le parser pour créer le JSON sortant.
@@ -35,7 +37,4 @@ public class OutputHandler {
         return claimOut;
     }
 
-    private static String floatToString(float refundAmount){
-        return String.format("%.2f$", refundAmount);
-    }
 }
