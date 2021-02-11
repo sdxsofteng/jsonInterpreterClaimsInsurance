@@ -12,6 +12,14 @@ public class Claim {
     private String treatmentCost;
     private float refundAmount;
 
+    public Claim() {}
+
+    public Claim(int treatmentNumber, String claimDate, String treatmentCost) {
+        this.treatmentNumber = treatmentNumber;
+        this.claimDate = claimDate;
+        this.treatmentCost = treatmentCost;
+    }
+
     public int getTreatmentNumber() {
         return treatmentNumber;
     }

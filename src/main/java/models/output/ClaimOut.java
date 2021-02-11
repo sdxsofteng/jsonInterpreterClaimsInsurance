@@ -7,31 +7,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ClaimOut {
 
-    private int careNumber;
-    private String date;
+    private int treatmentNumber;
+    private String claimDate;
     private String refundAmount;
 
     // L'annotation permet au parser de mettre information dans le JSON
     @JsonProperty("soin")
-    private int getCareNumber() {
-        return careNumber;
+    public int getTreatmentNumber() {
+        return treatmentNumber;
     }
 
     @JsonProperty("date")
-    private String getDate() {
-        return date;
+    public String getClaimDate() {
+        return claimDate;
     }
 
     @JsonProperty("montant")
-    private String getRefundAmount() {
+    public String getRefundAmount() {
         return refundAmount;
     }
 
     public ClaimOut(){}
 
-    public ClaimOut(int careNumber, String date, String refundAmount){
-        this.careNumber = careNumber;
-        this.date = date;
+    public ClaimOut(int careNumber, String claimDate, String refundAmount){
+        this.treatmentNumber = careNumber;
+        this.claimDate = claimDate;
         this.refundAmount = refundAmount;
     }
 }

@@ -9,16 +9,16 @@ import java.util.List;
  */
 public class CustomerOut {
 
-    private String customer;
-    private String customerClaimPeriod;
+    private String clientNumber;
+    private String claimPeriod;
     private List<ClaimOut> claimOutList;
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
+    public void setClientNumber(String clientNumber) {
+        this.clientNumber = clientNumber;
     }
 
-    public void setCustomerClaimPeriod(String customerClaimPeriod) {
-        this.customerClaimPeriod = customerClaimPeriod;
+    public void setClaimPeriod(String claimPeriod) {
+        this.claimPeriod = claimPeriod;
     }
 
     public void setClaimsOutList(List<ClaimOut> claimOutList) {
@@ -27,13 +27,13 @@ public class CustomerOut {
 
     //Instructions pour parser sortant
     @JsonProperty("client")
-    public String getCustomer() {
-        return customer;
+    public String getClientNumber() {
+        return clientNumber;
     }
 
     @JsonProperty("mois")
-    public String getCustomerClaimPeriod() {
-        return customerClaimPeriod;
+    public String getClaimPeriod() {
+        return claimPeriod;
     }
 
     @JsonProperty("remboursements")
