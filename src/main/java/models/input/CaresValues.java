@@ -25,6 +25,13 @@ public class CaresValues {
         this.careNumberMin = careNumberMin;
     }
 
+    public CaresValues(String careName, int careNumberMin, int careNumberMax, List<ContractTypeValue> contractTypes) {
+        this.careName = careName;
+        this.careNumberMax = careNumberMax;
+        this.careNumberMin = careNumberMin;
+        this.contractTypeValues = contractTypes;
+    }
+
     //Cette méthode va chercher le montant maximum du remboursement selon le type du contrat du client
     public float getMaxRefundAmount(String contractType){
         ContractTypeValue verifiedContractTypeObject = getContractTypeData(contractType);
@@ -38,7 +45,7 @@ public class CaresValues {
     }
 
     //Cette méthode retourne l'objet ContractTypeValue associé à la lettre fournie
-    private ContractTypeValue getContractTypeData(String contractType){
+    public ContractTypeValue getContractTypeData(String contractType){
         ContractTypeValue contractTypeReturned = null;
         for (ContractTypeValue contractTypesObject: contractTypeValues){
             if(contractTypesObject.getType().equals(contractType)){

@@ -11,6 +11,14 @@ public class ContractTypeValue {
     float maxDeductibleAmount;
     float refundPercentage;
 
+    public ContractTypeValue() {}
+
+    public ContractTypeValue(String type, float maxDeductibleAmount, float refundPercentage) {
+        this.type = type;
+        this.maxDeductibleAmount = maxDeductibleAmount;
+        this.refundPercentage = refundPercentage;
+    }
+
     public String getType() {
         return type;
     }
