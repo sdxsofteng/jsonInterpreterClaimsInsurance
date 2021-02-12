@@ -1,6 +1,7 @@
 package utils;
 
 import models.input.CaresValues;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

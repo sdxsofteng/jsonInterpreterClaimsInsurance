@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class CaresValues {
 
-    String careName;        //Variables d'objet
+    String careName;
     int careNumberMax;
     int careNumberMin;
     private List<ContractTypeValue> contractTypeValues;

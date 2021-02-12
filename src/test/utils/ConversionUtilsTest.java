@@ -45,7 +45,6 @@ public class ConversionUtilsTest {
         assertTrue(isValid);
     }
 
-
     /**
      * Liste d'arguments pour les tests qui nécéssites une liste de cout. (String -> float)
      */

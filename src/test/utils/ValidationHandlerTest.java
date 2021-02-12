@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
 public class ValidationHandlerTest {
-    
+
     @ParameterizedTest(name = "String: {0} => {1}")
     @MethodSource("numberStringsSource")
     @DisplayName("Number as String should be properly flagged as valid/invalid. (For client no)")

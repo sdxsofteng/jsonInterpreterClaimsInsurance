@@ -1,6 +1,9 @@
 package models.input;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import utils.ConversionUtils;
+
 /**
  * Cette classe permet de représenter les différentes réclamations sous forme d'objets. Les objets de cette classe
  * seront dans un liste à l'intérieur de l'objet Customer.

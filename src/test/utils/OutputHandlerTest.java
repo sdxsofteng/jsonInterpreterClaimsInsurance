@@ -5,6 +5,7 @@ import models.input.Customer;
 
 import models.output.ClaimOut;
 import models.output.CustomerOut;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import static utils.ConversionUtils.floatToString;
 import static utils.OutputHandler.*;
 
 public class OutputHandlerTest {
+
     static Customer customer;
 
     @BeforeAll

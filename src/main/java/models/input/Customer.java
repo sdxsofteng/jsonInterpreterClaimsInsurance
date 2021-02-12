@@ -1,6 +1,9 @@
 package models.input;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
+
 /**
  * Cette classe permet de stocker l'information entrée sur le client par le fichier JSON entrant
  */

@@ -1,5 +1,7 @@
 package models.input;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Cette classe permet de storer les différentes valeurs pour chaque soins selon le type.
  *
@@ -7,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ContractTypeValue {
 
-    String type;                //Variables d'objet
+    String type;
     float maxDeductibleAmount;
     float refundPercentage;
 
