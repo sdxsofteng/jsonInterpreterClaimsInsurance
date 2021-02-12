@@ -84,8 +84,7 @@ public class ValidationHandler {
     }
 
     public static String getCurrentYearAndMonth(){
-        String thisMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
-        return thisMonth;
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
     }
 
     public static boolean validateClaims(List<Claim> claimList) {
