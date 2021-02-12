@@ -1,6 +1,6 @@
 package utils;
 
-public class Conversion {
+public class ConversionUtils {
 
     public static float convertCostStringToFloat(String amount) {
         amount = replaceCommasByPeriods(amount);
@@ -14,5 +14,9 @@ public class Conversion {
 
     public static String removeAllButNumbersAndPeriods(String amount) {
         return "0" + amount.replaceAll("\\.(?![^.]+$)|[^0-9.]", "");
+    }
+    
+    public static String floatToString(float refundAmount){
+        return String.format("%.2f$", refundAmount);
     }
 }

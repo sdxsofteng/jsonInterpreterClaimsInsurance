@@ -1,6 +1,9 @@
 package models.input;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
+
 /**
  * Cette classe permet de stocker l'information entrée sur le client par le fichier JSON entrant
  */
@@ -9,7 +12,16 @@ public class Customer {
     private String clientNumber;      //Variables d'objet
     private String contractType;
     private String claimPeriod;
-    private List<Claims> claimsList;  //Liste de claims contenant toutes les réclamations du client. Voir classe Claims.
+    private List<Claim> claimList;  //Liste de claims contenant toutes les réclamations du client. Voir classe Claims.
+
+    public Customer() {}
+
+    public Customer(String clientNumber, String contractType, String claimPeriod, List<Claim> claimList) {
+        this.clientNumber = clientNumber;
+        this.contractType = contractType;
+        this.claimPeriod = claimPeriod;
+        this.claimList = claimList;
+    }
 
     public String getClientNumber() {
         return clientNumber;
@@ -23,27 +35,27 @@ public class Customer {
         return claimPeriod;
     }
 
-    public List<Claims> getClaimsList() {
-        return claimsList;
+    public List<Claim> getClaimsList() {
+        return claimList;
     }
 
     @JsonProperty("client")//Les propriétés JSON permettent de générer les informations entrantes dans les bons setters.
-    private void setClientNumber(String clientNumber) {
+    public void setClientNumber(String clientNumber) {
         this.clientNumber = clientNumber;
     }
 
     @JsonProperty("contrat")
-    private void setContractType(String contractType) {
+    public void setContractType(String contractType) {
         this.contractType = contractType;
     }
 
     @JsonProperty("mois")
-    private void setClaimPeriod(String claimPeriod) {
+    public void setClaimPeriod(String claimPeriod) {
         this.claimPeriod = claimPeriod;
     }
 
     @JsonProperty("reclamations")//C'est ici que l'on génére une liste d'objet claims contenant toutes les réclamations.
-    private void setClaimsList(List<Claims> claimsList) {
-        this.claimsList = claimsList;
+    public void setClaimsList(List<Claim> claimList) {
+        this.claimList = claimList;
     }
 }
