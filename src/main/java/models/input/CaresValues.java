@@ -89,7 +89,7 @@ public class CaresValues {
 
     //Va créer des sous objets contractTypes contenant les maximums et les pourcentage selon le type du soin.
     @JsonProperty("contractType")
-    private void setContractTypeValues(List<ContractTypeValue> contractTypeValues) {
+    public void setContractTypeValues(List<ContractTypeValue> contractTypeValues) {
         this.contractTypeValues = contractTypeValues;
     }
 }
