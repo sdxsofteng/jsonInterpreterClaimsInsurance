@@ -8,6 +8,7 @@ import models.input.Customer;
 import org.apache.commons.validator.GenericValidator;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ValidationHandler {
@@ -78,11 +79,13 @@ public class ValidationHandler {
     }
 
     public static boolean isThisMonthOrEarlier(String yearAndMonth) {
-        return yearAndMonth.compareTo(removeDayFromDate(LocalDate.now().toString())) <= 0;
+        boolean isValid =  yearAndMonth.compareTo(getCurrentYearAndMonth()) <= 0;
+        return isValid;
     }
 
-    public static String removeDayFromDate(String yearMonthAndDayDate) {
-        return yearMonthAndDayDate.substring(0, yearMonthAndDayDate.length() - 3);
+    public static String getCurrentYearAndMonth(){
+        String thisMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        return thisMonth;
     }
 
     public static boolean validateClaims(List<Claim> claimList) {
@@ -124,6 +127,10 @@ public class ValidationHandler {
 
     public static boolean isCorrectClaimPeriod() {
         return removeDayFromDate(claimDate).equals(invoiceDate);
+    }
+
+    public static String removeDayFromDate(String yearMonthAndDayDate) {
+        return DateTimeFormatter.ofPattern("yyyy-MM").format(LocalDate.parse(yearMonthAndDayDate));
     }
 
     public static boolean isValidCost(String cost) {
