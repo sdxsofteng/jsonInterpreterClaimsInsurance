@@ -4,7 +4,7 @@ public class ConversionUtils {
 
     public static float convertCostStringToFloat(String amount) {
         amount = replaceCommasByPeriods(amount);
-        amount = removeAllButNumbersAndPeriods(amount);
+        amount = removeDollarSigns(amount);
         return Float.parseFloat(amount);
     }
 
@@ -12,8 +12,8 @@ public class ConversionUtils {
         return amount.replace(',', '.');
     }
 
-    public static String removeAllButNumbersAndPeriods(String amount) {
-        return "0" + amount.replaceAll("\\.(?![^.]+$)|[^0-9.]", "");
+    public static String removeDollarSigns(String amount) {
+        return "0" + amount.replace("$", "");
     }
     
     public static String floatToString(float refundAmount){

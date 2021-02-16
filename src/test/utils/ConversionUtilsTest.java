@@ -40,7 +40,7 @@ public class ConversionUtilsTest {
     @MethodSource("costStripStringSource")
     @DisplayName("Cost as String should get stripped of $.")
     public void testCostCommaToPeriod(String inputCost) {
-        String methodResult = removeAllButNumbersAndPeriods(inputCost);
+        String methodResult = removeDollarSigns(inputCost);
         boolean isValid = !methodResult.contains("$");
         assertTrue(isValid);
     }
