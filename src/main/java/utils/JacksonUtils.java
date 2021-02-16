@@ -29,11 +29,11 @@ public class JacksonUtils {
     //Cette méthode permet de générer le object mapper et de le configurer selon nos spécifications
     private ObjectMapper generateAndConfigureMapper() {
         ObjectMapper newMapper = new ObjectMapper();
-        DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter(); //Instancie notre pretty printer
-        prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE); //Ajuste le PP (format personnaliser)
-        newMapper.setDefaultPrettyPrinter(prettyPrinter); //On set le PP comme PP par défaut sur notre mapper
-        newMapper.registerModule(new JavaTimeModule());  //Introduction du time module pour gérer les dates
-        newMapper.configure(SerializationFeature.INDENT_OUTPUT, true); //Ajoute l'indentation automatique en sortie
+        DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter();
+        prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
+        newMapper.setDefaultPrettyPrinter(prettyPrinter);
+        newMapper.registerModule(new JavaTimeModule());
+        newMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         return newMapper;
     }
 
