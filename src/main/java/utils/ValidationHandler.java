@@ -36,12 +36,10 @@ public class ValidationHandler {
     }
 
     public static void validate() {
-        boolean hasValidCustomerData = isValidClientNo();
-        boolean hasValidInvoiceData = isValidContractType() && isValidInvoiceDate();
+        boolean hasValidInvoiceData = isAContractTypeThatExistsInPresets() && isValidInvoiceDate();
         boolean hasValidClaimsData = validateClaims(customer.getClaimsList());
-        boolean hasInvalidData = !hasValidCustomerData || !hasValidInvoiceData || !hasValidClaimsData;
 
-        if (hasInvalidData) {
+        if (!isValidClientNo() || !hasValidInvoiceData || !hasValidClaimsData) {
             jUtil.errorOutputToJsonFile();
         }
     }
@@ -58,8 +56,7 @@ public class ValidationHandler {
         return (number.matches("^[0-9]+$"));
     }
 
-    // Compare le type de contrat aux données du fichier reference
-    public static boolean isValidContractType() {
+    public static boolean isAContractTypeThatExistsInPresets() {
         for (CaresValues careValue : presets.getCaresValuesList()) {
             for (ContractTypeValue contractTypeValue : careValue.getContractTypeValues()) {
                 if (contractTypeValue.getType().equals(customer.getContractType())) {
@@ -133,7 +130,7 @@ public class ValidationHandler {
     }
 
     public static boolean isValidCost(String cost) {
-        return cost.trim().matches("^[0-9]+((,|.)([0-9]{2}))?\\$$");
+        return cost.trim().matches("^[0-9]+(,|.)[0-9]{2}\\$$");
     }
 
     public static boolean hasValidArgs(int argsLength){

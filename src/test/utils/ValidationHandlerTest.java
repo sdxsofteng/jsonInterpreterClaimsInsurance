@@ -108,11 +108,13 @@ public class ValidationHandlerTest {
     static Stream<Arguments> costStringsSource() {
         return Stream.of(
                 Arguments.of("12.50$", true), Arguments.of("12,50$", true), Arguments.of("1.50$", true),
-                Arguments.of("1,50$", true), Arguments.of("12$", true), Arguments.of("1$", true),
-                Arguments.of("A,A$", false), Arguments.of("A.A$", false), Arguments.of("A$", false),
-                Arguments.of("A", false), Arguments.of("A,A", false), Arguments.of("A.A", false),
-                Arguments.of("1", false), Arguments.of("12", false), Arguments.of("12,50", false),
-                Arguments.of("12.50", false)
+                Arguments.of("1,50$", true), Arguments.of("1.5$", false), Arguments.of("1,5$", false),
+                Arguments.of("1.$", false), Arguments.of("1,$", false), Arguments.of("12$", false),
+                Arguments.of("1$", false), Arguments.of("A,A$", false), Arguments.of("A.A$", false),
+                Arguments.of("A$", false), Arguments.of("A", false), Arguments.of("A,A", false),
+                Arguments.of("A.A", false), Arguments.of("1", false), Arguments.of("12", false),
+                Arguments.of("12,50", false), Arguments.of("12.50", false), Arguments.of("1 012.50$", false),
+                Arguments.of("1 012,50$", false), Arguments.of("1,012.50$", false)
         );
     }
 
