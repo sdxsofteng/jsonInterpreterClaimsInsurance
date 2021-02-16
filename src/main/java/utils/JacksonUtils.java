@@ -29,11 +29,11 @@ public class JacksonUtils {
     //Cette méthode permet de générer le object mapper et de le configurer selon nos spécifications
     private ObjectMapper generateAndConfigureMapper() {
         ObjectMapper newMapper = new ObjectMapper();
-        DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter(); //Instancie notre pretty printer
-        prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE); //Ajuste le PP (format personnaliser)
-        newMapper.setDefaultPrettyPrinter(prettyPrinter); //On set le PP comme PP par défaut sur notre mapper
-        newMapper.registerModule(new JavaTimeModule());  //Introduction du time module pour gérer les dates
-        newMapper.configure(SerializationFeature.INDENT_OUTPUT, true); //Ajoute l'indentation automatique en sortie
+        DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter();
+        prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
+        newMapper.setDefaultPrettyPrinter(prettyPrinter);
+        newMapper.registerModule(new JavaTimeModule());
+        newMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         return newMapper;
     }
 
@@ -43,7 +43,7 @@ public class JacksonUtils {
         try {
             programInput = mapper.readValue(src, Customer.class);
         } catch (IOException e) {
-            errorOutputToJsonFile();
+            quitProgramWithError();
         }
         return programInput;
     }
@@ -54,13 +54,13 @@ public class JacksonUtils {
         try {
             referenceInput = mapper.readValue(src, CareReference.class);
         } catch (IOException e) {
-            errorOutputToJsonFile();
+            quitProgramWithError();
         }
         return referenceInput;
     }
 
     //Lorsqu'une erreur est détectée on sort du programme et créer un fichier de sortie en JSON
-    public void errorOutputToJsonFile(){
+    public void quitProgramWithError(){
         File outputErrorFile = new File(invalidOutputPath);
         ErrorOut errorData = new ErrorOut();
         try {
@@ -72,7 +72,7 @@ public class JacksonUtils {
     }
 
     //Sortie normal du programme et transfert des objets CustomerOut et ClaimsOut en format JSON
-    public void normalOutputToJsonFile(File path, CustomerOut customerOut){
+    public void quitProgramWithData(File path, CustomerOut customerOut){
         try {
             mapper.writeValue(path, customerOut);
             mapper.writerWithDefaultPrettyPrinter().writeValue(path, customerOut);

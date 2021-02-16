@@ -34,9 +34,9 @@ public class RefundHandler {
         float maxAmount = targetCareValues.getMaxDeductibleAmount();
         float refundPercentage = targetCareValues.getRefundPercentage();
         float treatmentCost = claim.getTreatmentCostFloat();
-        float refundAmount = treatmentCost * refundPercentage;//Trouver le montant du remboursement selon le pourcentage
-        if (refundAmount > maxAmount && maxAmount != 0){ //Si celui si est au dessus du max et n'est pas 0 on met le
-            refundAmount = maxAmount;                    //montant maximal comme remboursement
+        float refundAmount = treatmentCost * refundPercentage;
+        if (refundAmount > maxAmount && maxAmount != 0){
+            refundAmount = maxAmount;
         }
         return refundAmount;
     }

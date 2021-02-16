@@ -21,15 +21,15 @@ public class OutputHandler {
         CustomerOut customerOut = new CustomerOut();
         customerOut.setClientNumber(input.getClientNumber());
         customerOut.setClaimPeriod(input.getClaimPeriod());
-        customerOut.setClaimsOutList(claimsToOut(input.getClaimsList()));//On set la liste de claimsOut.Voir claimsToOut
+        customerOut.setClaimsOutList(claimsToOut(input.getClaimsList()));
         return customerOut;
     }
 
     //Cette méthode transforme la claimsList dans le Customer vers une liste de ClaimsOut
     public static List<ClaimOut> claimsToOut(List<Claim> claimList){
         List<ClaimOut> claimOutList = new ArrayList<>();
-        for (Claim claim: claimList){  //Itère à traver la ClaimsList pour créer les ClaimsOut associés
-            claimOutList.add(claimToOut(claim)); //Ajoute le claimsOut dans la liste de retour
+        for (Claim claim: claimList){
+            claimOutList.add(claimToOut(claim));
         }
         return claimOutList;
     }
