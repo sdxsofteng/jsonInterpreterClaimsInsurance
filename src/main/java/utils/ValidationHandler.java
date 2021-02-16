@@ -40,7 +40,7 @@ public class ValidationHandler {
         boolean hasValidClaimsData = validateClaims(customer.getClaimsList());
 
         if (!isValidClientNo() || !hasValidInvoiceData || !hasValidClaimsData) {
-            jUtil.errorOutputToJsonFile();
+            jUtil.quitProgramWithError();
         }
     }
 

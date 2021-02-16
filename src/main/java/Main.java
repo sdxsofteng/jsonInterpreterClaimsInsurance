@@ -22,13 +22,13 @@ public class Main {
 
     public static void main(String[] args) {
         if (!hasValidArgs(args.length)) {
-            jUtil.errorOutputToJsonFile();
+            jUtil.quitProgramWithError();
         }
         initializeObjects(args[0], args[1]);
         ValidationHandler.ValidateInvoice(customerInfo, referenceObject);
         refundHandler.processRefund(customerInfo, referenceObject);
         customerOut = OutputHandler.customerToOut(customerInfo);
-        jUtil.normalOutputToJsonFile(normalOutputFile, customerOut);
+        jUtil.quitProgramWithData(normalOutputFile, customerOut);
     }
 
     public static void initializeObjects(String commandLineArgOne, String commandLineArgTwo) {

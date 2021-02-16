@@ -43,7 +43,7 @@ public class JacksonUtils {
         try {
             programInput = mapper.readValue(src, Customer.class);
         } catch (IOException e) {
-            errorOutputToJsonFile();
+            quitProgramWithError();
         }
         return programInput;
     }
@@ -54,13 +54,13 @@ public class JacksonUtils {
         try {
             referenceInput = mapper.readValue(src, CareReference.class);
         } catch (IOException e) {
-            errorOutputToJsonFile();
+            quitProgramWithError();
         }
         return referenceInput;
     }
 
     //Lorsqu'une erreur est détectée on sort du programme et créer un fichier de sortie en JSON
-    public void errorOutputToJsonFile(){
+    public void quitProgramWithError(){
         File outputErrorFile = new File(invalidOutputPath);
         ErrorOut errorData = new ErrorOut();
         try {
@@ -72,7 +72,7 @@ public class JacksonUtils {
     }
 
     //Sortie normal du programme et transfert des objets CustomerOut et ClaimsOut en format JSON
-    public void normalOutputToJsonFile(File path, CustomerOut customerOut){
+    public void quitProgramWithData(File path, CustomerOut customerOut){
         try {
             mapper.writeValue(path, customerOut);
             mapper.writerWithDefaultPrettyPrinter().writeValue(path, customerOut);
