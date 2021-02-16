@@ -1,12 +1,19 @@
 ## INF2050-20-H21
+
 ### Équipe 1
+
 ------
-------
+
 Ce projet est un projet Maven. Nous gérons les dépendences, compilations et tests (tout le build workflow) via Maven ce qui renrenddre la configuration du projet plus simple.
 
-Note que les actions de Maven appropriés dans IntelliJ performent les commandes Maven correspondantes listées ci-dessous. Il est donc possible de simplement faire un *Maven package* via l'interface d'IntelliJ afin de compiler, rouler les tests et créé le jar en output en un seul clic. Les instructions ci-dessous sont données par souci de clarté, et afin d'assister toute personne qui ne compte pas utiliser IntelliJ (si applicable).
+**IMPORTANT!**: Le jar qui doit être utilisé pour la correction est le `Refund-1.0-jar-with-dependencies.jar`!
+
+*Note que les actions de Maven appropriés dans IntelliJ performent les commandes Maven correspondantes listées ci-dessous. Il est donc possible de simplement faire un *Maven package* via l'interface d'IntelliJ afin de compiler, rouler les tests et créé le jar en output en un seul clic. Les instructions ci-dessous sont données par souci de clarté, et afin d'assister toute personne qui ne compte pas utiliser IntelliJ (si applicable).*
+
 ------
+
 ## Procédure pour la configuration du projet
+
 ------
 
 ### Importation
