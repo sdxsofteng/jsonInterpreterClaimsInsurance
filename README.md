@@ -4,7 +4,7 @@
 
 ------
 
-Ce projet est un projet Maven. Nous gérons les dépendences, compilations et tests (tout le build workflow) via Maven ce qui renrenddre la configuration du projet plus simple.
+Ce projet est un projet Maven. Nous gérons les dépendences, compilations et tests (tout le build workflow) via Maven ce qui rend la configuration du projet plus simple.
 
 **IMPORTANT!**: Le jar qui doit être utilisé pour la correction est le `Refund-1.0-jar-with-dependencies.jar`!
 
@@ -18,7 +18,9 @@ Ce projet est un projet Maven. Nous gérons les dépendences, compilations et te
 
 ### Importation
 1- Dans IntelliJ (ou autre IDEA), il faut importer le projet en tant que *Projet Maven*.
+
 2- Dans IntelliJ, pour que l'Intellisense soit correcte, il faut regarder l'onglet module du projet pour vous assurez qu'il détecte bien que le dossier `src/main/java` est le dossier source, `src/test` est le dossier test et `src/main/resources` est le dossier ressource.
+
 ### Compilation
 Par défaut, la version de Java du projet est 15. Le programme est testé pour cette version, mais il est possible de changer la version si vous avez une version de Java >11, mais <15 en changeant la variable `java.version` dans le fichier `pom.xml`. Cependant, il n'est pas garanti que le code marche pour une version différente de Java. Un cas pour lequel il serait valable de modifier la version est le suivant: il est possible que votre JRE (Java Runtime Environment) soit d'une version plus ancienne, ce qui lancerait une exception lorsque le jar est lancé puisque le code compilé est plus récent.
 
