@@ -24,6 +24,11 @@
           "type": "D",
           "max": 85,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.15
         }
       ]
     },
@@ -35,7 +40,7 @@
         {
           "type": "A",
           "max": 0,
-          "refundPercentage": 0.25
+          "refundPercentage": 0.35
         },
         {
           "type": "B",
@@ -45,12 +50,81 @@
         {
           "type": "C",
           "max": 0,
-          "refundPercentage": 0.90
+          "refundPercentage": 0.95
         },
         {
           "type": "D",
           "max": 75,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.25
+        }
+      ]
+    },
+    {
+      "name": "kinesitherapy",
+      "careNumberMax": 150,
+      "careNumberMin": 150,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0
+        },
+        {
+          "type": "B",
+          "max": 0,
+          "refundPercentage": 0
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.85
+        },
+        {
+          "type": "D",
+          "max": 150,
+          "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.15
+        }
+      ]
+    },
+    {
+      "name": "privategeneralist",
+      "careNumberMax": 175,
+      "careNumberMin": 175,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0.50
+        },
+        {
+          "type": "B",
+          "max": 0,
+          "refundPercentage": 0.75
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.90
+        },
+        {
+          "type": "D",
+          "max": 0,
+          "refundPercentage": 0.95
+        },
+        {
+          "type": "E",
+          "max": 20,
+          "refundPercentage": 0.25
         }
       ]
     },
@@ -66,7 +140,7 @@
         },
         {
           "type": "B",
-          "max": 70,
+          "max": 0,
           "refundPercentage": 1
         },
         {
@@ -78,6 +152,11 @@
           "type": "D",
           "max": 100,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.12
         }
       ]
     },
@@ -105,6 +184,11 @@
           "type": "D",
           "max": 0,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.60
         }
       ]
     },
@@ -132,6 +216,11 @@
           "type": "D",
           "max": 65,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 15,
+          "refundPercentage": 0.25
         }
       ]
     },
@@ -157,8 +246,13 @@
         },
         {
           "type": "D",
-          "max": 75,
+          "max": 0,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 20,
+          "refundPercentage": 0.30
         }
       ]
     },
@@ -180,12 +274,17 @@
         {
           "type": "C",
           "max": 0,
-          "refundPercentage": 0.90
+          "refundPercentage": 0.75
         },
         {
           "type": "D",
           "max": 100,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.15
         }
       ]
     },
@@ -213,6 +312,11 @@
           "type": "D",
           "max": 90,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.22
         }
       ]
     }
