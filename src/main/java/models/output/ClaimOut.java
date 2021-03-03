@@ -1,10 +1,12 @@
 package models.output;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * Cette classe permet de représenter les claims sortants qui seront présent dans le JSON résultant.
  */
+@JsonPropertyOrder({ "soin", "date", "montant" })
 public class ClaimOut {
 
     private int treatmentNumber;

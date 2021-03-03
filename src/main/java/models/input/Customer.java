@@ -1,6 +1,7 @@
 package models.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import utils.ConversionUtils;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  */
 public class Customer {
 
+    // private String fileNumber;
     private String clientNumber;      //Variables d'objet
     private String contractType;
     private String claimPeriod;
@@ -16,12 +18,17 @@ public class Customer {
 
     public Customer() {}
 
-    public Customer(String clientNumber, String contractType, String claimPeriod, List<Claim> claimList) {
-        this.clientNumber = clientNumber;
-        this.contractType = contractType;
+    public Customer(String fileNumber, String claimPeriod, List<Claim> claimList) {
+        //this.fileNumber = fileNumber;
+        this.clientNumber = ConversionUtils.extractClientNoFrom(fileNumber);
+        this.contractType = ConversionUtils.extractContractTypeFrom(fileNumber);
         this.claimPeriod = claimPeriod;
         this.claimList = claimList;
     }
+
+//    public String getFileNumber() {
+//        return fileNumber;
+//    }
 
     public String getClientNumber() {
         return clientNumber;
@@ -39,12 +46,17 @@ public class Customer {
         return claimList;
     }
 
-    @JsonProperty("client")//Les propriétés JSON permettent de générer les informations entrantes dans les bons setters.
+    //Les propriétés JSON permettent de générer les informations entrantes dans les bons setters.
+    @JsonProperty("dossier")
+    public void setFileNumber(String fileNumber) {
+        this.clientNumber = ConversionUtils.extractClientNoFrom(fileNumber);
+        this.contractType = ConversionUtils.extractContractTypeFrom(fileNumber);
+    }
+
     public void setClientNumber(String clientNumber) {
         this.clientNumber = clientNumber;
     }
 
-    @JsonProperty("contrat")
     public void setContractType(String contractType) {
         this.contractType = contractType;
     }
@@ -54,7 +66,8 @@ public class Customer {
         this.claimPeriod = claimPeriod;
     }
 
-    @JsonProperty("reclamations")//C'est ici que l'on génére une liste d'objet claims contenant toutes les réclamations.
+    //C'est ici que l'on génère une liste d'objet claims contenant toutes les réclamations.
+    @JsonProperty("reclamations")
     public void setClaimsList(List<Claim> claimList) {
         this.claimList = claimList;
     }

@@ -19,6 +19,7 @@ public class OutputHandler {
     //Dans cette méthode on set toutes les propriétés de l'objet CustomerOut ainsi que la liste ClaimsOut sous-jacente
     public static CustomerOut customerToOut(Customer input) {
         CustomerOut customerOut = new CustomerOut();
+        customerOut.setContractType(input.getContractType());
         customerOut.setClientNumber(input.getClientNumber());
         customerOut.setClaimPeriod(input.getClaimPeriod());
         customerOut.setClaimsOutList(claimsToOut(input.getClaimsList()));
