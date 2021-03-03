@@ -1,6 +1,5 @@
 package utils;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,17 +15,15 @@ import static utils.ConversionUtils.*;
 public class ConversionUtilsTest {
     /** TODO:  replaceCommasByPeriods */
 
-    @Disabled("Test needs more work")
     @ParameterizedTest(name = "extract contract type from file number")
-    @MethodSource("testExtractContractTypeFrom")
+    @MethodSource("fileNoToContractTypeSource")
     @DisplayName("Contract type extracted from file number should only be the first character")
     public void testExtractContractTypeFrom(String fileNumber, String expected) {
         assertEquals(expected, extractContractTypeFrom(fileNumber));
     }
 
-    @Disabled("Test needs more work")
     @ParameterizedTest(name = "extract client number from file number")
-    @MethodSource("testExtractClientNoFrom")
+    @MethodSource("fileNoToClientNumberSource")
     @DisplayName("Client number extracted from file number should be everything after the first character")
     public void testExtractClientNoFrom(String fileNumber, String expected) {
         assertEquals(expected, extractClientNoFrom(fileNumber));
@@ -64,9 +61,8 @@ public class ConversionUtilsTest {
 
     /**
      * Liste d'arguments pour les tests qui nécessitent un numéro de dossier (extraction du type de contrat)
-     * @param fileNumber représente le numéro de dossier tel qu'entré via le fichier json.
      */
-    static Stream<Arguments> extractContractTypeFrom(String fileNumber) {
+    static Stream<Arguments> fileNoToContractTypeSource() {
         return Stream.of(
                 Arguments.of("A256582", "A"),
                 Arguments.of("R2-D2", "R"),
@@ -77,9 +73,8 @@ public class ConversionUtilsTest {
 
     /**
      * Liste d'arguments pour les tests qui nécessitent un numéro de dossier (extraction du type de contrat)
-     * @param fileNumber représente le numéro de dossier tel qu'entré via le fichier json.
      */
-    static Stream<Arguments> extractClientNoFrom(String fileNumber) {
+    static Stream<Arguments> fileNoToClientNumberSource() {
         return Stream.of(
                 Arguments.of("A256582", "256582"),
                 Arguments.of("R2-D2", "2-D2"),

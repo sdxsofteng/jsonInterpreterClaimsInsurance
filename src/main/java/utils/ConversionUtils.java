@@ -1,8 +1,8 @@
 package utils;
 
-import static utils.ValidationHandler.jUtil;
-
 public class ConversionUtils {
+
+    public static JacksonUtils jUtil = new JacksonUtils();
 
     public static String extractContractTypeFrom(String fileNumber) {
         String contractType = null;
