@@ -1,6 +1,30 @@
 package utils;
 
+import static utils.ValidationHandler.jUtil;
+
 public class ConversionUtils {
+
+    public static String extractContractTypeFrom(String fileNumber) {
+        String contractType = null;
+
+        if (fileNumber.length() > 1) {
+            contractType = fileNumber.substring(0, 1);
+        } else {
+            jUtil.quitProgramWithError();
+        }
+        return contractType;
+    }
+
+    public static String extractClientNoFrom (String fileNumber) {
+        String clientNo = null;
+
+        if (fileNumber.length() > 1) {
+            clientNo = fileNumber.substring(1);
+        } else {
+            jUtil.quitProgramWithError();
+        }
+        return clientNo;
+    }
 
     public static float convertCostStringToFloat(String amount) {
         amount = replaceCommasByPeriods(amount);

@@ -32,7 +32,7 @@ public class RefundHandlerTest {
         claimList.add(testClaim1);
         claimList.add(testClaim2);
         claimList.add(testClaim3);
-        customer = new Customer("200002", "A", "2021-01", claimList);
+        customer = new Customer("A200002", "2021-01", claimList);
     }
 
     @BeforeAll

@@ -1,6 +1,7 @@
 package models.output;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import utils.ConversionUtils;
 import utils.RefundHandler;
 
@@ -9,14 +10,20 @@ import java.util.List;
 /**
  * Cette classe permet de représenter et de contenir l'ensemble des valeurs à écrire dans le parser sortant.
  */
+@JsonPropertyOrder({ "dossier", "mois", "remboursements", "total" })
 public class CustomerOut {
 
     private String clientNumber;
+    private String contractType;
     private String claimPeriod;
     private List<ClaimOut> claimOutList;
 
     public void setClientNumber(String clientNumber) {
         this.clientNumber = clientNumber;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
     }
 
     public void setClaimPeriod(String claimPeriod) {
@@ -28,9 +35,10 @@ public class CustomerOut {
     }
 
     //Instructions pour parser sortant
-    @JsonProperty("client")
-    public String getClientNumber() {
-        return clientNumber;
+
+    @JsonProperty("dossier")
+    public String getFileNumber() {
+        return contractType + clientNumber;
     }
 
     @JsonProperty("mois")
