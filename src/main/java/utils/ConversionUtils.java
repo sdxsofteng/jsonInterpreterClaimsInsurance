@@ -10,7 +10,7 @@ public class ConversionUtils {
         if (fileNumber.length() > 1) {
             contractType = fileNumber.substring(0, 1);
         } else {
-            jUtil.quitProgramWithError();
+            jUtil.quitProgramWithErrorAndTracking();
         }
         return contractType;
     }
@@ -21,7 +21,7 @@ public class ConversionUtils {
         if (fileNumber.length() > 1) {
             clientNo = fileNumber.substring(1);
         } else {
-            jUtil.quitProgramWithError();
+            jUtil.quitProgramWithErrorAndTracking();
         }
         return clientNo;
     }

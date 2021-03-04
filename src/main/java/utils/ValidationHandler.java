@@ -40,7 +40,7 @@ public class ValidationHandler {
         boolean hasValidClaimsData = validateClaims(customer.getClaimsList());
 
         if (!isValidClientNo() || !hasValidInvoiceData || !hasValidClaimsData) {
-            jUtil.quitProgramWithError();
+            jUtil.quitProgramWithErrorAndTracking();
         }
     }
 
@@ -137,7 +137,9 @@ public class ValidationHandler {
         return cost.trim().matches("^[0-9]+(,|.)[0-9]{2}\\$$");
     }
 
-    public static boolean hasValidArgs(int argsLength){
-        return argsLength == 2;
+    public static void validateArgs(int actualNb, int expectedNb) {
+        if (expectedNb != actualNb) {
+            jUtil.quitProgramWithError();
+        }
     }
 }
