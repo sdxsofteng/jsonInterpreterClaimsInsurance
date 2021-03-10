@@ -36,7 +36,7 @@ public class ValidationHandler {
     }
 
     public static void validate() {
-        boolean hasValidInvoiceData = isAContractTypeThatExistsInPresets() && isValidInvoiceDate();
+        boolean hasValidInvoiceData = isAContractTypeThatExistsInPresets() && isValidYearAndMonthDate(invoiceDate);
         boolean hasValidClaimsData = validateClaims(customer.getClaimsList());
 
         if (!isValidClientNo() || !hasValidInvoiceData || !hasValidClaimsData) {
@@ -67,24 +67,8 @@ public class ValidationHandler {
         return false;
     }
 
-    public static boolean isValidInvoiceDate() {
-        return isValidYearAndMonthDate(invoiceDate) && isThisMonthOrEarlier(invoiceDate);
-    }
-
     public static boolean isValidYearAndMonthDate(String date) {
         return GenericValidator.isDate(date, "yyyy-MM", false);
-    }
-
-    // TODO: 2021-03-03 Retirer les trois classes de vérification de la date courante?
-    @Deprecated
-    public static boolean isThisMonthOrEarlier(String yearAndMonth) {
-        boolean isValid =  yearAndMonth.compareTo(getCurrentYearAndMonth()) <= 0;
-        return isValid;
-    }
-
-    @Deprecated
-    public static String getCurrentYearAndMonth(){
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
     }
 
     public static boolean validateClaims(List<Claim> claimList) {
@@ -113,16 +97,11 @@ public class ValidationHandler {
     }
 
     public static boolean isValidClaimDate() {
-        return isValidDateFormatYMD(claimDate) && isTodayOrEarlier(claimDate) && isCorrectClaimPeriod();
+        return isValidDateFormatYMD(claimDate) && isCorrectClaimPeriod();
     }
 
     public static boolean isValidDateFormatYMD(String date) {
         return GenericValidator.isDate(date.trim(), "yyyy-MM-dd", true);
-    }
-
-    @Deprecated
-    public static boolean isTodayOrEarlier(String date) {
-        return date.compareTo(LocalDate.now().toString()) <= 0;
     }
 
     public static boolean isCorrectClaimPeriod() {

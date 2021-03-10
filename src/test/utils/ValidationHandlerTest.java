@@ -25,42 +25,6 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    @DisplayName("Day after the current day should be flagged invalid.")
-    public void testIsTodayOrEarlierWithFutureDate() {
-        LocalDate dateInFuture = LocalDate.now().plusDays(1); // The next day
-        String formattedDateString = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(dateInFuture);
-        boolean returnedValue = isTodayOrEarlier(formattedDateString);
-        assertFalse(returnedValue);
-    }
-
-    @Test
-    @DisplayName("Current day or before should be flagged as valid.")
-    public void testIsTodayOrEarlierWithCurrentDate() {
-        LocalDate dateInFuture = LocalDate.now();
-        String formattedDateString = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(dateInFuture);
-        boolean returnedValue = isTodayOrEarlier(formattedDateString);
-        assertTrue(returnedValue);
-    }
-
-    @Test
-    @DisplayName("Month after the current month should be flagged invalid.")
-    public void testIsThisMonthOrEarlierWithFutureDate() {
-        LocalDate dateInFuture = LocalDate.now().plusMonths(1); // The next month
-        String formattedDateString = DateTimeFormatter.ofPattern("yyyy-MM").format(dateInFuture);
-        boolean returnedValue = isThisMonthOrEarlier(formattedDateString);
-        assertFalse(returnedValue);
-    }
-
-    @Test
-    @DisplayName("Current month or before should be flagged as valid.")
-    public void testIsThisMonthOrEarlierWithCurrentDate() {
-        LocalDate dateInFuture = LocalDate.now();
-        String formattedDateString = DateTimeFormatter.ofPattern("yyyy-MM").format(dateInFuture);
-        boolean returnedValue = isThisMonthOrEarlier(formattedDateString);
-        assertTrue(returnedValue);
-    }
-
     @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("yearMonthDayDatesSource")
     @DisplayName("Date in YYYY-MM should be properly flagged as invalid/valid.")
