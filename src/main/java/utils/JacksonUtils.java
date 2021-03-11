@@ -2,6 +2,7 @@ package utils;
 
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -17,6 +18,7 @@ import java.io.InputStream;
 
 /**
  * Cette classe expose des méthodes pour permettre la sérialisations/désérialisation de nos données.
+ * Note: nous n'acceptons pas les propriétés de plus dans les objets JSON
  */
 public class JacksonUtils {
 
@@ -75,9 +77,9 @@ public class JacksonUtils {
         Customer programInput = null;
         try {
             programInput = mapper.readValue(src, Customer.class);
-        } catch (IOException e) {
+        } catch (JsonMappingException jme) {
             quitProgramWithErrorAndTracking();
-        }
+        } catch (IOException e) { quitProgramWithError(); }
         return programInput;
     }
 
@@ -87,7 +89,7 @@ public class JacksonUtils {
         try {
             referenceInput = mapper.readValue(src, CareReference.class);
         } catch (IOException e) {
-            quitProgramWithErrorAndTracking();
+            quitProgramWithError();
         }
         return referenceInput;
     }
@@ -113,8 +115,7 @@ public class JacksonUtils {
     public void quitProgramWithData(File path, CustomerOut customerOut, CareReference careReference){
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(path, customerOut);
-            new AnalyticsHandler(ANALYTICS_PATH).addValidRequest()
-                    .countClaims(customerOut.getClaimsOutList(), careReference).save();
+            new AnalyticsHandler(ANALYTICS_PATH).countClaims(customerOut.getClaimsOutList(), careReference).save();
             System.exit(0);
         } catch (IOException e) {
             System.exit(2);

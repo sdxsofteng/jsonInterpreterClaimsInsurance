@@ -54,6 +54,7 @@ public class AnalyticsHandler {
         for (ClaimOut claim: claims) {
             CaresValues care = careReference.getAppropriateCareObject(claim.getTreatmentNumber());
             countClaim(care);
+            addValidRequest();
         }
         return this;
     }
