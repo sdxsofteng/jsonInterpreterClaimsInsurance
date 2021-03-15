@@ -11,6 +11,7 @@ import models.analytics.Analytics;
 import models.input.Customer;
 import models.output.CustomerOut;
 import models.output.ErrorOut;
+import models.output.ErrorMessage;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class JacksonUtils {
         try {
             analytics = readAnalyticsFromFile(path);
         } catch (IOException e) {
-            quitProgramWithError();
+            quitProgramWithError(ErrorMessage.ANALYTICS_FILE_READ_FAILURE);
         }
         return analytics;
     }
@@ -68,18 +69,19 @@ public class JacksonUtils {
             analyticsFile.createNewFile();
             mapper.writerWithDefaultPrettyPrinter().writeValue(analyticsFile, analytics);
         } catch (IOException e) {
-            quitProgramWithError();
+            quitProgramWithError(ErrorMessage.ANALYTICS_FILE_WRITE_FAILURE);
         }
     }
 
+    // TODO: 2021-03-15 Trouver pourquoi cette méthode sort ses messages dans outputfile.json
     //Transforme le input(JSON) en Objet Customer et Claims
     public Customer jsonToCustomerInput(File src){
         Customer programInput = null;
         try {
             programInput = mapper.readValue(src, Customer.class);
         } catch (JsonMappingException jme) {
-            quitProgramWithErrorAndTracking();
-        } catch (IOException e) { quitProgramWithError(); }
+            quitProgramWithErrorAndTracking(ErrorMessage.INVALID_INPUT_FILE);
+        } catch (IOException e) { quitProgramWithError(ErrorMessage.INVALID_INPUT_FILE); }
         return programInput;
     }
 
@@ -89,15 +91,25 @@ public class JacksonUtils {
         try {
             referenceInput = mapper.readValue(src, CareReference.class);
         } catch (IOException e) {
-            quitProgramWithError();
+            quitProgramWithError(ErrorMessage.INVALID_REFERENCE_FILE);
         }
         return referenceInput;
     }
 
-    //Lorsqu'une erreur est détectée on sort du programme et créer un fichier de sortie en JSON
+    //Lorsqu'une erreur est détectée on sort du programme et crée un fichier de sortie en JSON
     public void quitProgramWithErrorAndTracking(){
         new AnalyticsHandler(ANALYTICS_PATH).addInvalidRequest().save();
         quitProgramWithError();
+    }
+
+    public void quitProgramWithErrorAndTracking(ErrorMessage error){
+        new AnalyticsHandler(ANALYTICS_PATH).addInvalidRequest().save();
+        quitProgramWithError(error);
+    }
+
+    public void quitProgramWithErrorAndTracking(ErrorMessage error, int number){
+        new AnalyticsHandler(ANALYTICS_PATH).addInvalidRequest().save();
+        quitProgramWithError(error, number);
     }
 
     public void quitProgramWithError(){
@@ -108,7 +120,29 @@ public class JacksonUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.exit(1); // Code de sortie 1 signifie une erreur de input
+        System.exit(-1); // Code de sortie -1 signifie une erreur d'input
+    }
+
+    public void quitProgramWithError(ErrorMessage error){
+        File outputErrorFile = new File(invalidOutputPath);
+        ErrorOut errorData = new ErrorOut(error);
+        try {
+            mapper.writeValue(outputErrorFile, errorData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.exit(error.getCode());
+    }
+
+    public void quitProgramWithError(ErrorMessage error, int number){
+        File outputErrorFile = new File(invalidOutputPath);
+        ErrorOut errorData = new ErrorOut(error, number);
+        try {
+            mapper.writeValue(outputErrorFile, errorData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.exit(error.getCode());
     }
 
     //Sortie normal du programme et transfert des objets CustomerOut et ClaimsOut en format JSON

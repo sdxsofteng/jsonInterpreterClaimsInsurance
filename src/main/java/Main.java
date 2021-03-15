@@ -1,6 +1,7 @@
 import models.input.Customer;
 import models.output.CustomerOut;
 
+import models.output.ErrorMessage;
 import utils.*;
 
 import java.io.File;
@@ -21,7 +22,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        if (args.length == 0) { jUtil.quitProgramWithError(); }
+        if (args.length == 0) { jUtil.quitProgramWithError(ErrorMessage.MISSING_ARGUMENTS); }
         if (args[0].equals("-S")) {
             launchStatsDisplayProgram(args);
         } else if (args[0].equals("-SR")) {
