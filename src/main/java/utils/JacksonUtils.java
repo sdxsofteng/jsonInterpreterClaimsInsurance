@@ -24,7 +24,7 @@ import java.io.InputStream;
 public class JacksonUtils {
 
     static final String ANALYTICS_PATH = "analytics.json";
-    private String invalidOutputPath = "output.json";
+    private static String invalidOutputPath = "output.json";
     private ObjectMapper mapper = generateAndConfigureMapper();
 
     public void setInvalidOutputPath(String path) {
@@ -73,7 +73,6 @@ public class JacksonUtils {
         }
     }
 
-    // TODO: 2021-03-15 Trouver pourquoi cette méthode sort ses messages dans outputfile.json
     //Transforme le input(JSON) en Objet Customer et Claims
     public Customer jsonToCustomerInput(File src){
         Customer programInput = null;
