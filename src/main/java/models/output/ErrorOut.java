@@ -19,8 +19,8 @@ public class ErrorOut {
         this.description = error.getDescription();
     }
 
-    public ErrorOut(ErrorMessage error, int number) {
-        this.message = error.getMessage() + " pour la reclamation "+ number;
+    public ErrorOut(ErrorMessage error, int claimNumber) {
+        this.message = error.getMessage() + " pour la reclamation " + claimNumber;
         this.description = error.getDescription();
     }
 

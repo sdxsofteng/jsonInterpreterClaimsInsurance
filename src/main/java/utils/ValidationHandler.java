@@ -110,7 +110,7 @@ public class ValidationHandler {
     }
 
     public static void validateClaimType() {
-        if (treatmentNumber <= 0){
+        if (treatmentNumber == 0){
             jUtil.quitProgramWithErrorAndTracking(ErrorMessage.MISSING_CARE_NO, claimNumber);
         }
         if (presets.getAppropriateCareObject(treatmentNumber) == null){

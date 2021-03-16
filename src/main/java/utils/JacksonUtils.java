@@ -119,7 +119,7 @@ public class JacksonUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.exit(-1); // Code de sortie -1 signifie une erreur d'input
+        System.exit(-1);
     }
 
     public void quitProgramWithError(ErrorMessage error){
@@ -133,9 +133,9 @@ public class JacksonUtils {
         System.exit(error.getCode());
     }
 
-    public void quitProgramWithError(ErrorMessage error, int number){
+    public void quitProgramWithError(ErrorMessage error, int claimNumber){
         File outputErrorFile = new File(invalidOutputPath);
-        ErrorOut errorData = new ErrorOut(error, number);
+        ErrorOut errorData = new ErrorOut(error, claimNumber);
         try {
             mapper.writeValue(outputErrorFile, errorData);
         } catch (IOException e) {
