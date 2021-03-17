@@ -2,20 +2,17 @@ package utils;
 
 import models.input.CaresValues;
 
+/**
+ * Cette classe permet de faire les calculs monétaires de façon sécuritaire. Dans cette classe on prend le cout
+ * en float, on le transfere en int et ensuite on fait les calculs monétaires pour finalement renvoyer un int.
+ */
 public class Money {
 
     int valueInCents;
+    JacksonUtils overMaxIntegerCase = new JacksonUtils();
 
     public Money(float value) {
         this.valueInCents = convertFloatToInt(value);
-    }
-
-    public int getValueInCents() {
-        return valueInCents;
-    }
-
-    public void setValueInCents(int valueInCents) {
-        this.valueInCents = valueInCents;
     }
 
     private int convertFloatToInt(float value){
@@ -26,10 +23,11 @@ public class Money {
         return (float)value / 100;
     }
 
+    //Méthode principale pour calculer le montant a rembourser
     public float calculateAmountToRefund(float maxAmount, float refundPercentage, CaresValues careValue){
         int maxAmountCents = convertFloatToInt(maxAmount);
         int refundPercentageInt = convertFloatToInt(refundPercentage);
-        int refundAmount = this.valueInCents * refundPercentageInt / 100;
+        int refundAmount = calculateRefundAmountCents(refundPercentageInt);
         if (refundAmount > maxAmountCents && maxAmount != 0){
             refundAmount = maxAmountCents;
         }
@@ -37,6 +35,18 @@ public class Money {
         return  convertIntToFloat(refundAmount);
     }
 
+    //Calcul le montant à rembourser et vérifie si celui-ci est plus grand que le Integer.MAX de java. Si + grand
+    //on sort du programme en erreure.
+    private int calculateRefundAmountCents(int refundPercentageInt) {
+        int refundAmount = this.valueInCents * refundPercentageInt / 100;
+
+        if (refundAmount < 0){
+            overMaxIntegerCase.quitProgramWithErrorAndTracking();
+        }
+        return refundAmount;
+    }
+
+    //Ajustement du montant mensuel total et modification du remboursement si celui ci est atteint.
     private int adjustMonthlyMaxAmountCare(CaresValues careValue, int refundAmount){
         if (careValue.getMonthlyMaxExists()){
             if (refundAmount >= careValue.monthlyMaxAmountInCents){
