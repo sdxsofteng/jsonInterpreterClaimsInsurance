@@ -6,7 +6,7 @@ import models.analytics.ClaimCount;
 import models.input.CaresValues;
 import models.output.ClaimOut;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +19,8 @@ public class AnalyticsHandlerTest {
     static AnalyticsHandler analyticsHandler;
     static Analytics analytics;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+     void setUp() {
         analytics = new Analytics();
         analyticsHandler = new AnalyticsHandler(analytics);
     }
@@ -81,8 +81,8 @@ public class AnalyticsHandlerTest {
     }
 
     @Test
-    @DisplayName("Count claims increments total amount appropriately")
-    public void testClaimsCountCountsAppropriately() {
+    @DisplayName("Count claims increments total amount for a care appropriately")
+    public void testClaimsCountCountsCareAppropriately() {
         CareReference referenceObject = setUpCareReference();
         List<ClaimOut> claims = new ArrayList<>();
         claims.add(new ClaimOut(10, "2020-01-01", "0.00$"));
@@ -91,5 +91,17 @@ public class AnalyticsHandlerTest {
 
         assertEquals(1, analytics.getDeclaredCares().size());
         assertEquals(2, analytics.getDeclaredCares().get(0).getAmount());
+    }
+
+    @Test
+    @DisplayName("Count claims increments total global amount appropriately")
+    public void testClaimsCountCountsGlobalAppropriately() {
+        CareReference referenceObject = setUpCareReference();
+        List<ClaimOut> claims = new ArrayList<>();
+        claims.add(new ClaimOut(10, "2020-01-01", "0.00$"));
+        claims.add(new ClaimOut(11, "2020-01-01", "0.00$"));
+        analyticsHandler.countClaims(claims, referenceObject);
+
+        assertEquals(2, analytics.getNbRequestsApproved());
     }
 }

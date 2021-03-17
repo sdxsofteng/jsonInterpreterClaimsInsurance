@@ -1,5 +1,8 @@
 package utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class ConversionUtils {
 
     public static JacksonUtils jUtil = new JacksonUtils();
@@ -9,8 +12,6 @@ public class ConversionUtils {
 
         if (fileNumber.length() > 1) {
             contractType = fileNumber.substring(0, 1);
-        } else {
-            jUtil.quitProgramWithErrorAndTracking();
         }
         return contractType;
     }
@@ -20,8 +21,6 @@ public class ConversionUtils {
 
         if (fileNumber.length() > 1) {
             clientNo = fileNumber.substring(1);
-        } else {
-            jUtil.quitProgramWithErrorAndTracking();
         }
         return clientNo;
     }
@@ -42,5 +41,9 @@ public class ConversionUtils {
     
     public static String floatToString(float refundAmount){
         return String.format("%.2f$", refundAmount);
+    }
+
+    public static String removeDayFromDate(String yearMonthAndDayDate) {
+        return DateTimeFormatter.ofPattern("yyyy-MM").format(LocalDate.parse(yearMonthAndDayDate));
     }
 }

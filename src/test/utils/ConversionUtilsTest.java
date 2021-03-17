@@ -59,6 +59,14 @@ public class ConversionUtilsTest {
         assertTrue(isValid);
     }
 
+    @ParameterizedTest(name = "date: {0} => {1}")
+    @MethodSource("yearMonthDayAndEquivalentYYYYMMDatesSource")
+    @DisplayName("Date in YYYY-MM-DD should be properly stripped down to YYYY-MM.")
+    public void testIsValidYearAndMonthDateIdentifiesDatesCorrectly(String date, String expected) {
+        String actual = removeDayFromDate(date);
+        assertEquals(expected, actual);
+    }
+
     /**
      * Liste d'arguments pour les tests qui nécessitent un numéro de dossier (extraction du type de contrat)
      */
@@ -125,6 +133,18 @@ public class ConversionUtilsTest {
                 Arguments.of("1.50$"),
                 Arguments.of("12$"),
                 Arguments.of("1$")
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécéssites
+     * une liste de dates sous format YYYY-MM-DD et sont équivalent en YYYY-MM.
+     */
+    static Stream<Arguments> yearMonthDayAndEquivalentYYYYMMDatesSource() {
+        return Stream.of(
+                Arguments.of("2020-01-01", "2020-01"),
+                Arguments.of("2020-12-31", "2020-12"),
+                Arguments.of("2020-11-01", "2020-11")
         );
     }
 }

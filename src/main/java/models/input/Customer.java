@@ -2,6 +2,7 @@ package models.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import utils.ConversionUtils;
+import utils.ValidationHandler;
 
 import java.util.List;
 
@@ -11,24 +12,19 @@ import java.util.List;
 public class Customer {
 
     // private String fileNumber;
-    private String clientNumber;      //Variables d'objet
-    private String contractType;
+    private String contractType;      //Variables d'objet
+    private String clientNumber;
     private String claimPeriod;
     private List<Claim> claimList;  //Liste de claims contenant toutes les réclamations du client. Voir classe Claims.
 
     public Customer() {}
 
     public Customer(String fileNumber, String claimPeriod, List<Claim> claimList) {
-        //this.fileNumber = fileNumber;
-        this.clientNumber = ConversionUtils.extractClientNoFrom(fileNumber);
         this.contractType = ConversionUtils.extractContractTypeFrom(fileNumber);
+        this.clientNumber = ConversionUtils.extractClientNoFrom(fileNumber);
         this.claimPeriod = claimPeriod;
         this.claimList = claimList;
     }
-
-//    public String getFileNumber() {
-//        return fileNumber;
-//    }
 
     public String getClientNumber() {
         return clientNumber;
@@ -49,8 +45,8 @@ public class Customer {
     //Les propriétés JSON permettent de générer les informations entrantes dans les bons setters.
     @JsonProperty("dossier")
     public void setFileNumber(String fileNumber) {
-        this.clientNumber = ConversionUtils.extractClientNoFrom(fileNumber);
         this.contractType = ConversionUtils.extractContractTypeFrom(fileNumber);
+        this.clientNumber = ConversionUtils.extractClientNoFrom(fileNumber);
     }
 
     public void setClientNumber(String clientNumber) {

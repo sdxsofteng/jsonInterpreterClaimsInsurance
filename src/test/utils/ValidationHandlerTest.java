@@ -25,42 +25,6 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    @DisplayName("Day after the current day should be flagged invalid.")
-    public void testIsTodayOrEarlierWithFutureDate() {
-        LocalDate dateInFuture = LocalDate.now().plusDays(1); // The next day
-        String formattedDateString = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(dateInFuture);
-        boolean returnedValue = isTodayOrEarlier(formattedDateString);
-        assertFalse(returnedValue);
-    }
-
-    @Test
-    @DisplayName("Current day or before should be flagged as valid.")
-    public void testIsTodayOrEarlierWithCurrentDate() {
-        LocalDate dateInFuture = LocalDate.now();
-        String formattedDateString = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(dateInFuture);
-        boolean returnedValue = isTodayOrEarlier(formattedDateString);
-        assertTrue(returnedValue);
-    }
-
-    @Test
-    @DisplayName("Month after the current month should be flagged invalid.")
-    public void testIsThisMonthOrEarlierWithFutureDate() {
-        LocalDate dateInFuture = LocalDate.now().plusMonths(1); // The next month
-        String formattedDateString = DateTimeFormatter.ofPattern("yyyy-MM").format(dateInFuture);
-        boolean returnedValue = isThisMonthOrEarlier(formattedDateString);
-        assertFalse(returnedValue);
-    }
-
-    @Test
-    @DisplayName("Current month or before should be flagged as valid.")
-    public void testIsThisMonthOrEarlierWithCurrentDate() {
-        LocalDate dateInFuture = LocalDate.now();
-        String formattedDateString = DateTimeFormatter.ofPattern("yyyy-MM").format(dateInFuture);
-        boolean returnedValue = isThisMonthOrEarlier(formattedDateString);
-        assertTrue(returnedValue);
-    }
-
     @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("yearMonthDayDatesSource")
     @DisplayName("Date in YYYY-MM should be properly flagged as invalid/valid.")
@@ -74,14 +38,6 @@ public class ValidationHandlerTest {
     @DisplayName("Date in YYYY-MM should be properly flagged as invalid/valid.")
     public void testIsValidYearAndMonthDateIdentifiesDatesCorrectly(String date, boolean expected) {
         boolean actual = isValidYearAndMonthDate(date);
-        assertEquals(expected, actual);
-    }
-
-    @ParameterizedTest(name = "date: {0} => {1}")
-    @MethodSource("yearMonthDayAndEquivalentYYYYMMDatesSource")
-    @DisplayName("Date in YYYY-MM-DD should be properly stripped down to YYYY-MM.")
-    public void testIsValidYearAndMonthDateIdentifiesDatesCorrectly(String date, String expected) {
-        String actual = removeDayFromDate(date);
         assertEquals(expected, actual);
     }
 
@@ -143,18 +99,6 @@ public class ValidationHandlerTest {
                 Arguments.of("2020-00-01", false), Arguments.of("0000-12-12", false),
                 Arguments.of("2000-13-10", false), Arguments.of("1980-111-01", false),
                 Arguments.of("1980-11-011", false), Arguments.of("1980-02-31", false)
-        );
-    }
-
-    /**
-     * Liste d'arguments pour les tests qui nécéssites
-     * une liste de dates sous format YYYY-MM-DD et sont équivalent en YYYY-MM.
-     */
-    static Stream<Arguments> yearMonthDayAndEquivalentYYYYMMDatesSource() {
-        return Stream.of(
-                Arguments.of("2020-01-01", "2020-01"),
-                Arguments.of("2020-12-31", "2020-12"),
-                Arguments.of("2020-11-01", "2020-11")
         );
     }
 

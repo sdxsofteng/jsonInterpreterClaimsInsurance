@@ -54,13 +54,14 @@ public class AnalyticsHandler {
         for (ClaimOut claim: claims) {
             CaresValues care = careReference.getAppropriateCareObject(claim.getTreatmentNumber());
             countClaim(care);
+            addValidRequest();
         }
         return this;
     }
 
     private AnalyticsHandler countClaim(CaresValues care) {
         ClaimCount trackedClaim = analytics.getDeclaredCares()
-                .stream().filter(c -> c.getCareName() == care.getCareName()).findAny().orElse(null);
+                .stream().filter(c -> c.getCareName().equals(care.getCareName())).findAny().orElse(null);
         if (trackedClaim != null) {
             trackedClaim.setAmount(trackedClaim.getAmount() + 1);
         } else {
