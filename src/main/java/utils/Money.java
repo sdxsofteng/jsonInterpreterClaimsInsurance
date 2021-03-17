@@ -2,9 +2,12 @@ package utils;
 
 import models.input.CaresValues;
 
+import java.math.BigInteger;
+
 public class Money {
 
     int valueInCents;
+    JacksonUtils overMaxIntegerCase = new JacksonUtils();
 
     public Money(float value) {
         this.valueInCents = convertFloatToInt(value);
@@ -29,12 +32,22 @@ public class Money {
     public float calculateAmountToRefund(float maxAmount, float refundPercentage, CaresValues careValue){
         int maxAmountCents = convertFloatToInt(maxAmount);
         int refundPercentageInt = convertFloatToInt(refundPercentage);
-        int refundAmount = this.valueInCents * refundPercentageInt / 100;
+        int refundAmount = calculateRefundAmountCents(refundPercentageInt);
         if (refundAmount > maxAmountCents && maxAmount != 0){
             refundAmount = maxAmountCents;
         }
         refundAmount = adjustMonthlyMaxAmountCare(careValue, refundAmount);
         return  convertIntToFloat(refundAmount);
+    }
+
+    private int calculateRefundAmountCents(int refundPercentageInt) {
+
+        int refundAmount = this.valueInCents * refundPercentageInt / 100;
+
+        if (refundAmount < 0){
+            overMaxIntegerCase.quitProgramWithErrorAndTracking();
+        }
+        return refundAmount;
     }
 
     private int adjustMonthlyMaxAmountCare(CaresValues careValue, int refundAmount){
