@@ -2,7 +2,7 @@ package utils;
 
 
 import models.input.CaresValues;
-import models.output.ErrorMessage;
+import models.output.Message;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -39,43 +39,29 @@ public class JacksonUtilsTest {
         assertEquals("A", parsedCare.getContractTypeValues().get(0).getType());
     }
 
-    @Test
-    @DisplayName("Tests quitting program with default error code." +
-            "Does not test message output.")
-    @ExpectSystemExitWithStatus(-1)
-    public void testQuitProgramWithErrorNoParams() {
-        jUtil.quitProgramWithError();
-    }
 
     @Test
     @DisplayName("Tests quitting program with parametrized error message." +
             "Does not test message output.")
     @ExpectSystemExitWithStatus(-4)
-    public void testQuitProgramWithErrorMessageM20() {
-        jUtil.quitProgramWithError(ErrorMessage.INVALID_INPUT_FILE);
+    public void testExitWithErrorMessageM4() {
+        jUtil.exitWithError(Message.INVALID_INPUT_FILE);
     }
 
     @Test
     @DisplayName("Tests quitting program with parametrized error message." +
             "Does not test message output.")
     @ExpectSystemExitWithStatus(-10)
-    public void testQuitProgramWithErrorMessageM40() {
-        jUtil.quitProgramWithError(ErrorMessage.MISSING_FILENUMBER);
+    public void testExitWithErrorMessageM10() {
+        jUtil.exitWithError(Message.MISSING_FILENUMBER);
     }
 
     @Test
     @DisplayName("Tests quitting program with parametrized error message and cLaim number." +
             "Does not test message output.")
     @ExpectSystemExitWithStatus(-23)
-    public void testQuitProgramWithErrorMessageAndClaimNumberM90() {
-        jUtil.quitProgramWithError(ErrorMessage.INVALID_CLAIM_DATE, 2);
+    public void testExitWithErrorMessageAndClaimNumber() {
+        jUtil.exitWithError(Message.INVALID_CLAIM_DATE);
     }
 
-    @Test
-    @DisplayName("Tests quitting program with parametrized error message and cLaim number." +
-            "Does not test message output.")
-    @ExpectSystemExitWithStatus(-24)
-    public void testQuitProgramWithErrorMessageAndClaimNumber() {
-        jUtil.quitProgramWithError(ErrorMessage.MISSING_TREATMENT_COST, 3);
-    }
 }

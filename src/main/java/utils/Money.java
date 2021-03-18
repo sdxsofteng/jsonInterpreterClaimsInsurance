@@ -1,6 +1,7 @@
 package utils;
 
 import models.input.CaresValues;
+import models.output.Message;
 
 /**
  * Cette classe permet de faire les calculs monétaires de façon sécuritaire. Dans cette classe on prend le cout
@@ -16,14 +17,14 @@ public class Money {
     }
 
     private int convertFloatToInt(float value){
-        return (int)Math.round(value * 100);
+        return Math.round(value * 100);
     }
 
     private float convertIntToFloat(int value){
         return (float)value / 100;
     }
 
-    //Méthode principale pour calculer le montant a rembourser
+    // Méthode principale pour calculer le montant a rembourser
     public float calculateAmountToRefund(float maxAmount, float refundPercentage, CaresValues careValue){
         int maxAmountCents = convertFloatToInt(maxAmount);
         int refundPercentageInt = convertFloatToInt(refundPercentage);
@@ -35,18 +36,18 @@ public class Money {
         return  convertIntToFloat(refundAmount);
     }
 
-    //Calcul le montant à rembourser et vérifie si celui-ci est plus grand que le Integer.MAX de java. Si + grand
-    //on sort du programme en erreure.
+    // Calcul le montant à rembourser et vérifie si celui-ci est plus grand que le Integer.MAX de java.
+    // Si + grand on sort du programme en erreur.
     private int calculateRefundAmountCents(int refundPercentageInt) {
         int refundAmount = this.valueInCents * refundPercentageInt / 100;
 
         if (refundAmount < 0){
-            overMaxIntegerCase.quitProgramWithErrorAndTracking();
+            overMaxIntegerCase.logStatsAndExitWithError(Message.OVER_MAX_INTEGER);
         }
         return refundAmount;
     }
 
-    //Ajustement du montant mensuel total et modification du remboursement si celui ci est atteint.
+    // Ajustement du montant mensuel total et modification du remboursement si celui ci est atteint.
     private int adjustMonthlyMaxAmountCare(CaresValues careValue, int refundAmount){
         if (careValue.getMonthlyMaxExists()){
             if (refundAmount >= careValue.monthlyMaxAmountInCents){

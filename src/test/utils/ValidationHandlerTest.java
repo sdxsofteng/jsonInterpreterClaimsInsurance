@@ -1,8 +1,9 @@
 package utils;
 
+import models.output.InvalidInvoiceException;
+import models.output.Message;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -11,11 +12,53 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.*;
 import static utils.ValidationHandler.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
 public class ValidationHandlerTest {
+
+    @ParameterizedTest(name = "date: {0} => {1}")
+    @MethodSource("emptyFieldExceptionSource")
+    @DisplayName("File number should not be empty")
+    public void testCheckIfFileNumberIsPresentException(String inputString, Message expected){
+        contractType = inputString;
+
+        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
+                ValidationHandler::checkIfFileNumberIsPresent);
+
+        Message actualMessage = exception.getErrorMessage();
+        assertEquals(expected, actualMessage);
+    }
+
+    @ParameterizedTest(name = "date: {0} => {1}")
+    @MethodSource("emptyFieldSource")
+    @DisplayName("File number should not be empty")
+    public void testCheckIfFileNumberIsPresent(String inputString, boolean expected){
+        contractType = inputString;
+        boolean actual = true;
+        try {
+            checkIfFileNumberIsPresent();
+        } catch (Exception e) {
+            actual = false;
+        }
+        assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest(name = "String: {0} => {1}")
+    @MethodSource("sixDigitSource")
+    @DisplayName("String should be six digits long")
+    public void testIsValidClientNoProperlyValidatesString(String inputString,  boolean expected) {
+        clientNo = inputString;
+        boolean actual = isValidClientNo();
+        assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest(name = "String: {0} => {1}")
+    @MethodSource("specificLengthSource")
+    @DisplayName("String should be requested length.")
+    public void testIsSpecificLengthProperlyValidatesString(String inputString, int length,  boolean expected) {
+        boolean actual = isSpecificLength(inputString, length);
+        assertEquals(expected, actual);
+    }
 
     @ParameterizedTest(name = "String: {0} => {1}")
     @MethodSource("numberStringsSource")
@@ -26,10 +69,68 @@ public class ValidationHandlerTest {
     }
 
     @ParameterizedTest(name = "date: {0} => {1}")
+    @MethodSource("yearMonthDatesInvalidValuesSource")
+    @DisplayName("Invalid date in YYYY-MM should throw proper exception.")
+    void testValidateDateFormatThrowsIncorrectDateException(String date, Message expected) {
+        invoiceDate = date;
+
+        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
+                ValidationHandler::validateInvoiceDate);
+
+        Message actualMessage = exception.getErrorMessage();
+        assertEquals(expected, actualMessage);
+    }
+
+    @ParameterizedTest(name = "date: {0} => {1}")
+    @MethodSource("yearMonthDatesSource")
+    @DisplayName("Date in YYYY-MM should be properly flagged as invalid/valid.")
+    void testValidateDateFormatDontThrowException(String date, boolean expected) {
+        invoiceDate = date;
+        boolean actual = true;
+
+        try {
+            validateInvoiceDate();
+        } catch (Exception e) {
+            actual = false;
+        }
+        assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest(name = "date: {0} => {1}")
+    @MethodSource("compareDatesIncorrectDateSource")
+    @DisplayName("Date in YYYY-MM should be properly flagged as invalid.")
+    void testValidateClaimIncorrectDateException(String claimDateString, String invoiceDateString, Message expected){
+        claimDate = claimDateString;
+        invoiceDate = invoiceDateString;
+
+        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
+                ValidationHandler::validateClaimDate);
+
+        Message actualMessage = exception.getErrorMessage();
+        assertEquals(expected, actualMessage);
+    }
+
+    @ParameterizedTest(name = "date: {0} => {1}")
+    @MethodSource("compareDatesSource")
+    @DisplayName("Invalid claim date should throw exception.")
+    public void testValidateClaimDate(String claimDateString, String invoiceDateString, boolean expected){
+        claimDate = claimDateString;
+        invoiceDate = invoiceDateString;
+        boolean actual = true;
+
+        try {
+            validateClaimDate();
+        } catch (InvalidInvoiceException e) {
+            actual = false;
+        }
+        assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("yearMonthDayDatesSource")
     @DisplayName("Date in YYYY-MM should be properly flagged as invalid/valid.")
     public void testIsValidYearMonthAndDayDateIdentifiesDatesCorrectly(String date, boolean expected) {
-        boolean actual = isValidDateFormatYMD(date);
+        boolean actual = isValidYearMonthDayDateFormat(date);
         assertEquals(expected, actual);
     }
 
@@ -37,8 +138,21 @@ public class ValidationHandlerTest {
     @MethodSource("yearMonthDatesSource")
     @DisplayName("Date in YYYY-MM should be properly flagged as invalid/valid.")
     public void testIsValidYearAndMonthDateIdentifiesDatesCorrectly(String date, boolean expected) {
-        boolean actual = isValidYearAndMonthDate(date);
+        boolean actual = isValidYearMonthOnlyDateFormat(date);
         assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest(name = "date: {0} => {1}")
+    @MethodSource("costStringsIncorrectSource")
+    @DisplayName("Date in YYYY-MM should be properly flagged as invalid.")
+    void testValidateCostException(String cost, Message expected) {
+        treatmentCost = cost;
+
+        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
+                ValidationHandler::validateCost);
+
+        Message actualMessage = exception.getErrorMessage();
+        assertEquals(expected, actualMessage);
     }
 
     @ParameterizedTest(name = "cost: {0} => {1}")
@@ -49,18 +163,64 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
+
+
     @Disabled("Need to adapt for new functions")
     @ParameterizedTest(name = "argsLength: {0}")
     @DisplayName("Program should fail if called with anything besides 2 arguments.")
     @ValueSource(ints = {0, 1, 2, 3, Integer.MAX_VALUE})
     public void testValidateArgsLengthIsOnlyValidWhenEqualTo2(int argsLength) {
-        /*boolean expected = argsLength == 2;
-        boolean actual = hasValidRefundInputArgs(argsLength);
-        assertEquals(expected, actual);*/
+        boolean expected = argsLength == 2;
+        //boolean actual = validateArgs(argsLength);
+        //assertEquals(expected, actual);
     }
 
     /**
-     * Liste d'arguments pour les tests qui nécéssites une liste de cout.
+     * Liste d'arguments pour les tests qui nécessitent une chaine d'une non-vide.
+     * Contient des dates invalides pour tester les exceptions.
+     */
+    static Stream<Arguments> emptyFieldExceptionSource() {
+        return Stream.of(
+                Arguments.of("", Message.MISSING_FILENUMBER),
+                Arguments.of(null, Message.MISSING_FILENUMBER)
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent une chaine d'une non-vide.
+     * Contient des chaines invalides pour tester toutes les formulations potentielles d'une chaine valide et invalide.
+     */
+    static Stream<Arguments> emptyFieldSource() {
+        return Stream.of(
+                Arguments.of("123456", true), Arguments.of("ABC", true), Arguments.of("5", true),
+                Arguments.of("", false), Arguments.of(null, false)
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent une numéro de client de six chiffres.
+     * Contient des chaines invalides pour tester toutes les formulations potentielles d'une chaine valide et invalide.
+     */
+    static Stream<Arguments> sixDigitSource() {
+        return Stream.of(
+                Arguments.of("123456", true), Arguments.of("7654321", false), Arguments.of("45123", false),
+                Arguments.of("K1G3N5", false), Arguments.of("", false), Arguments.of(null, false)
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent une chaine d'une certaine longueur.
+     * Contient des chaines invalides pour tester toutes les formulations potentielles d'une chaine valide et invalide.
+     */
+    static Stream<Arguments> specificLengthSource() {
+        return Stream.of(
+                Arguments.of("123456", 6, true), Arguments.of("ABC", 3, true), Arguments.of("555-TEST", 8, true),
+                Arguments.of("14/12/75", 2, false), Arguments.of("", 6, false), Arguments.of("123456", 5, false)
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent une liste de cout.
      * Contient des couts invalides pour tester toutes les formulations potentielles d'un cout valide et invalide.
      */
     static Stream<Arguments> costStringsSource() {
@@ -77,19 +237,20 @@ public class ValidationHandlerTest {
     }
 
     /**
-     * Liste d'arguments pour les tests qui nécéssites une liste de dates sous format YYYY-MM.
+     * Liste d'arguments pour les tests qui nécessitent une liste de dates sous format YYYY-MM.
      * Contient des dates invalides pour tester toutes les formulations potentielles d'une date valide et invalide.
      */
     static Stream<Arguments> yearMonthDatesSource() {
         return Stream.of(
                 Arguments.of("2020-01", true), Arguments.of("2020-12", true), Arguments.of("2000-01", true),
                 Arguments.of("1980-01", true), Arguments.of("2020-00", false), Arguments.of("0000-12", false),
-                Arguments.of("2000-13", false), Arguments.of("1980-111", false)
-        );
+                Arguments.of("2000-13", false), Arguments.of("1980-111", false), Arguments.of("1978-11-18", false),
+                Arguments.of("1945-1", false), Arguments.of("", false)
+                );
     }
 
     /**
-     * Liste d'arguments pour les tests qui nécéssites une liste de dates sous format YYYY-MM-DD.
+     * Liste d'arguments pour les tests qui nécessitent une liste de dates sous format YYYY-MM-DD.
      * Contient des dates invalides pour tester toutes les formulations potentielles d'une date valide et invalide.
      */
     static Stream<Arguments> yearMonthDayDatesSource() {
@@ -98,12 +259,13 @@ public class ValidationHandlerTest {
                 Arguments.of("2000-01-01", true), Arguments.of("1980-01-01", true),
                 Arguments.of("2020-00-01", false), Arguments.of("0000-12-12", false),
                 Arguments.of("2000-13-10", false), Arguments.of("1980-111-01", false),
-                Arguments.of("1980-11-011", false), Arguments.of("1980-02-31", false)
+                Arguments.of("1980-11-011", false), Arguments.of("1980-02-31", false),
+                Arguments.of("", false)
         );
     }
 
     /**
-     * Liste d'arguments pour les tests qui nécéssites des nombres en String
+     * Liste d'arguments pour les tests qui nécessitent des nombres en String
      */
     static Stream<Arguments> numberStringsSource() {
         return Stream.of(
@@ -117,4 +279,58 @@ public class ValidationHandlerTest {
                 Arguments.of("2,2", false)
         );
     }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent une date invalide sous format YYYY-MM.
+     * Contient des dates invalides pour tester les exceptions.
+     */
+    static Stream<Arguments> yearMonthDatesInvalidValuesSource() {
+        return Stream.of(
+                Arguments.of("2020-00", Message.INCORRECT_INVOICE_DATE),
+                Arguments.of("0000-12", Message.INCORRECT_INVOICE_DATE),
+                Arguments.of("2000-13", Message.INCORRECT_INVOICE_DATE),
+                Arguments.of("1980-111", Message.INCORRECT_INVOICE_DATE),
+                Arguments.of("1978-11-18", Message.INCORRECT_INVOICE_DATE),
+                Arguments.of("1945-1", Message.INCORRECT_INVOICE_DATE),
+                Arguments.of(null, Message.MISSING_INVOICE_DATE),
+                Arguments.of("", Message.MISSING_INVOICE_DATE)
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent une date invalide sous format YYYY-MM-DD.
+     * Contient des dates invalides pour tester les exceptions.
+     */
+    static Stream<Arguments> compareDatesIncorrectDateSource() {
+        return Stream.of(
+                Arguments.of("2015-10-21", "1955-10", Message.INVALID_CLAIM_DATE),
+                Arguments.of("1945-09", "1945-09", Message.INVALID_CLAIM_DATE),
+                Arguments.of("", "1955-10", Message.MISSING_CLAIM_DATE),
+                Arguments.of(null, "1955-10", Message.MISSING_CLAIM_DATE)
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent une date sous format YYYY-MM-DD.
+     * Contient des chaines invalides pour tester toutes les formulations potentielles d'une chaine valide et invalide.
+     */
+    static Stream<Arguments> compareDatesSource() {
+        return Stream.of(
+                Arguments.of("1975-12-14", "1975-12", true), Arguments.of("2013-04-27", "2013-04", true),
+                Arguments.of("2015-10-21", "1955-10", false)
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent un cout invalide.
+     * Contient des champs invalides pour tester les exceptions.
+     */
+    static Stream<Arguments> costStringsIncorrectSource() {
+        return Stream.of(
+                Arguments.of("Mathieu", Message.INVALID_TREATMENT_COST),
+                Arguments.of(null, Message.MISSING_TREATMENT_COST),
+                Arguments.of("", Message.MISSING_TREATMENT_COST)
+        );
+    }
+
 }

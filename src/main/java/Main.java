@@ -1,12 +1,12 @@
 import models.input.Customer;
 import models.output.CustomerOut;
 
-import models.output.ErrorMessage;
 import utils.*;
 
 import java.io.File;
 import java.io.InputStream;
 
+import static utils.ValidationHandler.validateArgsWereGiven;
 import static utils.ValidationHandler.validateArgs;
 
 public class Main {
@@ -22,7 +22,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        if (args.length == 0) { jUtil.quitProgramWithError(ErrorMessage.MISSING_ARGUMENTS); }
+        validateArgsWereGiven(args.length);
         if (args[0].equals("-S")) {
             launchStatsDisplayProgram(args);
         } else if (args[0].equals("-SR")) {
@@ -38,7 +38,7 @@ public class Main {
         ValidationHandler.ValidateInvoice(customerInfo, referenceObject);
         refundHandler.processRefund(customerInfo, referenceObject);
         customerOut = OutputHandler.customerToOut(customerInfo);
-        jUtil.quitProgramWithData(normalOutputFile, customerOut, referenceObject);
+        jUtil.exitWithData(normalOutputFile, customerOut, referenceObject);
     }
 
     public static void launchStatsResetProgram(String[] args) {
