@@ -15,8 +15,8 @@ public class ValidationHandler {
 
     public final static int CLIENT_NUM_LENGTH = 6;
     public static JacksonUtils jUtil = new JacksonUtils();
-    private static Customer customer;
-    private static CareReference presets;
+    protected static Customer customer;
+    protected static CareReference presets;
     protected static String contractType;
     protected static String clientNo;
     protected static String invoiceDate;
@@ -97,7 +97,7 @@ public class ValidationHandler {
     }
 
     public static void validateAllClaims(List<Claim> claimList) throws InvalidInvoiceException {
-        if (claimList == null){
+        if (claimList == null || claimList.isEmpty()){
             throw new InvalidInvoiceException(Message.MISSING_CLAIMS);
         }
         for (Claim claim : claimList) {

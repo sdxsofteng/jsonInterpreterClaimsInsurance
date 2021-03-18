@@ -1,9 +1,13 @@
 package utils;
 
+import models.input.Claim;
+import models.input.Customer;
 import models.output.InvalidInvoiceException;
 import models.output.Message;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -12,9 +16,36 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.*;
 import static utils.ValidationHandler.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class ValidationHandlerTest {
+
+    CareReference testCareReference;
+    static Customer testCustomer;
+
+
+    @Test
+    @DisplayName("Customer object variables should be transferred to local variables.")
+    public void testSetVariables() {
+        testCareReference = new CareReference();
+        testCustomer = new Customer();
+
+        String testContractType = "A";
+        String testClientNumber = "123456";
+        String testClaimPeriod = "2020-09";
+
+        testCustomer.setContractType(testContractType);
+        testCustomer.setClientNumber(testClientNumber);
+        testCustomer.setClaimPeriod(testClaimPeriod);
+
+        setVariables(testCustomer, testCareReference);
+
+        assertTrue(testCustomer.getContractType().equals(testContractType)
+                && testCustomer.getClientNumber().equals(testClientNumber)
+                && testCustomer.getClaimPeriod().equals(testClaimPeriod));
+    }
 
     @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("emptyFieldExceptionSource")
@@ -68,6 +99,41 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
+
+    @Test
+    @DisplayName("Empty claimlist should throw exception")
+    public void testValidateAllClaimsException(){
+        List<Claim> claimList = new ArrayList<>();
+
+        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
+                () -> validateAllClaims(claimList));
+
+        Message actualMessage = exception.getErrorMessage();
+        Message expectedMessage = Message.MISSING_CLAIMS;
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    @Test
+    @DisplayName("Single claim variables should be transferred to local variables.")
+    public void testSetClaimVariables() {
+        int testTreatmentNumber = 666;
+        String testClaimDate = "2015-10-21";
+        String testTreatmentCost = "1,49$";
+        int testClaimNumber = 14;
+
+        Claim testClaim = new Claim(testTreatmentNumber, testClaimDate, testTreatmentCost);
+        claimNumber = testClaimNumber;
+
+        setClaimVariables(testClaim);
+
+        assertTrue(claimNumber == testClaimNumber +1
+                && testClaim.getTreatmentNumber() == treatmentNumber
+                && testClaim.getClaimDate().equals(testClaimDate)
+                && testClaim.getTreatmentCost().equals(treatmentCost)
+                && testClaim.getClaimDate().equals(claimDate));
+    }
+
     @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("yearMonthDatesInvalidValuesSource")
     @DisplayName("Invalid date in YYYY-MM should throw proper exception.")
@@ -98,7 +164,7 @@ public class ValidationHandlerTest {
 
     @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("compareDatesIncorrectDateSource")
-    @DisplayName("Date in YYYY-MM should be properly flagged as invalid.")
+    @DisplayName("Date in YYYY-MM-DD should be properly flagged as invalid.")
     void testValidateClaimIncorrectDateException(String claimDateString, String invoiceDateString, Message expected){
         claimDate = claimDateString;
         invoiceDate = invoiceDateString;
