@@ -55,7 +55,7 @@ public class Main {
     }
 
     public static void initializeObjects(String commandLineArgOne, String commandLineArgTwo) {
-        jUtil.setInvalidOutputPath(commandLineArgTwo);
+        jUtil.setErrorOutputPath(commandLineArgTwo);
         File firstCliArgument = new File(commandLineArgOne);
         customerInfo = jUtil.jsonToCustomerInput(firstCliArgument);
         InputStream referenceFile = Main.class.getClassLoader().getResourceAsStream(JSON_REFERENCE_PATH);

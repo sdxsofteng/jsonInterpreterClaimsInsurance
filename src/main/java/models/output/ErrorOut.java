@@ -8,12 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ErrorOut {
     private String message = Message.DEFAULT_ERROR.getMessage();
 
-    public ErrorOut() {
-    }
-
-    public ErrorOut(Message error) {
-        this.message = error.getMessage();
-    }
+//    public ErrorOut() {
+//    }
+//
+//    public ErrorOut(Message error) {
+//        this.message = error.getMessage();
+//    }
 
     public ErrorOut(Message error, int claimNumber) {
         if (claimNumber > 0) {

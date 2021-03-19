@@ -39,6 +39,15 @@ public class JacksonUtilsTest {
         assertEquals("A", parsedCare.getContractTypeValues().get(0).getType());
     }
 
+    @Test
+    @DisplayName("Error output path variable should be set to specified value.  ")
+    public void testSetInvalidOutputPath(){
+        String testOutputpath = "test.json";
+
+        jsonUtil.setErrorOutputPath(testOutputpath);
+
+        assertEquals(testOutputpath, jsonUtil.getErrorOutputPath());
+    }
 
     @Test
     @DisplayName("Tests quitting program with parametrized error message." +
@@ -54,6 +63,14 @@ public class JacksonUtilsTest {
     @ExpectSystemExitWithStatus(-10)
     public void testExitWithErrorMessageM10() {
         jUtil.exitWithError(Message.MISSING_FILENUMBER);
+    }
+
+    @Test
+    @DisplayName("Tests quitting program with parametrized error message." +
+            "Does not test message output.")
+    @ExpectSystemExitWithStatus(-21)
+    public void testExitWithErrorMessageM21() {
+        jUtil.exitWithError(Message.INVALID_CARE_NO, 2);
     }
 
     @Test

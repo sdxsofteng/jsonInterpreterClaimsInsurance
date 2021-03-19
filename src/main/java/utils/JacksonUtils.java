@@ -25,7 +25,11 @@ public class JacksonUtils {
     private static String errorOutputPath = "output.json";
     private ObjectMapper mapper = generateAndConfigureMapper();
 
-    public void setInvalidOutputPath(String path) {
+    public String getErrorOutputPath() {
+        return errorOutputPath;
+    }
+
+    public void setErrorOutputPath(String path) {
         errorOutputPath = path;
     }
 
