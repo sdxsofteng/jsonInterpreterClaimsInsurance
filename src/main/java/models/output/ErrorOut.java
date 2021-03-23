@@ -1,5 +1,6 @@
 package models.output;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -24,6 +25,7 @@ public class ErrorOut {
         return message;
     }
 
+    @JsonIgnore
     public int getCode() {
         return code;
     }
