@@ -31,7 +31,6 @@ public enum Message {
     MISSING_TREATMENT_COST( -24, "Montant de soin manquant"),
     INVALID_TREATMENT_COST( -25, "Montant de soin invalide"),
 
-    // TODO: 2021-03-17   Écrire un message d'erreur pour le overMaxIntegerCase
     OVER_MAX_INTEGER( -99, "Montant de réclamation trop élevé"),
 
     ;

@@ -1,6 +1,7 @@
 package utils;
 
 import models.input.CaresValues;
+import models.output.ErrorOut;
 import models.output.Message;
 
 /**
@@ -42,7 +43,7 @@ public class Money {
         int refundAmount = this.valueInCents * refundPercentageInt / 100;
 
         if (refundAmount < 0){
-            overMaxIntegerCase.logStatsAndExitWithError(Message.OVER_MAX_INTEGER);
+            overMaxIntegerCase.logStatsAndExitWithError(new ErrorOut(Message.OVER_MAX_INTEGER));
         }
         return refundAmount;
     }

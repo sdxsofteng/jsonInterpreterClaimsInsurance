@@ -50,7 +50,7 @@ public class JacksonUtils {
         try {
             analytics = readAnalyticsFromFile(path);
         } catch (IOException e) {
-            exitWithError(Message.ANALYTICS_FILE_READ_FAILURE);
+            exitWithError(new ErrorOut(Message.ANALYTICS_FILE_READ_FAILURE));
         }
         return analytics;
     }
@@ -71,7 +71,7 @@ public class JacksonUtils {
             //analyticsFile.createNewFile();
             mapper.writerWithDefaultPrettyPrinter().writeValue(analyticsFile, analytics);
         } catch (IOException e) {
-            exitWithError(Message.ANALYTICS_FILE_WRITE_FAILURE);
+            exitWithError(new ErrorOut(Message.ANALYTICS_FILE_WRITE_FAILURE));
         }
     }
 
@@ -81,8 +81,8 @@ public class JacksonUtils {
         try {
             programInput = mapper.readValue(src, Customer.class);
         } catch (JsonMappingException jme) {
-            logStatsAndExitWithError(Message.INVALID_INPUT_FILE);
-        } catch (IOException e) { exitWithError(Message.INVALID_INPUT_FILE); }
+            logStatsAndExitWithError(new ErrorOut(Message.INVALID_INPUT_FILE));
+        } catch (IOException e) { exitWithError(new ErrorOut(Message.INVALID_INPUT_FILE)); }
         return programInput;
     }
 
@@ -92,29 +92,25 @@ public class JacksonUtils {
         try {
             referenceInput = mapper.readValue(src, CareReference.class);
         } catch (IOException e) {
-            exitWithError(Message.INVALID_REFERENCE_FILE);
+            exitWithError(new ErrorOut(Message.INVALID_REFERENCE_FILE));
         }
         return referenceInput;
     }
 
     //Lorsqu'une erreur est détectée on sort du programme et crée un fichier de sortie en JSON
-    public void logStatsAndExitWithError(Message error){
-        logStatsAndExitWithError(error, 0);
-    }
+//    public void logStatsAndExitWithError(Message error){
+//        logStatsAndExitWithError(error, 0);
+//    }
 
-    public void logStatsAndExitWithError(Message error, int claimNumber){
+    public void logStatsAndExitWithError(ErrorOut error){
         new AnalyticsHandler(ANALYTICS_PATH).addInvalidRequest().save();
-        exitWithError(error, claimNumber);
+        exitWithError(error);
     }
 
-    public void exitWithError(Message error){
-        exitWithError(error, 0);
-    }
-
-    public void exitWithError(Message error, int claimNumber){
+    public void exitWithError(ErrorOut error){
         File outputErrorFile = new File(errorOutputPath);
         try {
-            mapper.writeValue(outputErrorFile, new ErrorOut(error, claimNumber));
+            mapper.writeValue(outputErrorFile, error);
         } catch (IOException e) {
             e.printStackTrace();
         }

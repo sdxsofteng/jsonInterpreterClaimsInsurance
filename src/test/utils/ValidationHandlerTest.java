@@ -4,7 +4,7 @@ import models.input.Claim;
 import models.input.Customer;
 import models.output.InvalidInvoiceException;
 import models.output.Message;
-import org.junit.jupiter.api.BeforeAll;
+import org.iq80.snappy.Main;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +16,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.*;
 import static utils.ValidationHandler.*;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -24,6 +25,8 @@ public class ValidationHandlerTest {
 
     CareReference testCareReference;
     static Customer testCustomer;
+    CareReference testPresets = jUtil.jsonToReference(Main.class.getClassLoader().getResourceAsStream("claimsReference.json"));
+
 
 
     @Test
@@ -47,20 +50,53 @@ public class ValidationHandlerTest {
                 && testCustomer.getClaimPeriod().equals(testClaimPeriod));
     }
 
-    @ParameterizedTest(name = "date: {0} => {1}")
+    @ParameterizedTest(name = "file number: {0} => {1}")
     @MethodSource("emptyFieldExceptionSource")
-    @DisplayName("File number should not be empty")
-    public void testCheckIfFileNumberIsPresentException(String inputString, Message expected){
+    @DisplayName("Empty file number should throw proper exception.")
+    public void testCheckIfFileNumberIsPresentException(String inputString, String expected){
         contractType = inputString;
 
         InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
                 ValidationHandler::checkIfFileNumberIsPresent);
 
-        Message actualMessage = exception.getErrorMessage();
+        String actualMessage = exception.getMessage();
         assertEquals(expected, actualMessage);
     }
 
-    @ParameterizedTest(name = "date: {0} => {1}")
+    @ParameterizedTest(name = "file number: {0} => {1}")
+    @MethodSource("validateFileNumberIncorrectSource")
+    @DisplayName("Invalid file number should throw proper exception.")
+    void testValidateFileNumberIncorrectTypeException(String contractTypeString, String clientNoString,
+                                                      String expected){
+        contractType = contractTypeString;
+        clientNo = clientNoString;
+        presets = testPresets;
+
+        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
+                ValidationHandler::validateFileNumber);
+
+        String actualMessage = exception.getMessage();
+        assertEquals(expected, actualMessage);
+    }
+
+    @ParameterizedTest(name = "String: {0} => {1}")
+    @MethodSource("fileNumberSource")
+    @DisplayName("File number should not be empty")
+    public void testValidateFileNumber(String contractTypeString, String clientNoString, boolean expected){
+        contractType = contractTypeString;
+        clientNo = clientNoString;
+        presets = testPresets;
+
+        boolean actual = true;
+        try {
+            validateFileNumber();
+        } catch (Exception e) {
+            actual = false;
+        }
+        assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest(name = "String: {0} => {1}")
     @MethodSource("emptyFieldSource")
     @DisplayName("File number should not be empty")
     public void testCheckIfFileNumberIsPresent(String inputString, boolean expected){
@@ -71,6 +107,17 @@ public class ValidationHandlerTest {
         } catch (Exception e) {
             actual = false;
         }
+        assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest(name = "String: {0} => {1}")
+    @MethodSource("contractTypeSource")
+    @DisplayName("Contract Type should be present in presets.")
+    public void testIsAContractTypeThatExistsInPresets(String inputString, boolean expected){
+        contractType = inputString;
+        presets = testPresets;
+
+        boolean actual = isAContractTypeThatExistsInPresets();
         assertEquals(expected, actual);
     }
 
@@ -108,8 +155,8 @@ public class ValidationHandlerTest {
         InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
                 () -> validateAllClaims(claimList));
 
-        Message actualMessage = exception.getErrorMessage();
-        Message expectedMessage = Message.MISSING_CLAIMS;
+        String actualMessage = exception.getMessage();
+        String expectedMessage = Message.MISSING_CLAIMS.getMessage();
 
         assertEquals(expectedMessage, actualMessage);
     }
@@ -137,13 +184,13 @@ public class ValidationHandlerTest {
     @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("yearMonthDatesInvalidValuesSource")
     @DisplayName("Invalid date in YYYY-MM should throw proper exception.")
-    void testValidateDateFormatThrowsIncorrectDateException(String date, Message expected) {
+    void testValidateDateFormatThrowsIncorrectDateException(String date, String expected) {
         invoiceDate = date;
 
         InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
                 ValidationHandler::validateInvoiceDate);
 
-        Message actualMessage = exception.getErrorMessage();
+        String actualMessage = exception.getMessage();
         assertEquals(expected, actualMessage);
     }
 
@@ -162,17 +209,68 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
+
+
+
+
+
+
+
+    @ParameterizedTest
+    @MethodSource("claimContentSource")
+    @DisplayName("Claim should be properly flagged as invalid/valid.")
+    void testValidateClaim(int treatment, String date, String cost,
+                           String invoiceDateString, boolean expected) {
+        treatmentNumber = treatment;
+        claimDate = date;
+        treatmentCost = cost;
+        invoiceDate = invoiceDateString;
+        presets = testPresets;
+
+        boolean actual = true;
+
+        try {
+            validateClaim();
+        } catch (Exception e) {
+            actual = false;
+        }
+        assertEquals(expected, actual);
+    }
+
+
+
+
+
+
+
+
+
+
+    @ParameterizedTest(name = "date: {0} => {1}")
+    @MethodSource("claimTypeIncorrectSource")
+    @DisplayName("Invalid claim type should throw proper exception.")
+    void testValidateClaimIncorrectTypeException(int claimTypeString, String expected){
+        treatmentNumber = claimTypeString;
+        presets = testPresets;
+
+        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
+                ValidationHandler::validateClaimType);
+
+        String actualMessage = exception.getMessage();
+        assertEquals(expected, actualMessage);
+    }
+
     @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("compareDatesIncorrectDateSource")
     @DisplayName("Date in YYYY-MM-DD should be properly flagged as invalid.")
-    void testValidateClaimIncorrectDateException(String claimDateString, String invoiceDateString, Message expected){
+    void testValidateClaimIncorrectDateException(String claimDateString, String invoiceDateString, String expected){
         claimDate = claimDateString;
         invoiceDate = invoiceDateString;
 
         InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
                 ValidationHandler::validateClaimDate);
 
-        Message actualMessage = exception.getErrorMessage();
+        String actualMessage = exception.getMessage();
         assertEquals(expected, actualMessage);
     }
 
@@ -208,16 +306,16 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
-    @ParameterizedTest(name = "date: {0} => {1}")
+    @ParameterizedTest(name = "cost: {0} => {1}")
     @MethodSource("costStringsIncorrectSource")
-    @DisplayName("Date in YYYY-MM should be properly flagged as invalid.")
-    void testValidateCostException(String cost, Message expected) {
+    @DisplayName("Invalid cost should be properly flagged as invalid.")
+    void testValidateCostException(String cost, String expected) {
         treatmentCost = cost;
 
         InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
                 ValidationHandler::validateCost);
 
-        Message actualMessage = exception.getErrorMessage();
+        String actualMessage = exception.getMessage();
         assertEquals(expected, actualMessage);
     }
 
@@ -236,9 +334,46 @@ public class ValidationHandlerTest {
     @DisplayName("Program should fail if called with anything besides 2 arguments.")
     @ValueSource(ints = {0, 1, 2, 3, Integer.MAX_VALUE})
     public void testValidateArgsLengthIsOnlyValidWhenEqualTo2(int argsLength) {
-        boolean expected = argsLength == 2;
+        //boolean expected = argsLength == 2;
         //boolean actual = validateArgs(argsLength);
         //assertEquals(expected, actual);
+    }
+
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent une date invalide sous format YYYY-MM-DD.
+     * Contient des dates invalides pour tester les exceptions.
+     */
+    static Stream<Arguments> validateFileNumberIncorrectSource() {
+        return Stream.of(
+                Arguments.of("Q", "WERTY5",  Message.INCORRECT_FILENUMBER.getMessage()),
+                Arguments.of("A", "514", Message.INCORRECT_FILENUMBER.getMessage()),
+                Arguments.of("A", "", Message.INCORRECT_FILENUMBER.getMessage()),
+                Arguments.of("", "", Message.MISSING_FILENUMBER.getMessage())
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent un type de contrat
+     * Contient des types invalides pour tester toutes les formulations potentielles d'une date valide et invalide.
+     */
+    static Stream<Arguments> fileNumberSource() {
+        return Stream.of(
+                Arguments.of("A", "456123", true), Arguments.of("B", "654321", true),
+                Arguments.of("Z", "123456", false), Arguments.of("Q", "WERTY5", false),
+                Arguments.of("A", "512", false)
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent un type de contrat
+     * Contient des types invalides pour tester toutes les formulations potentielles d'une date valide et invalide.
+     */
+    static Stream<Arguments> contractTypeSource() {
+        return Stream.of(
+                Arguments.of("A", true), Arguments.of("B", true), Arguments.of("Z", false),
+                Arguments.of("a", false),Arguments.of("5", false)
+        );
     }
 
     /**
@@ -247,8 +382,8 @@ public class ValidationHandlerTest {
      */
     static Stream<Arguments> emptyFieldExceptionSource() {
         return Stream.of(
-                Arguments.of("", Message.MISSING_FILENUMBER),
-                Arguments.of(null, Message.MISSING_FILENUMBER)
+                Arguments.of("", Message.MISSING_FILENUMBER.getMessage()),
+                Arguments.of(null, Message.MISSING_FILENUMBER.getMessage())
         );
     }
 
@@ -331,18 +466,40 @@ public class ValidationHandlerTest {
     }
 
     /**
+     * Liste d'arguments pour les tests qui nécessitent des valeurs pour les variables associées aux réclamations.
+     * Contient des dates invalides pour tester les exceptions.
+     */
+    static Stream<Arguments> claimContentSource() {
+        return Stream.of(
+                Arguments.of(300, "2020-12-31", "12.50$", "2020-12", true ),
+                Arguments.of(8765, "2020-12-31", "12.50$", "2020-12", false ),
+                Arguments.of(300, "2020-31-99", "12.50$", "2020-12", false ),
+                Arguments.of(300, "2020-12-31", "12.50A", "2020-12", false ),
+                Arguments.of(300, "2020-12-31", "12.50$", "2020-99", false )
+        );
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent un code de réclamation invalide.
+     * Contient des dates invalides pour tester les exceptions.
+     */
+    static Stream<Arguments> claimTypeIncorrectSource() {
+        return Stream.of(
+                Arguments.of(0, Message.MISSING_CARE_NO.getMessage()),
+                Arguments.of(999, Message.INVALID_CARE_NO.getMessage()),
+                Arguments.of(9000, Message.INVALID_CARE_NO.getMessage()),
+                Arguments.of(Integer.MAX_VALUE, Message.INVALID_CARE_NO.getMessage())
+        );
+    }
+
+    /**
      * Liste d'arguments pour les tests qui nécessitent des nombres en String
      */
     static Stream<Arguments> numberStringsSource() {
         return Stream.of(
-                Arguments.of("10", true),
-                Arguments.of("1", true),
-                Arguments.of("20000000", true),
-                Arguments.of("2020-11-01", false),
-                Arguments.of("100.0", false),
-                Arguments.of("100$", false),
-                Arguments.of("2020A", false),
-                Arguments.of("2,2", false)
+                Arguments.of("10", true), Arguments.of("1", true), Arguments.of("20000000", true),
+                Arguments.of("2020-11-01", false), Arguments.of("100.0", false), Arguments.of("100$", false),
+                Arguments.of("2020A", false), Arguments.of("2,2", false)
         );
     }
 
@@ -352,14 +509,14 @@ public class ValidationHandlerTest {
      */
     static Stream<Arguments> yearMonthDatesInvalidValuesSource() {
         return Stream.of(
-                Arguments.of("2020-00", Message.INCORRECT_INVOICE_DATE),
-                Arguments.of("0000-12", Message.INCORRECT_INVOICE_DATE),
-                Arguments.of("2000-13", Message.INCORRECT_INVOICE_DATE),
-                Arguments.of("1980-111", Message.INCORRECT_INVOICE_DATE),
-                Arguments.of("1978-11-18", Message.INCORRECT_INVOICE_DATE),
-                Arguments.of("1945-1", Message.INCORRECT_INVOICE_DATE),
-                Arguments.of(null, Message.MISSING_INVOICE_DATE),
-                Arguments.of("", Message.MISSING_INVOICE_DATE)
+                Arguments.of("2020-00", Message.INCORRECT_INVOICE_DATE.getMessage()),
+                Arguments.of("0000-12", Message.INCORRECT_INVOICE_DATE.getMessage()),
+                Arguments.of("2000-13", Message.INCORRECT_INVOICE_DATE.getMessage()),
+                Arguments.of("1980-111", Message.INCORRECT_INVOICE_DATE.getMessage()),
+                Arguments.of("1978-11-18", Message.INCORRECT_INVOICE_DATE.getMessage()),
+                Arguments.of("1945-1", Message.INCORRECT_INVOICE_DATE.getMessage()),
+                Arguments.of(null, Message.MISSING_INVOICE_DATE.getMessage()),
+                Arguments.of("", Message.MISSING_INVOICE_DATE.getMessage())
         );
     }
 
@@ -369,10 +526,10 @@ public class ValidationHandlerTest {
      */
     static Stream<Arguments> compareDatesIncorrectDateSource() {
         return Stream.of(
-                Arguments.of("2015-10-21", "1955-10", Message.INVALID_CLAIM_DATE),
-                Arguments.of("1945-09", "1945-09", Message.INVALID_CLAIM_DATE),
-                Arguments.of("", "1955-10", Message.MISSING_CLAIM_DATE),
-                Arguments.of(null, "1955-10", Message.MISSING_CLAIM_DATE)
+                Arguments.of("2015-10-21", "1955-10", Message.INVALID_CLAIM_DATE.getMessage()),
+                Arguments.of("1945-09", "1945-09", Message.INVALID_CLAIM_DATE.getMessage()),
+                Arguments.of("", "1955-10", Message.MISSING_CLAIM_DATE.getMessage()),
+                Arguments.of(null, "1955-10", Message.MISSING_CLAIM_DATE.getMessage())
         );
     }
 
@@ -393,9 +550,9 @@ public class ValidationHandlerTest {
      */
     static Stream<Arguments> costStringsIncorrectSource() {
         return Stream.of(
-                Arguments.of("Mathieu", Message.INVALID_TREATMENT_COST),
-                Arguments.of(null, Message.MISSING_TREATMENT_COST),
-                Arguments.of("", Message.MISSING_TREATMENT_COST)
+                Arguments.of("Mathieu", Message.INVALID_TREATMENT_COST.getMessage()),
+                Arguments.of(null, Message.MISSING_TREATMENT_COST.getMessage()),
+                Arguments.of("", Message.MISSING_TREATMENT_COST.getMessage())
         );
     }
 

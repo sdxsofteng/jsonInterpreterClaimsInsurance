@@ -5,6 +5,7 @@ import models.input.Claim;
 import models.input.ContractTypeValue;
 import models.input.Customer;
 
+import models.output.ErrorOut;
 import models.output.InvalidInvoiceException;
 import models.output.Message;
 import org.apache.commons.validator.GenericValidator;
@@ -32,7 +33,7 @@ public class ValidationHandler {
             validateInvoiceDate();
             validateAllClaims(customer.getClaimsList());
         } catch (InvalidInvoiceException e) {
-            jUtil.logStatsAndExitWithError(e.getErrorMessage(), e.getClaimNumber());
+            jUtil.logStatsAndExitWithError(e.getErrorOut());
         }
     }
 
@@ -157,13 +158,13 @@ public class ValidationHandler {
 
     public static void validateArgsWereGiven(int actualNb) {
         if (actualNb == 0) {
-            jUtil.exitWithError(Message.MISSING_ARGUMENTS);
+            jUtil.exitWithError(new ErrorOut(Message.MISSING_ARGUMENTS));
         }
     }
 
     public static void validateArgs(int actualNb, int expectedNb) {
         if (actualNb != expectedNb) {
-            jUtil.exitWithError(Message.INCORRECT_ARGUMENTS);
+            jUtil.exitWithError(new ErrorOut(Message.INCORRECT_ARGUMENTS));
         }
     }
 }

@@ -2,6 +2,7 @@ package utils;
 
 
 import models.input.CaresValues;
+import models.output.ErrorOut;
 import models.output.Message;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -54,7 +55,7 @@ public class JacksonUtilsTest {
             "Does not test message output.")
     @ExpectSystemExitWithStatus(-4)
     public void testExitWithErrorMessageM4() {
-        jUtil.exitWithError(Message.INVALID_INPUT_FILE);
+        jUtil.exitWithError(new ErrorOut(Message.INVALID_INPUT_FILE));
     }
 
     @Test
@@ -62,7 +63,7 @@ public class JacksonUtilsTest {
             "Does not test message output.")
     @ExpectSystemExitWithStatus(-10)
     public void testExitWithErrorMessageM10() {
-        jUtil.exitWithError(Message.MISSING_FILENUMBER);
+        jUtil.exitWithError(new ErrorOut(Message.MISSING_FILENUMBER));
     }
 
     @Test
@@ -70,7 +71,7 @@ public class JacksonUtilsTest {
             "Does not test message output.")
     @ExpectSystemExitWithStatus(-21)
     public void testExitWithErrorMessageM21() {
-        jUtil.exitWithError(Message.INVALID_CARE_NO, 2);
+        jUtil.exitWithError(new ErrorOut(Message.INVALID_CARE_NO, 2));
     }
 
     @Test
@@ -78,7 +79,7 @@ public class JacksonUtilsTest {
             "Does not test message output.")
     @ExpectSystemExitWithStatus(-23)
     public void testExitWithErrorMessageAndClaimNumber() {
-        jUtil.exitWithError(Message.INVALID_CLAIM_DATE);
+        jUtil.exitWithError(new ErrorOut(Message.INVALID_CLAIM_DATE));
     }
 
 }
