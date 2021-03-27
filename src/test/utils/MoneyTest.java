@@ -2,10 +2,7 @@ package utils;
 
 import models.input.CaresValues;
 import models.input.ContractTypeValue;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +13,7 @@ class MoneyTest {
 
     static Money m;
     static Money n;
+    static Money o;
     static CaresValues caresValues;
     static List<ContractTypeValue> contractTypeValueList;
 
@@ -27,16 +25,17 @@ class MoneyTest {
         caresValues.setMonthlyMaxAmountInCents(2000);
         m = new Money(40.00f);
         n = new Money(10.00f);
+        o = new Money(100000000.00f);
     }
 
     @Test
-    @DisplayName("Test Adjust Monthly Max Amount Care if max is exceded")
+    @DisplayName("Test adjust monthly max amount care if max is exceded")
     public void testAdjustMonthlyMaxAmountCare(){
         assertEquals(12.50f, m.calculateAmountToRefund(50.00f, 0.75f, caresValues));
     }
 
     @Test
-    @DisplayName("Test Adjust Monthly Max Amount Care if max is not exceded")
+    @DisplayName("Test adjust monthly max amount care if max is not exceded")
     public void testAdjustMonthlyMaxAmountCare2(){
         assertEquals(7.50f, n.calculateAmountToRefund(50.00f, 0.75f, caresValues));
     }
