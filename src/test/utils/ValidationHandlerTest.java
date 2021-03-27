@@ -27,8 +27,6 @@ public class ValidationHandlerTest {
     static Customer testCustomer;
     CareReference testPresets = jUtil.jsonToReference(Main.class.getClassLoader().getResourceAsStream("claimsReference.json"));
 
-
-
     @Test
     @DisplayName("Customer object variables should be transferred to local variables.")
     public void testSetVariables() {
