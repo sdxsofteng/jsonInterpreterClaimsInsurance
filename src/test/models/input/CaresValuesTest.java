@@ -36,6 +36,12 @@ public class CaresValuesTest {
         assertNull(returnValue);
     }
 
+    @Test
+    @DisplayName("Verify if getMonthlyMaxAmountInCents works")
+    public void testGetMonthlyMaxAmountInCents(){
+        assertEquals( 0 , caresValues.getMonthlyMaxAmountInCents());
+    }
+
     @ParameterizedTest(name = "Contract instance: {0}")
     @MethodSource("contractTypeObjectource")
     @DisplayName("GetContractTypeData should return the proper data object.")
