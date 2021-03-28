@@ -28,16 +28,20 @@ public class RefundHandler {
         return contractTypeValue;
     }
 
-    //Calcul le remboursement selon le maxAmount et le refundPercentage
+    private CaresValues getRelatedCareValues(Claim claim, CareReference referenceInfo){
+        int treatmentNumber = claim.getTreatmentNumber();
+        return referenceInfo.getAppropriateCareObject(treatmentNumber);
+    }
+
+
+    //Calcul le remboursement selon le maxAmount, le refundPercentage et le monthlyMaxAmount
     public float calculateRefund(Claim claim, String contractType, CareReference referenceInfo) {
         ContractTypeValue targetCareValues = getRelatedContractTypeObject(claim, contractType, referenceInfo);
+        CaresValues monthlyMaxForCare = getRelatedCareValues(claim, referenceInfo);
         float maxAmount = targetCareValues.getMaxDeductibleAmount();
         float refundPercentage = targetCareValues.getRefundPercentage();
-        float treatmentCost = claim.getTreatmentCostFloat();
-        float refundAmount = treatmentCost * refundPercentage;
-        if (refundAmount > maxAmount && maxAmount != 0){
-            refundAmount = maxAmount;
-        }
+        Money treatmentCost = new Money(claim.getTreatmentCostFloat());
+        float refundAmount = treatmentCost.calculateAmountToRefund(maxAmount, refundPercentage, monthlyMaxForCare);
         return refundAmount;
     }
 }

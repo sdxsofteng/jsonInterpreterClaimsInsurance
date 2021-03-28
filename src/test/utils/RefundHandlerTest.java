@@ -27,12 +27,12 @@ public class RefundHandlerTest {
      static void setUpCustomer() {
         Claim testClaim1 = new Claim(300, "2021-01-11", "0$");
         Claim testClaim2 = new Claim(0, "2021-01-01", "201$");
-        Claim testClaim3 = new Claim(313,"2021-01-31", "1000000.00$");
+        Claim testClaim3 = new Claim(313,"2021-01-31", "10000.00$");
         List<Claim> claimList = new ArrayList<>();
         claimList.add(testClaim1);
         claimList.add(testClaim2);
         claimList.add(testClaim3);
-        customer = new Customer("200002", "A", "2021-01", claimList);
+        customer = new Customer("A200002", "2021-01", claimList);
     }
 
     @BeforeAll
@@ -85,7 +85,7 @@ public class RefundHandlerTest {
         List<Claim> claimList = customer.getClaimsList();
         assertEquals(0f, claimList.get(0).getRefundAmount());
         assertEquals(100f, claimList.get(1).getRefundAmount());
-        assertEquals(700000f, claimList.get(2).getRefundAmount());
+        assertEquals(7000f, claimList.get(2).getRefundAmount());
     }
 
     /**
@@ -95,7 +95,7 @@ public class RefundHandlerTest {
         return Stream.of(
                 Arguments.of(customer.getClaimsList().get(0), 0f),
                 Arguments.of(customer.getClaimsList().get(1), 100f),
-                Arguments.of(customer.getClaimsList().get(2), 700000f)
+                Arguments.of(customer.getClaimsList().get(2), 7000f)
         );
     }
 }

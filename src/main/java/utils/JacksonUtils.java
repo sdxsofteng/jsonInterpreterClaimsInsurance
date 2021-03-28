@@ -2,13 +2,14 @@ package utils;
 
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import models.analytics.Analytics;
 import models.input.Customer;
-import models.output.CustomerOut;
-import models.output.ErrorOut;
+import models.output.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,14 +17,20 @@ import java.io.InputStream;
 
 /**
  * Cette classe expose des méthodes pour permettre la sérialisations/désérialisation de nos données.
+ * Note: nous n'acceptons pas les propriétés de plus dans les objets JSON
  */
 public class JacksonUtils {
 
-    private String invalidOutputPath = "output.json";
+    static final String ANALYTICS_PATH = "analytics.json";
+    private static String errorOutputPath = "output.json";
     private ObjectMapper mapper = generateAndConfigureMapper();
 
-    public void setInvalidOutputPath(String path) {
-        invalidOutputPath = path;
+    public String getErrorOutputPath() {
+        return errorOutputPath;
+    }
+
+    public void setErrorOutputPath(String path) {
+        errorOutputPath = path;
     }
 
     //Cette méthode permet de générer le object mapper et de le configurer selon nos spécifications
@@ -37,14 +44,45 @@ public class JacksonUtils {
         return newMapper;
     }
 
+    //Transforme le input(JSON) en Objet Analytics
+    public Analytics getAnalytics(String path){
+        Analytics analytics = null;
+        try {
+            analytics = readAnalyticsFromFile(path);
+        } catch (IOException e) {
+            exitWithError(new ErrorOut(Message.ANALYTICS_FILE_READ_FAILURE));
+        }
+        return analytics;
+    }
+
+    private Analytics readAnalyticsFromFile(String path) throws IOException {
+        File src = new File(path);
+        Analytics analytics = new Analytics();
+        if (src.isFile()) {
+            analytics = mapper.readValue(src, Analytics.class);
+        }
+        return analytics;
+    }
+
+    //Sauvegarde les statistiques
+    public void setAnalytics(Analytics analytics, String path) {
+        try {
+            File analyticsFile = new File(path);
+            //analyticsFile.createNewFile();
+            mapper.writerWithDefaultPrettyPrinter().writeValue(analyticsFile, analytics);
+        } catch (IOException e) {
+            exitWithError(new ErrorOut(Message.ANALYTICS_FILE_WRITE_FAILURE));
+        }
+    }
+
     //Transforme le input(JSON) en Objet Customer et Claims
     public Customer jsonToCustomerInput(File src){
         Customer programInput = null;
         try {
             programInput = mapper.readValue(src, Customer.class);
-        } catch (IOException e) {
-            quitProgramWithError();
-        }
+        } catch (JsonMappingException jme) {
+            logStatsAndExitWithError(new ErrorOut(Message.INVALID_INPUT_FILE));
+        } catch (IOException e) { exitWithError(new ErrorOut(Message.INVALID_INPUT_FILE)); }
         return programInput;
     }
 
@@ -54,32 +92,35 @@ public class JacksonUtils {
         try {
             referenceInput = mapper.readValue(src, CareReference.class);
         } catch (IOException e) {
-            quitProgramWithError();
+            exitWithError(new ErrorOut(Message.INVALID_REFERENCE_FILE));
         }
         return referenceInput;
     }
 
-    //Lorsqu'une erreur est détectée on sort du programme et créer un fichier de sortie en JSON
-    public void quitProgramWithError(){
-        File outputErrorFile = new File(invalidOutputPath);
-        ErrorOut errorData = new ErrorOut();
+    //Lorsqu'une erreur est détectée on sort du programme et crée un fichier de sortie en JSON
+    public void logStatsAndExitWithError(ErrorOut error){
+        new AnalyticsHandler(ANALYTICS_PATH).addInvalidRequest().save();
+        exitWithError(error);
+    }
+
+    public void exitWithError(ErrorOut error){
+        File outputErrorFile = new File(errorOutputPath);
         try {
-            mapper.writeValue(outputErrorFile, errorData);
+            mapper.writeValue(outputErrorFile, error);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.exit(1); // Code de sortie 1 signifie une erreur de input
+        System.exit(error.getCode());
     }
 
     //Sortie normal du programme et transfert des objets CustomerOut et ClaimsOut en format JSON
-    public void quitProgramWithData(File path, CustomerOut customerOut){
+    public void exitWithData(File path, CustomerOut customerOut, CareReference careReference){
         try {
-            mapper.writeValue(path, customerOut);
             mapper.writerWithDefaultPrettyPrinter().writeValue(path, customerOut);
+            new AnalyticsHandler(ANALYTICS_PATH).countClaims(customerOut.getClaimsOutList(), careReference).save();
             System.exit(0);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(2);
+            System.exit(Message.INVALID_OUTPUT_FILE.getCode());
         }
     }
 }

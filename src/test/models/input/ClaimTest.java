@@ -1,6 +1,7 @@
 package models.input;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,6 +20,19 @@ public class ClaimTest {
         String formattedCostString = strippedCostString.replace(",", ".");
         float expectedValue = Float.parseFloat(formattedCostString);
         assertEquals(expectedValue, claim.getTreatmentCostFloat());
+    }
+
+    @Test
+    @DisplayName("Setters Testing")
+    public void testSettersObject(){
+        Claim t = new Claim();
+        t.setTreatmentNumber(200);
+        assertEquals(200, t.getTreatmentNumber());
+        t.setClaimDate("12-01-2020");
+        assertEquals("12-01-2020", t.getClaimDate());
+        t.setTreatmentCost("100.00$");
+        assertEquals("100.00$", t.getTreatmentCost());
+
     }
 
     /**

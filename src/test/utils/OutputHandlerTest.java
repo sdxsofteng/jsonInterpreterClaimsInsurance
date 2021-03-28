@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static utils.ConversionUtils.floatToString;
 import static utils.OutputHandler.*;
 
@@ -30,14 +31,16 @@ public class OutputHandlerTest {
         claimList.add(testClaim1);
         claimList.add(testClaim2);
         claimList.add(testClaim3);
-        customer = new Customer("100000", "B", "2021-01", claimList);
+        customer = new Customer("B100000", "2021-01", claimList);
     }
 
+    // TODO: 2021-03-03 est-ce qu'on veut comparer avec l'entrée? Si oui, on ajoute un AUTRE champ dans Customer??
     @Test
-    @DisplayName("Customer out should retain the same clientNo")
-    public void testCustomerToOutRetainsClientNo() {
+    @DisplayName("Customer out should retain the same fileNumber")
+    public void testCustomerToOutRetainsFileNo() {
         CustomerOut resultingCustomerOut = customerToOut(customer);
-        assertEquals(customer.getClientNumber(), resultingCustomerOut.getClientNumber());
+        assertEquals(customer.getContractType() + customer.getClientNumber(),
+                resultingCustomerOut.getFileNumber());
     }
 
     @Test

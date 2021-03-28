@@ -15,6 +15,8 @@ public class CaresValues {
     String careName;
     int careNumberMax;
     int careNumberMin;
+    public int monthlyMaxAmountInCents;
+    boolean monthlyMaxExists;
     private List<ContractTypeValue> contractTypeValues;
 
     public CaresValues() {}
@@ -71,6 +73,14 @@ public class CaresValues {
         return contractTypeValues;
     }
 
+    public boolean getMonthlyMaxExists() {
+        return monthlyMaxExists;
+    }
+
+    public int getMonthlyMaxAmountInCents() {
+        return monthlyMaxAmountInCents;
+    }
+
     //Permet de setter les propriétés de chaque soin selon le JSON référence
     @JsonProperty("name")
     private void setCareName(String careName) {
@@ -92,4 +102,12 @@ public class CaresValues {
     public void setContractTypeValues(List<ContractTypeValue> contractTypeValues) {
         this.contractTypeValues = contractTypeValues;
     }
+
+    @JsonProperty("monthlyMaxAmount")
+    public void setMonthlyMaxAmountInCents(int monthlyMaxAmountInCents) {
+        monthlyMaxExists = monthlyMaxAmountInCents != 0;
+        this.monthlyMaxAmountInCents = monthlyMaxAmountInCents;
+    }
+
+
 }

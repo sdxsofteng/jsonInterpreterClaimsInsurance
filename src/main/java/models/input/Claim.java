@@ -46,17 +46,17 @@ public class Claim {
 
     //Ces trois setteurs permettent de mettre l'information entrante approriée dans chaque Claims.
     @JsonProperty("soin")
-    private void setTreatmentNumber(int treatmentNumber) {
+    public void setTreatmentNumber(int treatmentNumber) {
         this.treatmentNumber = treatmentNumber;
     }
 
     @JsonProperty("date")
-    private void setClaimDate(String claimDate) {
+    public void setClaimDate(String claimDate) {
         this.claimDate = claimDate;
     }
 
     @JsonProperty("montant")
-    private void setTreatmentCost(String treatmentCost) {
+    public void setTreatmentCost(String treatmentCost) {
         this.treatmentCost = treatmentCost;
     }
 

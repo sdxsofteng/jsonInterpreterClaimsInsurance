@@ -4,6 +4,7 @@
       "name": "massotherapy",
       "careNumberMax": 0,
       "careNumberMin": 0,
+      "monthlyMaxAmount": 0,
       "contractType": [
         {
           "type": "A",
@@ -24,6 +25,11 @@
           "type": "D",
           "max": 85,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.15
         }
       ]
     },
@@ -31,11 +37,12 @@
       "name": "osteopathy",
       "careNumberMax": 100,
       "careNumberMin": 100,
+      "monthlyMaxAmount": 25000,
       "contractType": [
         {
           "type": "A",
           "max": 0,
-          "refundPercentage": 0.25
+          "refundPercentage": 0.35
         },
         {
           "type": "B",
@@ -45,12 +52,83 @@
         {
           "type": "C",
           "max": 0,
-          "refundPercentage": 0.90
+          "refundPercentage": 0.95
         },
         {
           "type": "D",
           "max": 75,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.25
+        }
+      ]
+    },
+    {
+      "name": "kinesitherapy",
+      "careNumberMax": 150,
+      "careNumberMin": 150,
+      "monthlyMaxAmount": 0,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0
+        },
+        {
+          "type": "B",
+          "max": 0,
+          "refundPercentage": 0
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.85
+        },
+        {
+          "type": "D",
+          "max": 150,
+          "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.15
+        }
+      ]
+    },
+    {
+      "name": "privategeneralist",
+      "careNumberMax": 175,
+      "careNumberMin": 175,
+      "monthlyMaxAmount": 20000,
+      "contractType": [
+        {
+          "type": "A",
+          "max": 0,
+          "refundPercentage": 0.50
+        },
+        {
+          "type": "B",
+          "max": 0,
+          "refundPercentage": 0.75
+        },
+        {
+          "type": "C",
+          "max": 0,
+          "refundPercentage": 0.90
+        },
+        {
+          "type": "D",
+          "max": 0,
+          "refundPercentage": 0.95
+        },
+        {
+          "type": "E",
+          "max": 20,
+          "refundPercentage": 0.25
         }
       ]
     },
@@ -58,6 +136,7 @@
       "name": "psychology",
       "careNumberMax": 200,
       "careNumberMin": 200,
+      "monthlyMaxAmount": 25000,
       "contractType": [
         {
           "type": "A",
@@ -66,7 +145,7 @@
         },
         {
           "type": "B",
-          "max": 70,
+          "max": 0,
           "refundPercentage": 1
         },
         {
@@ -78,6 +157,11 @@
           "type": "D",
           "max": 100,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.12
         }
       ]
     },
@@ -85,6 +169,7 @@
       "name": "dentistry",
       "careNumberMax": 399,
       "careNumberMin": 300,
+      "monthlyMaxAmount": 0,
       "contractType": [
         {
           "type": "A",
@@ -105,6 +190,11 @@
           "type": "D",
           "max": 0,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.60
         }
       ]
     },
@@ -112,6 +202,7 @@
       "name": "naturopathy",
       "careNumberMax": 400,
       "careNumberMin": 400,
+      "monthlyMaxAmount": 0,
       "contractType": [
         {
           "type": "A",
@@ -132,6 +223,11 @@
           "type": "D",
           "max": 65,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 15,
+          "refundPercentage": 0.25
         }
       ]
     },
@@ -139,6 +235,7 @@
       "name": "chiropractic",
       "careNumberMax": 500,
       "careNumberMin": 500,
+      "monthlyMaxAmount": 15000,
       "contractType": [
         {
           "type": "A",
@@ -157,8 +254,13 @@
         },
         {
           "type": "D",
-          "max": 75,
+          "max": 0,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 20,
+          "refundPercentage": 0.30
         }
       ]
     },
@@ -166,6 +268,7 @@
       "name": "physiotherapy",
       "careNumberMax": 600,
       "careNumberMin": 600,
+      "monthlyMaxAmount": 30000,
       "contractType": [
         {
           "type": "A",
@@ -180,12 +283,17 @@
         {
           "type": "C",
           "max": 0,
-          "refundPercentage": 0.90
+          "refundPercentage": 0.75
         },
         {
           "type": "D",
           "max": 100,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.15
         }
       ]
     },
@@ -193,6 +301,7 @@
       "name": "speechTherapy",
       "careNumberMax": 700,
       "careNumberMin": 700,
+      "monthlyMaxAmount": 0,
       "contractType": [
         {
           "type": "A",
@@ -213,6 +322,11 @@
           "type": "D",
           "max": 90,
           "refundPercentage": 1
+        },
+        {
+          "type": "E",
+          "max": 0,
+          "refundPercentage": 0.22
         }
       ]
     }
