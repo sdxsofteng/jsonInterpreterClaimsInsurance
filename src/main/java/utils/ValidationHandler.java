@@ -74,7 +74,8 @@ public class ValidationHandler {
     }
 
     public static boolean isSpecificLength(String inputString, int expectedNb) {
-        return (inputString != null && inputString.trim().length() == expectedNb);
+        boolean isCorrectLength = inputString != null && inputString.trim().length() == expectedNb;
+        return isCorrectLength;
     }
 
     public static boolean isOnlyDigits(String number) {
@@ -100,7 +101,8 @@ public class ValidationHandler {
     }
 
     public static void validateAllClaims(List<Claim> claimList) throws InvalidInvoiceException {
-        if (claimList == null || claimList.isEmpty()){
+        boolean hasEmptyClaimList = claimList == null || claimList.isEmpty();
+        if (hasEmptyClaimList){
             throw new InvalidInvoiceException(Message.MISSING_CLAIMS);
         }
         for (Claim claim : claimList) {
@@ -110,7 +112,7 @@ public class ValidationHandler {
     }
 
     public static void setClaimVariables(Claim singleClaim) {
-        claimNumber = claimNumber +1;
+        claimNumber = claimNumber + 1;
         treatmentNumber = singleClaim.getTreatmentNumber();
         claimDate = singleClaim.getClaimDate();
         treatmentCost = singleClaim.getTreatmentCost();
@@ -160,6 +162,13 @@ public class ValidationHandler {
 
     public static boolean isValidCost(String cost) {
         return cost.trim().matches("^[0-9]+(,|.)[0-9]{2}\\$$");
+    }
+
+    public static boolean hasArgs(int actualNb) {
+        if (actualNb == 0) {
+            jUtil.exitWithError(new ErrorOut(Message.MISSING_ARGUMENTS));
+        }
+        return true;
     }
 
     public static void validateArgs(int actualNb, int expectedNb) {

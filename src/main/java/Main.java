@@ -6,6 +6,7 @@ import utils.*;
 import java.io.File;
 import java.io.InputStream;
 
+import static utils.ValidationHandler.hasArgs;
 import static utils.ValidationHandler.validateArgs;
 
 public class Main {
@@ -21,7 +22,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        validateArgs(args.length, 0);
+        hasArgs(args.length);
         if (args[0].equals("-S")) {
             launchStatsDisplayProgram(args);
         } else if (args[0].equals("-SR")) {
