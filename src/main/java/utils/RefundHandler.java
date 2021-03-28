@@ -41,6 +41,7 @@ public class RefundHandler {
         float maxAmount = targetCareValues.getMaxDeductibleAmount();
         float refundPercentage = targetCareValues.getRefundPercentage();
         Money treatmentCost = new Money(claim.getTreatmentCostFloat());
-        return treatmentCost.calculateAmountToRefund(maxAmount, refundPercentage, monthlyMaxForCare);
+        float refundAmount = treatmentCost.calculateAmountToRefund(maxAmount, refundPercentage, monthlyMaxForCare);
+        return refundAmount;
     }
 }

@@ -60,8 +60,8 @@ public class AnalyticsHandler {
     }
 
     private AnalyticsHandler countClaim(CaresValues care) {
-        ClaimCount trackedClaim = analytics.getDeclaredCares()
-                .stream().filter(c -> c.getCareName().equals(care.getCareName())).findAny().orElse(null);
+        ClaimCount trackedClaim = analytics.getDeclaredCares().stream()
+                .filter(c -> c.getCareName().equals(care.getCareName())).findAny().orElse(null);
         if (trackedClaim != null) {
             trackedClaim.setAmount(trackedClaim.getAmount() + 1);
         } else {
