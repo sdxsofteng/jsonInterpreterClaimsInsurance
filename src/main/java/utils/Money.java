@@ -11,7 +11,7 @@ import models.output.Message;
 public class Money {
 
     int valueInCents;
-    JacksonUtils overMaxIntegerCase = new JacksonUtils();
+    JacksonUtils jUtils = new JacksonUtils();
 
     public Money(float value) {
         this.valueInCents = convertFloatToInt(value);
@@ -43,7 +43,7 @@ public class Money {
         int refundAmount = this.valueInCents * refundPercentageInt / 100;
 
         if (refundAmount < 0){
-            overMaxIntegerCase.logStatsAndExitWithError(new ErrorOut(Message.OVER_MAX_INTEGER));
+            jUtils.logStatsAndExitWithError(new ErrorOut(Message.OVER_MAX_INTEGER));
         }
         return refundAmount;
     }

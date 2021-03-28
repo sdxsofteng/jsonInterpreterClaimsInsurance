@@ -98,10 +98,6 @@ public class JacksonUtils {
     }
 
     //Lorsqu'une erreur est détectée on sort du programme et crée un fichier de sortie en JSON
-//    public void logStatsAndExitWithError(Message error){
-//        logStatsAndExitWithError(error, 0);
-//    }
-
     public void logStatsAndExitWithError(ErrorOut error){
         new AnalyticsHandler(ANALYTICS_PATH).addInvalidRequest().save();
         exitWithError(error);

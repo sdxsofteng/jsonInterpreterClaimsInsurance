@@ -91,7 +91,9 @@ public class ValidationHandler {
 
     public static boolean isValidYearMonthOnlyDateFormat(String date) {
         boolean isValid = false;
-        if (GenericValidator.isDate(date, "yyyy-MM", true) && isSpecificLength(date, 7)){
+        boolean isValidDate = GenericValidator.isDate(date, "yyyy-MM", true);
+        boolean isValidLength = isSpecificLength(date, 7);
+        if (isValidDate && isValidLength){
             isValid = true;
         }
         return isValid;
@@ -129,7 +131,8 @@ public class ValidationHandler {
     }
 
     public static void validateClaimDate() throws InvalidInvoiceException {
-        if (claimDate == null || claimDate.equals("")){
+        boolean isEmptyDate = claimDate == null || claimDate.equals("");
+        if (isEmptyDate){
             throw new InvalidInvoiceException(Message.MISSING_CLAIM_DATE, claimNumber);
         } else if (!isValidYearMonthDayDateFormat(claimDate) || !isCorrectClaimPeriod()){
             throw new InvalidInvoiceException(Message.INVALID_CLAIM_DATE, claimNumber);
@@ -137,15 +140,18 @@ public class ValidationHandler {
     }
 
     public static boolean isValidYearMonthDayDateFormat(String date) {
-        return GenericValidator.isDate(date.trim(), "yyyy-MM-dd", true);
+        boolean hasValidFormat = GenericValidator.isDate(date.trim(), "yyyy-MM-dd", true);
+        return hasValidFormat;
     }
 
     public static boolean isCorrectClaimPeriod() {
-        return ConversionUtils.removeDayFromDate(claimDate).equals(invoiceDate);
+        boolean hasMatchingDate = ConversionUtils.removeDayFromDate(claimDate).equals(invoiceDate);
+        return hasMatchingDate;
     }
 
     public static void validateCost() throws InvalidInvoiceException {
-        if (treatmentCost == null || treatmentCost.equals("")){
+        boolean isEmptyCost = treatmentCost == null || treatmentCost.equals("");
+        if (isEmptyCost){
             throw new InvalidInvoiceException(Message.MISSING_TREATMENT_COST, claimNumber);
         } else if (!isValidCost(treatmentCost)){
             throw new InvalidInvoiceException(Message.INVALID_TREATMENT_COST, claimNumber);
@@ -156,15 +162,10 @@ public class ValidationHandler {
         return cost.trim().matches("^[0-9]+(,|.)[0-9]{2}\\$$");
     }
 
-    public static void validateArgsWereGiven(int actualNb) {
-        if (actualNb == 0) {
-            jUtil.exitWithError(new ErrorOut(Message.MISSING_ARGUMENTS));
-        }
-    }
-
     public static void validateArgs(int actualNb, int expectedNb) {
         if (actualNb != expectedNb) {
-            jUtil.exitWithError(new ErrorOut(Message.INCORRECT_ARGUMENTS));
+            Message errorMsg = actualNb == 0 ? Message.MISSING_ARGUMENTS : Message.INCORRECT_ARGUMENTS;
+            jUtil.exitWithError(new ErrorOut(errorMsg));
         }
     }
 }
