@@ -30,6 +30,10 @@ public enum Message {
 
     MISSING_TREATMENT_COST( -24, "Montant de soin manquant"),
     INVALID_TREATMENT_COST( -25, "Montant de soin invalide"),
+    INVALID_TREATMENT_COST_TOO_LOW( -26, "Montant de soin ne peut pas être 0"),
+    MONTHLY_TREATMENT_COST_TOO_HIGH( -27, "Montant mensuel pour ce soin dépasse le maximum de 500$"),
+
+    CLAIM_DATE_LIMIT_REACHED( -30, "Maximum de soins par jour dépassés"),
 
     OVER_MAX_INTEGER( -99, "Montant de réclamation trop élevé"),
 
