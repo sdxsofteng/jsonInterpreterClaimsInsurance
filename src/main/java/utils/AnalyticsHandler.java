@@ -17,8 +17,13 @@ import java.util.List;
  *    de nombres, ou dans le cas ou un soin change de nombre. Il serait facile de modifier le code
  *    pour prendre compte du numero plutot que du nom du soin.
  *  - La classe est construite de façon à toujours se retourner elle-même pour pouvoir enchainer les commandes
+ *  - Lors du mode prédiction, toute la logique des statistiques reste 100% la même afin de garder des possiblités
+ *    d'expansion future comme afficher les statisques préditent à la fin de l'éxécution.
+ *    Cela signifie que la seule différence engendrée par le mode prédiction est que les changements de stats
+ *    ne sont pas sauvegardés à la fin de l'éxécution du programme.
  */
 public class AnalyticsHandler {
+    static boolean hasPersistence = true;
     Analytics analytics;
     JacksonUtils jacksonUtils;
     String analyticsPath;
@@ -33,6 +38,10 @@ public class AnalyticsHandler {
         this.analytics = this.jacksonUtils.getAnalytics(path);
     }
 
+    public static void disablePersistence() {
+        hasPersistence = false;
+    }
+
     public AnalyticsHandler reset() {
         analytics.setNbRequestsApproved(0);
         analytics.setNbRequestsRejected(0);
@@ -41,7 +50,9 @@ public class AnalyticsHandler {
     }
 
     public AnalyticsHandler save() {
-        jacksonUtils.setAnalytics(this.analytics, analyticsPath);
+        if (hasPersistence) {
+            jacksonUtils.setAnalytics(this.analytics, analyticsPath);
+        }
         return this;
     }
 

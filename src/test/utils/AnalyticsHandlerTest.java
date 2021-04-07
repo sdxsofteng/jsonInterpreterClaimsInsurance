@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AnalyticsHandlerTest {
     static AnalyticsHandler analyticsHandler;
@@ -104,4 +104,12 @@ public class AnalyticsHandlerTest {
 
         assertEquals(2, analytics.getNbRequestsApproved());
     }
+
+    @Test
+    @DisplayName("Disabling persistence sets the correct property to false")
+    public void testDisablingPersistenceSetsPersistenceToFalse() {
+        AnalyticsHandler.disablePersistence();
+        assertFalse(AnalyticsHandler.hasPersistence);
+    }
+
 }
