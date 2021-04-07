@@ -1,12 +1,12 @@
 package models.output;
 
 public enum Message {
-    DEFAULT_ERROR(-1, "Données Invalides"),
+    DEFAULT_ERROR(-1, "Donnees Invalides"),
 
-    MISSING_ARGUMENTS(-2, "Paramètres d'exécution absents"),
-    INCORRECT_ARGUMENTS(-3, "Paramètres d'exécution invalides"),
+    MISSING_ARGUMENTS(-2, "Paramètres d'execution absents"),
+    INCORRECT_ARGUMENTS(-3, "Paramètres d'execution invalides"),
 
-    INVALID_INPUT_FILE(-4, "Fichier d'entée invalide"),
+    INVALID_INPUT_FILE(-4, "Fichier d'entee invalide"),
     INVALID_OUTPUT_FILE(-5, "Fichier sortie invalide"),
 
     INVALID_REFERENCE_FILE(-6, "Données internes invalides"),
@@ -17,25 +17,25 @@ public enum Message {
     MISSING_FILENUMBER( -10, "Numéro de dossier inexistant"),
     INCORRECT_FILENUMBER( -11, "Numéro de dossier incorrect"),
 
-    MISSING_INVOICE_DATE( -12, "Mois de réclamation inexistant"),
-    INCORRECT_INVOICE_DATE( -13, "Mois de réclamation incorrect"),
+    MISSING_INVOICE_DATE( -12, "Mois de reclamation inexistant"),
+    INCORRECT_INVOICE_DATE( -13, "Mois de reclamation incorrect"),
 
-    MISSING_CLAIMS( -14, "Réclamation inexistante"),
+    MISSING_CLAIMS( -14, "Reclamation inexistante"),
 
-    MISSING_CARE_NO( -20, "Numéro de soin manquant"),
-    INVALID_CARE_NO( -21, "Numéro de soin invalide"),
+    MISSING_CARE_NO( -20, "Numero de soin manquant"),
+    INVALID_CARE_NO( -21, "Numero de soin invalide"),
 
     MISSING_CLAIM_DATE( -22, "Date de soin manquante"),
     INVALID_CLAIM_DATE( -23, "Date de soin invalide"),
 
     MISSING_TREATMENT_COST( -24, "Montant de soin manquant"),
     INVALID_TREATMENT_COST( -25, "Montant de soin invalide"),
-    INVALID_TREATMENT_COST_TOO_LOW( -26, "Montant de soin ne peut pas être 0"),
+    INVALID_TREATMENT_COST_TOO_LOW( -26, "Montant de soin ne peut pas etre egal ou plus bas que 0"),
     MONTHLY_TREATMENT_COST_TOO_HIGH( -27, "Montant mensuel pour ce soin dépasse le maximum de 500$"),
 
-    CLAIM_DATE_LIMIT_REACHED( -30, "Maximum de soins par jour dépassés"),
+    CLAIM_DATE_LIMIT_REACHED( -30, "Maximum de soins par jour dépasses"),
 
-    OVER_MAX_INTEGER( -99, "Montant de réclamation trop élevé"),
+    OVER_MAX_INTEGER( -99, "Montant de reclamation trop eleve"),
 
     ;
 

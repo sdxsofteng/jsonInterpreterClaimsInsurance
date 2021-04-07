@@ -17,6 +17,7 @@ public class ValidationHandler {
 
     public final static int CLIENT_NUM_LENGTH = 6;
     public final static int CLAIM_MIN_COST = 0;
+    public final static int CLAIM_MAX_SAME_DATE = 4;
     public final static int CLAIM_TYPE_MAX_MONTHLY_COST = 500;
     public static JacksonUtils jUtil = new JacksonUtils();
     protected static Customer customer;
@@ -28,8 +29,8 @@ public class ValidationHandler {
     protected static int treatmentNumber;
     protected static String claimDate;
     protected static String treatmentCost;
-    protected static HashMap dateCounter = new HashMap<String, Integer>();
-    protected static HashMap costCounter = new HashMap<Integer, Float>();
+    protected static HashMap<String, Integer> dateCounter = new HashMap<>();
+    protected static HashMap<Integer, Float> costCounter = new HashMap<>();
 
     public static void ValidateInvoice(Customer customer, CareReference referenceObj) {
         setVariables(customer, referenceObj);
@@ -135,8 +136,6 @@ public class ValidationHandler {
         } else if (presets.getAppropriateCareObject(treatmentNumber) == null){
             throw new InvalidInvoiceException(Message.INVALID_CARE_NO, claimNumber);
         }
-
-        addClaimTypeCost(treatmentNumber, ConversionUtils.convertCostStringToFloat(treatmentCost));
     }
 
     public static void validateClaimDate() throws InvalidInvoiceException {
@@ -146,7 +145,6 @@ public class ValidationHandler {
         } else if (!isValidYearMonthDayDateFormat(claimDate) || !isCorrectClaimPeriod()){
             throw new InvalidInvoiceException(Message.INVALID_CLAIM_DATE, claimNumber);
         }
-
         countDate(claimDate);
     }
 
@@ -168,37 +166,35 @@ public class ValidationHandler {
             throw new InvalidInvoiceException(Message.INVALID_TREATMENT_COST, claimNumber);
         } else if (!isMoreThanMinimumCost(treatmentCost)){
             throw new InvalidInvoiceException(Message.INVALID_TREATMENT_COST_TOO_LOW, claimNumber);
-        }
+        } else countMaxClaimTypeCost(treatmentNumber, ConversionUtils.convertCostStringToFloat(treatmentCost));
     }
 
     public static boolean isValidCost(String cost) {
-        return (cost.trim().matches("^[0-9]+(,|.)[0-9]{2}\\$$"));
+        return (cost.trim().matches("^-?[0-9]+(,|.)[0-9]{2}\\$$"));
     }
 
     public static boolean isMoreThanMinimumCost(String cost) {
         return (ConversionUtils.convertCostStringToFloat(cost) > CLAIM_MIN_COST);
     }
 
-    public static void addClaimTypeCost(int claimType, float cost){
+    public static void countMaxClaimTypeCost(int claimType, float cost){
         if (costCounter.containsKey(claimType)) {
-            float compte = (float)costCounter.get(claimType);
-            costCounter.put(claimType, compte + cost);
+            costCounter.put(claimType, costCounter.get(claimType) + cost);
         } else {
             costCounter.put(claimType, cost);
         }
-        if ((float)costCounter.get(claimType) > CLAIM_TYPE_MAX_MONTHLY_COST){
+        if (costCounter.get(claimType) > CLAIM_TYPE_MAX_MONTHLY_COST){
             throw new InvalidInvoiceException(Message.MONTHLY_TREATMENT_COST_TOO_HIGH);
         }
     }
 
     public static void countDate(String date){
         if (dateCounter.containsKey(date)) {
-            int compte = (int)dateCounter.get(date);
-            dateCounter.put(date, compte + 1);
+            dateCounter.put(date, dateCounter.get(date) + 1);
         } else {
             dateCounter.put(date, 1);
         }
-        if ((int)dateCounter.get(date) >4){
+        if (dateCounter.get(date) > CLAIM_MAX_SAME_DATE){
             throw new InvalidInvoiceException(Message.CLAIM_DATE_LIMIT_REACHED);
         }
     }

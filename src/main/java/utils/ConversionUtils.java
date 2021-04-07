@@ -36,7 +36,7 @@ public class ConversionUtils {
     }
 
     public static String removeDollarSigns(String amount) {
-        return "0" + amount.replace("$", "");
+        return amount.replace("$", "");
     }
     
     public static String floatToString(float refundAmount){

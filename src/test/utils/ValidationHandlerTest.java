@@ -18,6 +18,7 @@ import static utils.ValidationHandler.*;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -325,6 +326,57 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
+    @ParameterizedTest(name = "cost by claimtype: {0}@{1} + {2}@{3} + 100@300")
+    @MethodSource("claimsForClaimCounter")
+    @DisplayName("Claim types totalling more than 400$ should be properly flagged as invalid.")
+    void testCountMaxClaimTypeCost(int claim1, float cost1, int claim2, float cost2,  boolean expected) {
+        costCounter = new HashMap<>();
+        boolean actual = true;
+
+        try {
+            countMaxClaimTypeCost(claim1, cost1);
+            countMaxClaimTypeCost(claim2, cost2);
+            countMaxClaimTypeCost(100, 300.00f);
+        } catch (InvalidInvoiceException e) {
+            actual = false;
+        }
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent quatre dates sous format YYYY-MM-DD.
+     * Contient des dates pareilles pour tester les exceptions.
+     */
+    static Stream<Arguments> claimsForClaimCounter() {
+        return Stream.of(
+                Arguments.of(400, 250.10f, 200, 125.32f, true),
+                Arguments.of(300, 150.07f, 300, 155.26f, true),
+                Arguments.of(500, 500.00f, 600, 150.00f, true),
+                Arguments.of(200, 500.01f, 300, 18.23f, false),
+                Arguments.of(100, 50.00f, 100, 155.00f, false),
+                Arguments.of(100, 222.02f, 200, 135.00f, false)
+        );
+    }
+
+
+    @ParameterizedTest(name = "Date: {0}...")
+    @MethodSource("datesForDateCounter")
+    @DisplayName("Dates repeating more than 4 times should be properly flagged as invalid.")
+    void testCountDateException(String date1, String date2, String date3, String date4, String date5, boolean expected) {
+        dateCounter = new HashMap<>();
+        boolean actual = true;
+
+        try {
+            countDate(date1);
+            countDate(date2);
+            countDate(date3);
+            countDate(date4);
+            countDate(date5);
+        } catch (InvalidInvoiceException e) {
+            actual = false;
+        }
+        assertEquals(expected, actual);
+    }
 
 
     @Disabled("Need to adapt for new functions")
@@ -431,6 +483,7 @@ public class ValidationHandlerTest {
                 Arguments.of("A$", false), Arguments.of("A", false), Arguments.of("A,A", false),
                 Arguments.of("A.A", false), Arguments.of("1", false), Arguments.of("12", false),
                 Arguments.of("12,50", false), Arguments.of("12.50", false), Arguments.of("1 012.50$", false),
+                Arguments.of("0,50$", true), Arguments.of("-10.50$", true), Arguments.of("0.00$", true),
                 Arguments.of("1 012,50$", false), Arguments.of("1,012.50$", false)
         );
     }
@@ -548,9 +601,25 @@ public class ValidationHandlerTest {
      */
     static Stream<Arguments> costStringsIncorrectSource() {
         return Stream.of(
+                Arguments.of("-10.00$", Message.INVALID_TREATMENT_COST_TOO_LOW.getMessage()),
+                Arguments.of("0.00$", Message.INVALID_TREATMENT_COST_TOO_LOW.getMessage()),
                 Arguments.of("Mathieu", Message.INVALID_TREATMENT_COST.getMessage()),
                 Arguments.of(null, Message.MISSING_TREATMENT_COST.getMessage()),
                 Arguments.of("", Message.MISSING_TREATMENT_COST.getMessage())
+        );
+    }
+
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent quatre dates sous format YYYY-MM-DD.
+     * Contient des dates pareilles pour tester les exceptions.
+     */
+    static Stream<Arguments> datesForDateCounter() {
+        return Stream.of(
+                Arguments.of("1990-01-01", "2005-02-02", "2010-03-03", "2015-04-04", "2005-02-02", true),
+                Arguments.of("2017-03-08", "2017-03-08", "1999-01-06", "1987-05-01", "2017-03-08", true),
+                Arguments.of("2013-05-11", "2013-05-11", "2013-05-11", "2013-05-11", "1999-01-06", true),
+                Arguments.of("2020-12-14", "2020-12-14", "2020-12-14", "2020-12-14", "2020-12-14", false)
         );
     }
 
