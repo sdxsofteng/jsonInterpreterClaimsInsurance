@@ -16,7 +16,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.*;
 import static utils.ValidationHandler.*;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -208,13 +207,6 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
-
-
-
-
-
-
-
     @ParameterizedTest
     @MethodSource("claimContentSource")
     @DisplayName("Claim should be properly flagged as invalid/valid.")
@@ -235,15 +227,6 @@ public class ValidationHandlerTest {
         }
         assertEquals(expected, actual);
     }
-
-
-
-
-
-
-
-
-
 
     @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("claimTypeIncorrectSource")
@@ -379,14 +362,11 @@ public class ValidationHandlerTest {
     }
 
 
-    @Disabled("Need to adapt for new functions")
     @ParameterizedTest(name = "argsLength: {0}")
-    @DisplayName("Program should fail if called with anything besides 2 arguments.")
+    @DisplayName("Validate function should not quit program if length is valid.")
     @ValueSource(ints = {0, 1, 2, 3, Integer.MAX_VALUE})
-    public void testValidateArgsLengthIsOnlyValidWhenEqualTo2(int argsLength) {
-        //boolean expected = argsLength == 2;
-        //boolean actual = validateArgs(argsLength);
-        //assertEquals(expected, actual);
+    public void testValidateArgsLengthDoesNotEndProgram(int argsLength) {
+        validateArgs(argsLength, argsLength);
     }
 
 
