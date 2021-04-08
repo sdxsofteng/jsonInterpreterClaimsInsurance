@@ -1,8 +1,8 @@
 package models.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import utils.ConversionUtils;
-import utils.ValidationHandler;
 
 import java.util.List;
 
@@ -11,11 +11,10 @@ import java.util.List;
  */
 public class Customer {
 
-    // private String fileNumber;
-    private String contractType;      //Variables d'objet
+    private String contractType;
     private String clientNumber;
     private String claimPeriod;
-    private List<Claim> claimList;  //Liste de claims contenant toutes les réclamations du client. Voir classe Claims.
+    private List<Claim> claimList;
 
     public Customer() {}
 

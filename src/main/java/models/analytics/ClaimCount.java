@@ -1,10 +1,13 @@
 package models.analytics;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import models.output.ClaimOut;
+
 import utils.Money;
 
 public class ClaimCount {
+
     private String name;
     private int nbClaims;
     private float totalClaimedAmount = 0;
@@ -74,4 +77,5 @@ public class ClaimCount {
             this.highestClaimValue = claim.getClaimAmount();
         }
     }
+
 }

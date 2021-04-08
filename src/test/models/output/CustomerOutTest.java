@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CustomerOutTest {
+
     static CustomerOut customerOut;
 
     @BeforeAll
@@ -43,5 +44,6 @@ public class CustomerOutTest {
         boolean isValid = ValidationHandler.isValidCost(customerOut.getFormattedTotalRefundAmount());
         assertTrue(isValid);
     }
+
 }
 

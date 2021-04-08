@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AnalyticsTest {
+
     @Test
     @DisplayName("Analytic is initialized with a cares list to prevent NullPointers.")
     public void testAnalyticsInitializationContainsNonNullDeclaredCaresList() {
@@ -42,4 +43,5 @@ public class AnalyticsTest {
 
         assertTrue(analytics.toString().contains(claimCount.toString()));
     }
+
 }

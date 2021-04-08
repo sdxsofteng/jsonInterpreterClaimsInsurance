@@ -46,4 +46,5 @@ public class ClaimTest {
                 Arguments.of(new Claim(400,"2021-02-31", "1000000,00$"))
         );
     }
+
 }

@@ -1,6 +1,7 @@
 package models.output;
 
 public enum Message {
+
     DEFAULT_ERROR(-1, "Donnees Invalides"),
 
     MISSING_ARGUMENTS(-2, "Paramètres d'execution absents"),
@@ -36,7 +37,6 @@ public enum Message {
     CLAIM_DATE_LIMIT_REACHED( -30, "Maximum de soins par jour dépasses"),
 
     OVER_MAX_INTEGER( -99, "Montant de reclamation trop eleve"),
-
     ;
 
     private int errorCode;

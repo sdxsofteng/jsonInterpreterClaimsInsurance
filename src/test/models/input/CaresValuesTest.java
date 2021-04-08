@@ -95,4 +95,5 @@ public class CaresValuesTest {
                 Arguments.of(caresValues.getContractTypeValues().get(1))
         );
     }
+
 }

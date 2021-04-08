@@ -123,4 +123,5 @@ public class JacksonUtils {
             System.exit(Message.INVALID_OUTPUT_FILE.getCode());
         }
     }
+
 }

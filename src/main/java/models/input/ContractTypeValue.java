@@ -48,4 +48,5 @@ public class ContractTypeValue {
     public void setRefundPercentage(float refundPercentage) {
         this.refundPercentage = refundPercentage;
     }
+
 }

@@ -1,14 +1,15 @@
 package models.analytics;
 
 import models.output.ClaimOut;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ClaimCountTest {
+
     @Test
     @DisplayName("ToString Supplies the expected format")
     public void testToStringContainsAmountAndCareName() {

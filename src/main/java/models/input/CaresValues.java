@@ -109,5 +109,4 @@ public class CaresValues {
         this.monthlyMaxAmountInCents = monthlyMaxAmountInCents;
     }
 
-
 }
