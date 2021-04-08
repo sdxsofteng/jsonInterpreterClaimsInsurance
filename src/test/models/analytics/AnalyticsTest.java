@@ -37,7 +37,7 @@ public class AnalyticsTest {
 
         ClaimCount claimCount = new ClaimCount();
         claimCount.setCareName("test");
-        claimCount.setAmount(3);
+        claimCount.setNbClaims(3);
         analytics.getDeclaredCares().add(claimCount);
 
         assertTrue(analytics.toString().contains(claimCount.toString()));
