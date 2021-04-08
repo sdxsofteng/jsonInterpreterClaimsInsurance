@@ -60,4 +60,14 @@ public class Money {
         }
         return  refundAmount;
     }
+
+    // Ajoute un montant au montant courant, stock et retourne le resultat
+    public float add(float amount) {
+        this.valueInCents += convertFloatToInt(amount);
+        return convertIntToFloat(this.valueInCents);
+    }
+
+    public float getValueInFloat() {
+        return convertIntToFloat(this.valueInCents);
+    }
 }

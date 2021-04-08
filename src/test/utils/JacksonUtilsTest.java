@@ -50,36 +50,4 @@ public class JacksonUtilsTest {
         assertEquals(testOutputpath, jsonUtil.getErrorOutputPath());
     }
 
-    @Test
-    @DisplayName("Tests quitting program with parametrized error message." +
-            "Does not test message output.")
-    @ExpectSystemExitWithStatus(-4)
-    public void testExitWithErrorMessageM4() {
-        jUtil.exitWithError(new ErrorOut(Message.INVALID_INPUT_FILE));
-    }
-
-    @Test
-    @DisplayName("Tests quitting program with parametrized error message." +
-            "Does not test message output.")
-    @ExpectSystemExitWithStatus(-10)
-    public void testExitWithErrorMessageM10() {
-        jUtil.exitWithError(new ErrorOut(Message.MISSING_FILENUMBER));
-    }
-
-    @Test
-    @DisplayName("Tests quitting program with parametrized error message." +
-            "Does not test message output.")
-    @ExpectSystemExitWithStatus(-21)
-    public void testExitWithErrorMessageM21() {
-        jUtil.exitWithError(new ErrorOut(Message.INVALID_CARE_NO, 2));
-    }
-
-    @Test
-    @DisplayName("Tests quitting program with parametrized error message and cLaim number." +
-            "Does not test message output.")
-    @ExpectSystemExitWithStatus(-23)
-    public void testExitWithErrorMessageAndClaimNumber() {
-        jUtil.exitWithError(new ErrorOut(Message.INVALID_CLAIM_DATE));
-    }
-
 }
