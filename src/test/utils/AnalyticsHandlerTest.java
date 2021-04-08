@@ -16,6 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AnalyticsHandlerTest {
+
     static AnalyticsHandler analyticsHandler;
     static Analytics analytics;
 

@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static utils.ConversionUtils.*;
 
 public class ConversionUtilsTest {
-    /** TODO:  replaceCommasByPeriods */
 
     @ParameterizedTest(name = "extract contract type from file number")
     @MethodSource("fileNoToContractTypeSource")
@@ -147,4 +146,5 @@ public class ConversionUtilsTest {
                 Arguments.of("2020-11-01", "2020-11")
         );
     }
+
 }

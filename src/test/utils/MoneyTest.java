@@ -60,4 +60,5 @@ class MoneyTest {
         float actual = new Money(baseAmount).add(addedAmount);
         assertEquals(expected, actual);
     }
+
 }

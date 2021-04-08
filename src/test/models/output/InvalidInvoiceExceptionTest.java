@@ -3,6 +3,7 @@ package models.output;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InvalidInvoiceExceptionTest {
@@ -22,4 +23,5 @@ public class InvalidInvoiceExceptionTest {
         assertEquals(e.getErrorOut().getMessage(), i.getErrorOut().getMessage());
         assertEquals(e.getErrorOut().getCode(), i.getErrorOut().getCode());
     }
+
 }

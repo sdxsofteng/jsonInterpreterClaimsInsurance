@@ -2,8 +2,8 @@ package models.output;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import utils.ConversionUtils;
-import utils.RefundHandler;
 
 import java.util.List;
 
@@ -59,9 +59,9 @@ public class CustomerOut {
                 totalRefundAmount += ConversionUtils.convertCostStringToFloat(claim.getRefundAmount());
             }
         }
-
         String formattedTotalRefundAmount = ConversionUtils.floatToString(totalRefundAmount);
         return formattedTotalRefundAmount;
     }
+
 }
 

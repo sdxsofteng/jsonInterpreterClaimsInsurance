@@ -10,7 +10,7 @@ import utils.ConversionUtils;
  */
 public class Claim {
 
-    private int treatmentNumber;        //Variables d'objet
+    private int treatmentNumber;
     private String claimDate;
     private String treatmentCost;
     private float refundAmount;
@@ -64,4 +64,5 @@ public class Claim {
     public void setRefundAmount(float refundAmount) {
         this.refundAmount = refundAmount;
     }
+
 }

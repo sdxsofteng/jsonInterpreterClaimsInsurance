@@ -4,8 +4,9 @@ import models.input.Claim;
 import models.input.Customer;
 import models.output.InvalidInvoiceException;
 import models.output.Message;
+
 import org.iq80.snappy.Main;
-import org.junit.jupiter.api.Disabled;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,7 +26,8 @@ public class ValidationHandlerTest {
 
     CareReference testCareReference;
     static Customer testCustomer;
-    CareReference testPresets = jUtil.jsonToReference(Main.class.getClassLoader().getResourceAsStream("claimsReference.json"));
+    CareReference testPresets =
+            jUtil.jsonToReference(Main.class.getClassLoader().getResourceAsStream("claimsReference.json"));
 
     @Test
     @DisplayName("Customer object variables should be transferred to local variables.")
@@ -64,15 +66,13 @@ public class ValidationHandlerTest {
     @ParameterizedTest(name = "file number: {0} => {1}")
     @MethodSource("validateFileNumberIncorrectSource")
     @DisplayName("Invalid file number should throw proper exception.")
-    void testValidateFileNumberIncorrectTypeException(String contractTypeString, String clientNoString,
-                                                      String expected){
+    void testValidateFileNumberIncorrectType(String contractTypeString, String clientNoString, String expected){
         contractType = contractTypeString;
         clientNo = clientNoString;
         presets = testPresets;
 
-        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
-                ValidationHandler::validateFileNumber);
-
+        InvalidInvoiceException exception =
+                assertThrows(InvalidInvoiceException.class, ValidationHandler::validateFileNumber);
         String actualMessage = exception.getMessage();
         assertEquals(expected, actualMessage);
     }
@@ -84,7 +84,6 @@ public class ValidationHandlerTest {
         contractType = contractTypeString;
         clientNo = clientNoString;
         presets = testPresets;
-
         boolean actual = true;
         try {
             validateFileNumber();
@@ -149,10 +148,8 @@ public class ValidationHandlerTest {
     @DisplayName("Empty claimlist should throw exception")
     public void testValidateAllClaimsException(){
         List<Claim> claimList = new ArrayList<>();
-
-        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
-                () -> validateAllClaims(claimList));
-
+        InvalidInvoiceException exception =
+                assertThrows(InvalidInvoiceException.class, () -> validateAllClaims(claimList));
         String actualMessage = exception.getMessage();
         String expectedMessage = Message.MISSING_CLAIMS.getMessage();
 
@@ -185,8 +182,8 @@ public class ValidationHandlerTest {
     void testValidateDateFormatThrowsIncorrectDateException(String date, String expected) {
         invoiceDate = date;
 
-        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
-                ValidationHandler::validateInvoiceDate);
+        InvalidInvoiceException exception =
+                assertThrows(InvalidInvoiceException.class, ValidationHandler::validateInvoiceDate);
 
         String actualMessage = exception.getMessage();
         assertEquals(expected, actualMessage);
@@ -198,7 +195,6 @@ public class ValidationHandlerTest {
     void testValidateDateFormatDontThrowException(String date, boolean expected) {
         invoiceDate = date;
         boolean actual = true;
-
         try {
             validateInvoiceDate();
         } catch (Exception e) {
@@ -210,8 +206,7 @@ public class ValidationHandlerTest {
     @ParameterizedTest
     @MethodSource("claimContentSource")
     @DisplayName("Claim should be properly flagged as invalid/valid.")
-    void testValidateClaim(int treatment, String date, String cost,
-                           String invoiceDateString, boolean expected) {
+    void testValidateClaim(int treatment, String date, String cost, String invoiceDateString, boolean expected) {
         treatmentNumber = treatment;
         claimDate = date;
         treatmentCost = cost;
@@ -263,7 +258,6 @@ public class ValidationHandlerTest {
         claimDate = claimDateString;
         invoiceDate = invoiceDateString;
         boolean actual = true;
-
         try {
             validateClaimDate();
         } catch (InvalidInvoiceException e) {
@@ -294,8 +288,8 @@ public class ValidationHandlerTest {
     void testValidateCostException(String cost, String expected) {
         treatmentCost = cost;
 
-        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
-                ValidationHandler::validateCost);
+        InvalidInvoiceException exception =
+                assertThrows(InvalidInvoiceException.class, ValidationHandler::validateCost);
 
         String actualMessage = exception.getMessage();
         assertEquals(expected, actualMessage);
@@ -315,7 +309,6 @@ public class ValidationHandlerTest {
     void testCountMaxClaimTypeCost(int claim1, float cost1, int claim2, float cost2,  boolean expected) {
         costCounter = new HashMap<>();
         boolean actual = true;
-
         try {
             countMaxClaimTypeCost(claim1, cost1);
             countMaxClaimTypeCost(claim2, cost2);

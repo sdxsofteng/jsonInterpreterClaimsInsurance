@@ -34,7 +34,6 @@ public class OutputHandlerTest {
         customer = new Customer("B100000", "2021-01", claimList);
     }
 
-    // TODO: 2021-03-03 est-ce qu'on veut comparer avec l'entrée? Si oui, on ajoute un AUTRE champ dans Customer??
     @Test
     @DisplayName("Customer out should retain the same fileNumber")
     public void testCustomerToOutRetainsFileNo() {

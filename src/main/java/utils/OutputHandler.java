@@ -43,4 +43,5 @@ public class OutputHandler {
         ClaimOut claimOut = new ClaimOut(treatmentNumber, date, refund, claim.getTreatmentCostFloat());
         return claimOut;
     }
+
 }

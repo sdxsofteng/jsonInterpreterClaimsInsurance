@@ -1,8 +1,8 @@
 package models.output;
 
 public class InvalidInvoiceException extends RuntimeException {
-    private ErrorOut errorOut;
 
+    private ErrorOut errorOut;
 
     public InvalidInvoiceException(Message error) {
         super(error.getMessage());
@@ -17,4 +17,5 @@ public class InvalidInvoiceException extends RuntimeException {
     public ErrorOut getErrorOut() {
         return errorOut;
     }
+
 }

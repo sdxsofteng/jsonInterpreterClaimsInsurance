@@ -5,8 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 public class ConversionUtils {
 
-    public static JacksonUtils jUtil = new JacksonUtils();
-
     public static String extractContractTypeFrom(String fileNumber) {
         String contractType = null;
 
@@ -46,4 +44,5 @@ public class ConversionUtils {
     public static String removeDayFromDate(String yearMonthAndDayDate) {
         return DateTimeFormatter.ofPattern("yyyy-MM").format(LocalDate.parse(yearMonthAndDayDate));
     }
+
 }

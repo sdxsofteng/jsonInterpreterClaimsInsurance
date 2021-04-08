@@ -70,4 +70,5 @@ public class Money {
     public float getValueInFloat() {
         return convertIntToFloat(this.valueInCents);
     }
+
 }

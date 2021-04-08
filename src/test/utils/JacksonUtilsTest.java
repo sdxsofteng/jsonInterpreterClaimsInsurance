@@ -2,8 +2,6 @@ package utils;
 
 
 import models.input.CaresValues;
-import models.output.ErrorOut;
-import models.output.Message;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -12,10 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import com.ginsberg.junit.exit.ExpectSystemExitWithStatus;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static utils.ValidationHandler.jUtil;
 
 public class JacksonUtilsTest {
 
