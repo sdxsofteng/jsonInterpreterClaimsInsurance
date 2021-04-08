@@ -30,7 +30,7 @@
 | EF-011 | ST-011 | | |
 
 ### 3. Cas de tests
-|iiii|iiii|iiiii|iiiii|iiiii|iiiii|
+|Identifiant des suites de tests|Identifiant des cas de tests|Description des cas de tests|Préconditions|Sortie Attendue|Priorité|
 |:-----------:|:---------:|:------------------------------|:---------------|:------:|:----------:|
 |ST-001|CT-001| | | | |
 |ST-001|CT-001| | | | |
