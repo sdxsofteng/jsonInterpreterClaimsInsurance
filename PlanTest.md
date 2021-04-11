@@ -19,13 +19,13 @@
 |:--------------------:|:-----------------:|:-------------------------------------|------:|
 | EF-001 | ST-001 | | |
 | EF-002 | ST-002 | | |
-| EF-003 | ST-003 | | |
+| EF-003 | ST-003 | Vérifier que le programme supporte toutes les options et arguments requis au programme. | |
 | EF-004 | ST-004 | | |
 | EF-005 | ST-005 | | |
 | EF-006 | ST-006 | | |
 | EF-007 | ST-007 | | |
-| EF-008 | ST-008 | | |
-| EF-009 | ST-009 | | |
+| EF-008 | ST-008 | Vérifier que les statistiques sont calculées adéquatements. | |
+| EF-009 | ST-009 | Vérifier que les statistiques sont affichées adéquatements. | |
 | EF-010 | ST-010 | | |
 | EF-011 | ST-011 | | |
 
@@ -33,40 +33,13 @@
 |Identifiant des suites de tests|Identifiant des cas de tests|Description des cas de tests|Préconditions|Sortie Attendue|Priorité|
 |:-----------:|:---------:|:------------------------------|:---------------|:------:|:----------:|
 |ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
-|ST-001|CT-001| | | | |
+|ST-002|CT-001| | | | |
+|ST-003|CT-001| | | | |
+|ST-004|CT-001| | | | |
+|ST-005|CT-001| | | | |
+|ST-006|CT-001| | | | |
+|ST-007|CT-001| | | | |
+|ST-008|CT-001| | | | |
+|ST-009|CT-001| | | | |
+|ST-010|CT-001| | | | |
+|ST-011|CT-001| | | | |
