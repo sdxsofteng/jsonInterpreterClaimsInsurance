@@ -223,6 +223,12 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
+    @ParameterizedTest(name = "Args length: {0}")
+    @ValueSource(ints ={1, 2, 3, 4, Integer.MAX_VALUE})
+    void testHasArgsReturnsTrueForAnyValueAbove0(int length) {
+        assertTrue(hasArgs(length));
+    }
+
     @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("claimTypeIncorrectSource")
     @DisplayName("Invalid claim type should throw proper exception.")

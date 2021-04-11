@@ -71,13 +71,13 @@ public class AnalyticsHandler {
     }
 
     private AnalyticsHandler countClaim(CaresValues care, ClaimOut claim) {
-        ClaimCount trackedClaim = analytics.getDeclaredCares().stream()
+        ClaimCount trackedClaimType = analytics.getDeclaredCares().stream()
                 .filter(c -> c.getCareName().equals(care.getCareName())).findAny().orElse(null);
-        if (trackedClaim != null) {
-            trackedClaim.trackClaim(claim);
+        if (trackedClaimType != null) {
+            trackedClaimType.trackClaim(claim);
         } else {
-           trackedClaim = new ClaimCount(care.getCareName(), claim.getClaimAmount());
-           analytics.getDeclaredCares().add(trackedClaim);
+           trackedClaimType = new ClaimCount(care.getCareName(), claim.getClaimAmount());
+           analytics.getDeclaredCares().add(trackedClaimType);
         }
         return this;
     }

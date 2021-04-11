@@ -14,6 +14,7 @@ public class ClaimOutTest {
     @BeforeAll
     public static void setUp(){
         claimout = new ClaimOut();
+        claimout.setClaimAmount(0f);
         claimoutTest = claimout;
     }
 
