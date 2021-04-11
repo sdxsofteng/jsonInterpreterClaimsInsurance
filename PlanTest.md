@@ -51,39 +51,12 @@
 |ST-005|CT-001| | | | |
 |ST-006|CT-001| | | | |
 |ST-007|CT-001| | | | |
-|ST-008|CT-001| | | | |
-|      |CT-002| | | | |
-|      |CT-003| | | | |
-|      |CT-004| | | | |
-|      |CT-005| | | | |
-|      |CT-006| | | | |
-|      |CT-007| | | | |
-|      |CT-008| | | | |
-|      |CT-009| | | | |
-|      |CT-010| | | | |
-|      |CT-011| | | | |
-|      |CT-012| | | | |
-|      |CT-013| | | | |
-|      |CT-014| | | | |
-|      |CT-015| | | | |
-|      |CT-016| | | | |
-|      |CT-017| | | | |
-|ST-009|CT-001| | | | |
-|      |CT-002| | | | |
-|      |CT-003| | | | |
-|      |CT-004| | | | |
-|      |CT-005| | | | |
-|      |CT-006| | | | |
-|      |CT-007| | | | |
-|      |CT-008| | | | |
-|      |CT-009| | | | |
-|      |CT-010| | | | |
-|      |CT-011| | | | |
-|      |CT-012| | | | |
-|      |CT-013| | | | |
-|      |CT-014| | | | |
-|      |CT-015| | | | |
-|      |CT-016| | | | |
-|      |CT-017| | | | |
+|ST-008|CT-001| Réinitialiser les statistiques, avant avoir traité des demandes. | Ne pas avoir traitée de demande auparavant. | Les statistiques restent à 0. | Faible |
+|      |CT-002| Réinitialiser les statistiques, après avoir traité des demandes | Avoir traitée au moins une demande auparavant.  | Les statistiques sont remises à 0. (nb de réclamations, demandes rejetées, types de soins traités incluant leur max et moyenne) Les statistiques sont sauvegarder pour avoir de la persistence. | Haute |
+|      |CT-003| Ajouter une demande invalide | Passé une demande invalide au programme, mais qui est minimalement un fichier syntaxiquement correcte. | Les statistiques sont modifiées et sauvegarder pour avoir de la persistence. Toutes les statistiques restent les mêmes sauf le nombre de demande rejetées qui est incrémenté de un. | Haute |
+|      |CT-004| Traitement des statistiques pour une demande valide | Avoir une demande valide. | Les statistiques sont modifiées et sauvegarder pour avoir de la persistence. Le nombre de réclamations rejetées reste le même, le nombre de réclamations valides est incrémenté du nombre de réclamation contenu dans la demande, de même pour chaque type de soin. Pour chaque type de soin, la moyenne est ajustée adéquatement et le montant max réclamée est changée seulement si notre demande contenu un nouveau maximum. | Haute |
+|      |CT-005| Traitement des statistiques pour une demande valide, en mode prédiction|  Avoir une demande valide. | Toutes les statistiques demeurent inchangées suite au traitement de la demande. | Haute |
+|ST-009|CT-001| Appeler le programme avec seulement l'option -S, avant avoir traité des demandes | Ne pas avoir traité de demande auparavant. | Le programme s'exécute et se termine, affichant les statistiques à 0 dans la console. (0 demande traitée/rejetée, suivit d'une liste de soin vide. )| Faible |
+|      |CT-002| Appeler le programme avec seulement l'option -S, après avoir traité des demandes | Avoir traité au moins une demande avant ce test. | Le programme s'exécute et se termine, affichant les statistiques selon les demandes traitées. (Nombre de soins traités, suivit des demandes rejetée, suivit d'une liste de soin traitée par catégories qui inclue le nombre total traitée de ce soin, moyenne des montants réclamés et le montant maximal réclamée. ) | Haute |
 |ST-010|CT-001| | | | |
 |ST-011|CT-001| | | | |
