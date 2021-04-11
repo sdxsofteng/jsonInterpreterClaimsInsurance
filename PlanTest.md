@@ -3,16 +3,16 @@
 | Identifiants des fonctionnalitées | Description des fonctionnalitées |
 | :------------------: | :---------------------------------------|
 | EF-001 | Prendre un fichier JSON en argument à l'entrée du programme.|
-| EF-002 | Construire les références pour les soins.|
-| EF-003 | Vérifier les options d'entrée du programme. |
-| EF-004 | Valider que le JSON est bien formatté.|
+| EF-002 | Contenir une banque d'information sur les soins.|
+| EF-003 | Vérifier les appels au programme. |
+| EF-004 | Valider que le JSON est syntaxiquement correcte.|
 | EF-005 | Valider les informations entrées dans le JSON.|
 | EF-006 | Transformer les informations du JSON en objet Dossier et Soins|
 | EF-007 | Calculer le remboursement avec la classe Monnaie |
-| EF-008 | Selon le cas, ajouter les résultats au statistiques|
-| EF-009 | Compiler les statistiques. |
+| EF-008 | Calculer les statistiques. |
+| EF-009 | Afficher les statistiques. |
 | EF-010 | Sortir du programme avec des erreures précises|
-| EF-011 | Générer un fichier JSON sortant contenant les informations du dossier sur les remboursements pour chaque soins. |
+| EF-011 | Générer un fichier JSON sortant bien formattaté contenant les informations du dossier sur les remboursements pour chaque soins. |
 
 ### 2. Suites et cas de tests
 |Identifiants des fonctionnalitées|Identifiants des suites de tests|Description des suites de tests|Nombre de cas de tests|
