@@ -20,8 +20,8 @@
 | EF-001 | ST-001 | Vérifier que le programme se comporte de manière appropriée lorsqu'un fichier est entrée en argument du programme.| 4 |
 | EF-002 | ST-002 | Vérifier que la banque d'information créée les objets de référence de manière appropriée.| 4 |
 | EF-003 | ST-003 | Vérifier que le programme supporte toutes les options et arguments requis au programme. | 13 |
-| EF-004 | ST-004 | | |
-| EF-005 | ST-005 | | |
+| EF-004 | ST-004 | Vérifier que le programme rejette un fichier JSON incorrectement formaté. | 5 |
+| EF-005 | ST-005 | Vérifier que le programme valide correctement les données du fichier JSON. | 38 |
 | EF-006 | ST-006 | | |
 | EF-007 | ST-007 | Vérifier que les remboursements sont calculés correctement| 5 |
 | EF-008 | ST-008 | Vérifier que les statistiques sont calculées adéquatements. | 5 |
