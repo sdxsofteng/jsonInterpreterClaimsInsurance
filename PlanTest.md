@@ -32,16 +32,16 @@
 ### 3. Cas de tests
 |Identifiant des suites de tests|Identifiant des cas de tests|Description des cas de tests|Préconditions|Sortie Attendue|Priorité|
 |:-----------:|:---------:|:------------------------------|:---------------|:------:|:----------:|
-|ST-001|CT-001| Appeler un fichier qui n'existe pas| Aucune | Erreure: Fichier introuvable | Haute |
-| |CT-002|Appeler un fichier auquel nous n'avons pas accès|Aucune| Erreure: Fichier innaccessible| Moyenne |
-| |CT-003| Appeler un fichier JSON | Aucune | Le programme débute sans lançer d'erreures| Haute |
-| |CT-004| Appeler un fichier JSON mal-formatté | Aucune | Erreure: Fichier invalide | Haute |
-|ST-002|CT-001| Donner un fichier JSON de référence invalide | Avoir démarrer le programme avec un JSON valide et existant| Erreure: Fichier de référence invalide | Basse |
-| | CT-002 | Donner un fichier JSON de référence avec des informations en trop | Avoir démarrer le programme avec un JSON valide et existant | Le programme crée les objets de référence et ignore les informations supplémentaires| Basse |
-| | CT-003| Donner un fichier JSON de référence avec des informations manquantes| Avoir démarrer le programme avec un JSON valide et existant | Erreure: Le programme s'arrête | Haute |
-| |CT-004| Donner un fichier JSON de référence avec les bonnes informations| Avoir démarrer le programme avec un JSON valide et existant | Le programme crée les objets de référence et continu sans erreures | Haute |
-|ST-003|CT-001| Appeler le programme avec seulement l'option -S, sans avoir traité de demande | Avoir traiter aucune demande. (Ou avoir réinitialisé les statistiques) | Le programme se termine après avoir afficher toutes les statistiques à 0 ainsi qu'une liste vide de soin. | Haute |
-|      |CT-002| Appeler le programme avec seulement l'option -S, après avoir traité une/des demande(s) | Avoir traiter au moins une demande avant l'appel de programme | Afficher toutes les statistiques pertinentes entrées jusqu'à maintenant: le nombre de demande rejetées, le nombre de soins traités ainsi que chaque type de soins traités incluant sont nombre, max et moyenne de coût par soin. | Haute |
+|ST-001|CT-001| Appeler un fichier qui n'existe pas. | Aucune | Erreure: Fichier introuvable | Haute |
+|      |CT-002|Appeler un fichier auquel nous n'avons pas accès. | Aucune | Erreure: Fichier innaccessible| Moyenne |
+|      |CT-003| Appeler un fichier JSON. | Aucune | Le programme débute sans lançer d'erreures| Haute |
+|      |CT-004| Appeler un fichier JSON mal-formatté. | Aucune | Erreure: Fichier invalide | Haute |
+|ST-002|CT-001| Donner un fichier JSON de référence invalide. | Avoir démarrer le programme avec un JSON valide et existant. | Erreure: Fichier de référence invalide. | Basse |
+|      | CT-002 | Donner un fichier JSON de référence avec des informations en trop. | Avoir démarrer le programme avec un JSON valide et existant. | Le programme crée les objets de référence et ignore les informations supplémentaires| Basse |
+|      | CT-003| Donner un fichier JSON de référence avec des informations manquantes. | Avoir démarrer le programme avec un JSON valide et existant. | Erreur: Le programme s'arrête. | Haute |
+|      |CT-004| Donner un fichier JSON de référence avec les bonnes informations. | Avoir démarrer le programme avec un JSON valide et existant. | Le programme crée les objets de référence et continu sans erreurs. | Haute |
+|ST-003|CT-001| Appeler le programme avec seulement l'option -S, sans avoir traité de demande. | Avoir traiter aucune demande. (Ou avoir réinitialisé les statistiques). | Le programme se termine après avoir afficher toutes les statistiques à 0 ainsi qu'une liste vide de soin. | Haute |
+|      |CT-002| Appeler le programme avec seulement l'option -S, après avoir traité une/des demande(s). | Avoir traiter au moins une demande avant l'appel de programme. | Afficher toutes les statistiques pertinentes entrées jusqu'à maintenant: le nombre de demande rejetées, le nombre de soins traités ainsi que chaque type de soins traités incluant sont nombre, max et moyenne de coût par soin. | Haute |
 |      |CT-003| Appeler le programme avec seulement l'option -SR | Avoir traité au moins une demande (valide ou non). | Le programme se termine après avoir afficher "Statistique remise à zéro". Si on suit cet appel au programme de l'appel avec option -S, les statistiques affichées seront tous à 0.| Haute |
 |      |CT-004| Appeler le programme avec 2 arguments qui représentent deux chemins/noms de fichiers valides. | Les arguments sont des chemins/noms de fichier valide.  | Le programme s'exécute et se termine, un fichier sera créé au chemin et au nom spécifié par le deuxième argument. Ce fichier contient les résultats attendus dans le fichier de sortie. Les statistiques seront changé de façon approprié pour reflété la nouvelle demande traitée. Note: le comportement reste le même, peu importe si la demande traitée est valide ou non. | Haute |
 |      |CT-005| Appeler le programme avec 2 arguments qui représentent autre chose que deux chemins/noms de fichiers valides. | Le premier argument n'est pas un fichier de réclamation valide, le deuxième argument n'est pas un chemin de fichier possible. | Le programme s'exécute et se termine, produisant un fichier output.json contenant un message d'erreur. | Haute |
