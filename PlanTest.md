@@ -27,7 +27,7 @@
 | EF-008 | ST-008 | Vérifier que les statistiques sont calculées adéquatements. | 5 |
 | EF-009 | ST-009 | Vérifier que les statistiques sont affichées adéquatements. | 2 |
 | EF-010 | ST-010 | | |
-| EF-011 | ST-011 | Vérifier que le fichier JSON sortant est bien formaté et exact| |
+| EF-011 | ST-011 | Vérifier que le fichier JSON sortant est bien formaté et exact| 2 |
 
 ### 3. Cas de tests
 |Identifiant des suites de tests|Identifiant des cas de tests|Description des cas de tests|Préconditions|Sortie Attendue|Priorité|
