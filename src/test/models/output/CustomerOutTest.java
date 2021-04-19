@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CustomerOutTest {
+
     static CustomerOut customerOut;
 
     @BeforeAll
@@ -21,8 +22,8 @@ public class CustomerOutTest {
         customerOut = new CustomerOut();
         customerOut.setClientNumber("123456");
         customerOut.setClaimPeriod("2021-01");
-        ClaimOut testClaimOut1 = new ClaimOut(100, "2021-01-01", "100.11$");
-        ClaimOut testClaimOut2 = new ClaimOut(313,"2021-01-31", "50.02$");
+        ClaimOut testClaimOut1 = new ClaimOut(100, "2021-01-01", "100.11$", 100.11f);
+        ClaimOut testClaimOut2 = new ClaimOut(313,"2021-01-31", "50.02$", 50.02f);
         List<ClaimOut> claimOutList = new ArrayList<>();
         claimOutList.add(testClaimOut1);
         claimOutList.add(testClaimOut2);
@@ -43,5 +44,6 @@ public class CustomerOutTest {
         boolean isValid = ValidationHandler.isValidCost(customerOut.getFormattedTotalRefundAmount());
         assertTrue(isValid);
     }
+
 }
 

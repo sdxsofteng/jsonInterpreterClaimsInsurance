@@ -40,7 +40,8 @@ public class OutputHandler {
         int treatmentNumber = claim.getTreatmentNumber();
         String date = claim.getClaimDate();
         String refund = floatToString(claim.getRefundAmount());
-        ClaimOut claimOut = new ClaimOut(treatmentNumber, date, refund);
+        ClaimOut claimOut = new ClaimOut(treatmentNumber, date, refund, claim.getTreatmentCostFloat());
         return claimOut;
     }
+
 }

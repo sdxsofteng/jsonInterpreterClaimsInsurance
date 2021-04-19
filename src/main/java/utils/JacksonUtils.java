@@ -68,7 +68,6 @@ public class JacksonUtils {
     public void setAnalytics(Analytics analytics, String path) {
         try {
             File analyticsFile = new File(path);
-            //analyticsFile.createNewFile();
             mapper.writerWithDefaultPrettyPrinter().writeValue(analyticsFile, analytics);
         } catch (IOException e) {
             exitWithError(new ErrorOut(Message.ANALYTICS_FILE_WRITE_FAILURE));
@@ -123,4 +122,5 @@ public class JacksonUtils {
             System.exit(Message.INVALID_OUTPUT_FILE.getCode());
         }
     }
+
 }

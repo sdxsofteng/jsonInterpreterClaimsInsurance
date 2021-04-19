@@ -33,8 +33,7 @@ public class Main {
     }
 
     public static void launchMainProgram(String[] args) {
-        validateArgs(args.length, 2);
-        initializeObjects(args[0], args[1]);
+        setUpArgs(args);
         ValidationHandler.ValidateInvoice(customerInfo, referenceObject);
         refundHandler.processRefund(customerInfo, referenceObject);
         customerOut = OutputHandler.customerToOut(customerInfo);
@@ -63,4 +62,16 @@ public class Main {
         refundHandler = new RefundHandler();
         normalOutputFile = new File(commandLineArgTwo);
     }
+
+    public static void setUpArgs(String[] args) {
+        if (args[0].equals("-p")) {
+            validateArgs(args.length, 3);
+            initializeObjects(args[1], args[2]);
+            AnalyticsHandler.disablePersistence();
+        } else {
+            validateArgs(args.length, 2);
+            initializeObjects(args[0], args[1]);
+        }
+    }
+
 }

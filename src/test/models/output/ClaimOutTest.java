@@ -1,9 +1,9 @@
 package models.output;
 
-import models.input.Claim;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClaimOutTest {
@@ -14,6 +14,7 @@ public class ClaimOutTest {
     @BeforeAll
     public static void setUp(){
         claimout = new ClaimOut();
+        claimout.setClaimAmount(0f);
         claimoutTest = claimout;
     }
 
@@ -22,4 +23,5 @@ public class ClaimOutTest {
     public void testConstructor(){
         assertEquals(claimout, claimoutTest);
     }
+
 }

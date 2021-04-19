@@ -13,9 +13,10 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AnalyticsHandlerTest {
+
     static AnalyticsHandler analyticsHandler;
     static Analytics analytics;
 
@@ -48,7 +49,7 @@ public class AnalyticsHandlerTest {
     public void testResetResetsDeclaredCares() {
         List<ClaimCount> claims = new ArrayList<>();
         ClaimCount claim = new ClaimCount();
-        claim.setAmount(10);
+        claim.setNbClaims(10);
         claim.setCareName("test");
         claims.add(claim);
         analytics.setDeclaredCares(claims);
@@ -85,12 +86,12 @@ public class AnalyticsHandlerTest {
     public void testClaimsCountCountsCareAppropriately() {
         CareReference referenceObject = setUpCareReference();
         List<ClaimOut> claims = new ArrayList<>();
-        claims.add(new ClaimOut(10, "2020-01-01", "0.00$"));
-        claims.add(new ClaimOut(11, "2020-01-01", "0.00$"));
+        claims.add(new ClaimOut(10, "2020-01-01", "0.00$", 0));
+        claims.add(new ClaimOut(11, "2020-01-01", "0.00$", 0));
         analyticsHandler.countClaims(claims, referenceObject);
 
         assertEquals(1, analytics.getDeclaredCares().size());
-        assertEquals(2, analytics.getDeclaredCares().get(0).getAmount());
+        assertEquals(2, analytics.getDeclaredCares().get(0).getNbClaims());
     }
 
     @Test
@@ -98,10 +99,18 @@ public class AnalyticsHandlerTest {
     public void testClaimsCountCountsGlobalAppropriately() {
         CareReference referenceObject = setUpCareReference();
         List<ClaimOut> claims = new ArrayList<>();
-        claims.add(new ClaimOut(10, "2020-01-01", "0.00$"));
-        claims.add(new ClaimOut(11, "2020-01-01", "0.00$"));
+        claims.add(new ClaimOut(10, "2020-01-01", "0.00$", 0));
+        claims.add(new ClaimOut(11, "2020-01-01", "0.00$", 0));
         analyticsHandler.countClaims(claims, referenceObject);
 
         assertEquals(2, analytics.getNbRequestsApproved());
     }
+
+    @Test
+    @DisplayName("Disabling persistence sets the correct property to false")
+    public void testDisablingPersistenceSetsPersistenceToFalse() {
+        AnalyticsHandler.disablePersistence();
+        assertFalse(AnalyticsHandler.hasPersistence);
+    }
+
 }

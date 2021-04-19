@@ -4,8 +4,9 @@ import models.input.Claim;
 import models.input.Customer;
 import models.output.InvalidInvoiceException;
 import models.output.Message;
+
 import org.iq80.snappy.Main;
-import org.junit.jupiter.api.Disabled;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,8 +17,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.*;
 import static utils.ValidationHandler.*;
 
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -25,7 +26,8 @@ public class ValidationHandlerTest {
 
     CareReference testCareReference;
     static Customer testCustomer;
-    CareReference testPresets = jUtil.jsonToReference(Main.class.getClassLoader().getResourceAsStream("claimsReference.json"));
+    CareReference testPresets =
+            jUtil.jsonToReference(Main.class.getClassLoader().getResourceAsStream("claimsReference.json"));
 
     @Test
     @DisplayName("Customer object variables should be transferred to local variables.")
@@ -64,15 +66,13 @@ public class ValidationHandlerTest {
     @ParameterizedTest(name = "file number: {0} => {1}")
     @MethodSource("validateFileNumberIncorrectSource")
     @DisplayName("Invalid file number should throw proper exception.")
-    void testValidateFileNumberIncorrectTypeException(String contractTypeString, String clientNoString,
-                                                      String expected){
+    void testValidateFileNumberIncorrectType(String contractTypeString, String clientNoString, String expected){
         contractType = contractTypeString;
         clientNo = clientNoString;
         presets = testPresets;
 
-        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
-                ValidationHandler::validateFileNumber);
-
+        InvalidInvoiceException exception =
+                assertThrows(InvalidInvoiceException.class, ValidationHandler::validateFileNumber);
         String actualMessage = exception.getMessage();
         assertEquals(expected, actualMessage);
     }
@@ -84,7 +84,6 @@ public class ValidationHandlerTest {
         contractType = contractTypeString;
         clientNo = clientNoString;
         presets = testPresets;
-
         boolean actual = true;
         try {
             validateFileNumber();
@@ -149,10 +148,8 @@ public class ValidationHandlerTest {
     @DisplayName("Empty claimlist should throw exception")
     public void testValidateAllClaimsException(){
         List<Claim> claimList = new ArrayList<>();
-
-        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
-                () -> validateAllClaims(claimList));
-
+        InvalidInvoiceException exception =
+                assertThrows(InvalidInvoiceException.class, () -> validateAllClaims(claimList));
         String actualMessage = exception.getMessage();
         String expectedMessage = Message.MISSING_CLAIMS.getMessage();
 
@@ -185,8 +182,8 @@ public class ValidationHandlerTest {
     void testValidateDateFormatThrowsIncorrectDateException(String date, String expected) {
         invoiceDate = date;
 
-        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
-                ValidationHandler::validateInvoiceDate);
+        InvalidInvoiceException exception =
+                assertThrows(InvalidInvoiceException.class, ValidationHandler::validateInvoiceDate);
 
         String actualMessage = exception.getMessage();
         assertEquals(expected, actualMessage);
@@ -198,7 +195,6 @@ public class ValidationHandlerTest {
     void testValidateDateFormatDontThrowException(String date, boolean expected) {
         invoiceDate = date;
         boolean actual = true;
-
         try {
             validateInvoiceDate();
         } catch (Exception e) {
@@ -207,18 +203,10 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
-
-
-
-
-
-
-
     @ParameterizedTest
     @MethodSource("claimContentSource")
     @DisplayName("Claim should be properly flagged as invalid/valid.")
-    void testValidateClaim(int treatment, String date, String cost,
-                           String invoiceDateString, boolean expected) {
+    void testValidateClaim(int treatment, String date, String cost, String invoiceDateString, boolean expected) {
         treatmentNumber = treatment;
         claimDate = date;
         treatmentCost = cost;
@@ -235,14 +223,11 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
-
-
-
-
-
-
-
-
+    @ParameterizedTest(name = "Args length: {0}")
+    @ValueSource(ints ={1, 2, 3, 4, Integer.MAX_VALUE})
+    void testHasArgsReturnsTrueForAnyValueAbove0(int length) {
+        assertTrue(hasArgs(length));
+    }
 
     @ParameterizedTest(name = "date: {0} => {1}")
     @MethodSource("claimTypeIncorrectSource")
@@ -279,7 +264,6 @@ public class ValidationHandlerTest {
         claimDate = claimDateString;
         invoiceDate = invoiceDateString;
         boolean actual = true;
-
         try {
             validateClaimDate();
         } catch (InvalidInvoiceException e) {
@@ -310,8 +294,8 @@ public class ValidationHandlerTest {
     void testValidateCostException(String cost, String expected) {
         treatmentCost = cost;
 
-        InvalidInvoiceException exception = assertThrows(InvalidInvoiceException.class,
-                ValidationHandler::validateCost);
+        InvalidInvoiceException exception =
+                assertThrows(InvalidInvoiceException.class, ValidationHandler::validateCost);
 
         String actualMessage = exception.getMessage();
         assertEquals(expected, actualMessage);
@@ -325,16 +309,63 @@ public class ValidationHandlerTest {
         assertEquals(expected, actual);
     }
 
+    @ParameterizedTest(name = "cost by claimtype: {0}@{1} + {2}@{3} + 100@300")
+    @MethodSource("claimsForClaimCounter")
+    @DisplayName("Claim types totalling more than 400$ should be properly flagged as invalid.")
+    void testCountMaxClaimTypeCost(int claim1, float cost1, int claim2, float cost2,  boolean expected) {
+        costCounter = new HashMap<>();
+        boolean actual = true;
+        try {
+            countMaxClaimTypeCost(claim1, cost1);
+            countMaxClaimTypeCost(claim2, cost2);
+            countMaxClaimTypeCost(100, 300.00f);
+        } catch (InvalidInvoiceException e) {
+            actual = false;
+        }
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent quatre dates sous format YYYY-MM-DD.
+     * Contient des dates pareilles pour tester les exceptions.
+     */
+    static Stream<Arguments> claimsForClaimCounter() {
+        return Stream.of(
+                Arguments.of(400, 250.10f, 200, 125.32f, true),
+                Arguments.of(300, 150.07f, 300, 155.26f, true),
+                Arguments.of(500, 500.00f, 600, 150.00f, true),
+                Arguments.of(200, 500.01f, 300, 18.23f, false),
+                Arguments.of(100, 50.00f, 100, 155.00f, false),
+                Arguments.of(100, 222.02f, 200, 135.00f, false)
+        );
+    }
 
 
-    @Disabled("Need to adapt for new functions")
+    @ParameterizedTest(name = "Date: {0}...")
+    @MethodSource("datesForDateCounter")
+    @DisplayName("Dates repeating more than 4 times should be properly flagged as invalid.")
+    void testCountDateException(String date1, String date2, String date3, String date4, String date5, boolean expected) {
+        dateCounter = new HashMap<>();
+        boolean actual = true;
+
+        try {
+            countDate(date1);
+            countDate(date2);
+            countDate(date3);
+            countDate(date4);
+            countDate(date5);
+        } catch (InvalidInvoiceException e) {
+            actual = false;
+        }
+        assertEquals(expected, actual);
+    }
+
+
     @ParameterizedTest(name = "argsLength: {0}")
-    @DisplayName("Program should fail if called with anything besides 2 arguments.")
+    @DisplayName("Validate function should not quit program if length is valid.")
     @ValueSource(ints = {0, 1, 2, 3, Integer.MAX_VALUE})
-    public void testValidateArgsLengthIsOnlyValidWhenEqualTo2(int argsLength) {
-        //boolean expected = argsLength == 2;
-        //boolean actual = validateArgs(argsLength);
-        //assertEquals(expected, actual);
+    public void testValidateArgsLengthDoesNotEndProgram(int argsLength) {
+        validateArgs(argsLength, argsLength);
     }
 
 
@@ -431,6 +462,7 @@ public class ValidationHandlerTest {
                 Arguments.of("A$", false), Arguments.of("A", false), Arguments.of("A,A", false),
                 Arguments.of("A.A", false), Arguments.of("1", false), Arguments.of("12", false),
                 Arguments.of("12,50", false), Arguments.of("12.50", false), Arguments.of("1 012.50$", false),
+                Arguments.of("0,50$", true), Arguments.of("-10.50$", true), Arguments.of("0.00$", true),
                 Arguments.of("1 012,50$", false), Arguments.of("1,012.50$", false)
         );
     }
@@ -548,9 +580,25 @@ public class ValidationHandlerTest {
      */
     static Stream<Arguments> costStringsIncorrectSource() {
         return Stream.of(
+                Arguments.of("-10.00$", Message.INVALID_TREATMENT_COST_TOO_LOW.getMessage()),
+                Arguments.of("0.00$", Message.INVALID_TREATMENT_COST_TOO_LOW.getMessage()),
                 Arguments.of("Mathieu", Message.INVALID_TREATMENT_COST.getMessage()),
                 Arguments.of(null, Message.MISSING_TREATMENT_COST.getMessage()),
                 Arguments.of("", Message.MISSING_TREATMENT_COST.getMessage())
+        );
+    }
+
+
+    /**
+     * Liste d'arguments pour les tests qui nécessitent quatre dates sous format YYYY-MM-DD.
+     * Contient des dates pareilles pour tester les exceptions.
+     */
+    static Stream<Arguments> datesForDateCounter() {
+        return Stream.of(
+                Arguments.of("1990-01-01", "2005-02-02", "2010-03-03", "2015-04-04", "2005-02-02", true),
+                Arguments.of("2017-03-08", "2017-03-08", "1999-01-06", "1987-05-01", "2017-03-08", true),
+                Arguments.of("2013-05-11", "2013-05-11", "2013-05-11", "2013-05-11", "1999-01-06", true),
+                Arguments.of("2020-12-14", "2020-12-14", "2020-12-14", "2020-12-14", "2020-12-14", false)
         );
     }
 

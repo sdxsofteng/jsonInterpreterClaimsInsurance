@@ -52,4 +52,5 @@ public class CareReferenceTest {
                 Arguments.of(300, "Test 3"), Arguments.of(399, "Test 3"), Arguments.of(350, "Test 3")
         );
     }
+
 }

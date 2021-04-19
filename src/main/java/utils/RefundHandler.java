@@ -44,4 +44,5 @@ public class RefundHandler {
         float refundAmount = treatmentCost.calculateAmountToRefund(maxAmount, refundPercentage, monthlyMaxForCare);
         return refundAmount;
     }
+
 }

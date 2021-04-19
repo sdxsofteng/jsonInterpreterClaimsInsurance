@@ -39,4 +39,26 @@ class MoneyTest {
     public void testAdjustMonthlyMaxAmountCare2(){
         assertEquals(7.50f, n.calculateAmountToRefund(50.00f, 0.75f, caresValues));
     }
+
+    @Test
+    @DisplayName("Add money properly stores the added value")
+    public void testAddMoneyStoresValue() {
+        float baseAmount = 10.00f;
+        float addedAmount = 15.83f;
+        float expected = baseAmount + addedAmount;
+        Money testMoney = new Money(baseAmount);
+        testMoney.add(addedAmount);
+        assertEquals(expected, testMoney.getValueInFloat());
+    }
+
+    @Test
+    @DisplayName("Add money properly returns the result value")
+    public void testAddMoneyReturnsResult() {
+        float baseAmount = 10.00f;
+        float addedAmount = 15.83f;
+        float expected = baseAmount + addedAmount;
+        float actual = new Money(baseAmount).add(addedAmount);
+        assertEquals(expected, actual);
+    }
+
 }

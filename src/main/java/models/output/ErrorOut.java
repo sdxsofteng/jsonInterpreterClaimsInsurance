@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Cette classe représente le contenu dans le JSON sortant qui est retourné lorsqu'il y a une erreur.
  */
 public class ErrorOut {
+
     private String message = Message.DEFAULT_ERROR.getMessage();
     private int code;
 

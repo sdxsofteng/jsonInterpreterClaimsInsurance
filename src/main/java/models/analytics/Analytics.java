@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Analytics {
+
     private int nbRequestsRejected = 0;
     private int nbRequestsApproved = 0;
     private List<ClaimCount> declaredCares;
@@ -54,4 +55,5 @@ public class Analytics {
         }
         return string;
     }
+
 }
