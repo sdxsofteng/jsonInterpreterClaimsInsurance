@@ -17,6 +17,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.*;
 import static utils.ValidationHandler.*;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -313,6 +314,7 @@ public class ValidationHandlerTest {
     @MethodSource("claimsForClaimCounter")
     @DisplayName("Claim types totalling more than 400$ should be properly flagged as invalid.")
     void testCountMaxClaimTypeCost(int claim1, float cost1, int claim2, float cost2,  boolean expected) {
+        presets = jUtil.jsonToReference(Main.class.getClassLoader().getResourceAsStream("claimsReference.json"));
         costCounter = new HashMap<>();
         boolean actual = true;
         try {
@@ -324,22 +326,6 @@ public class ValidationHandlerTest {
         }
         assertEquals(expected, actual);
     }
-
-    /**
-     * Liste d'arguments pour les tests qui nécessitent quatre dates sous format YYYY-MM-DD.
-     * Contient des dates pareilles pour tester les exceptions.
-     */
-    static Stream<Arguments> claimsForClaimCounter() {
-        return Stream.of(
-                Arguments.of(400, 250.10f, 200, 125.32f, true),
-                Arguments.of(300, 150.07f, 300, 155.26f, true),
-                Arguments.of(500, 500.00f, 600, 150.00f, true),
-                Arguments.of(200, 500.01f, 300, 18.23f, false),
-                Arguments.of(100, 50.00f, 100, 155.00f, false),
-                Arguments.of(100, 222.02f, 200, 135.00f, false)
-        );
-    }
-
 
     @ParameterizedTest(name = "Date: {0}...")
     @MethodSource("datesForDateCounter")
@@ -359,7 +345,6 @@ public class ValidationHandlerTest {
         }
         assertEquals(expected, actual);
     }
-
 
     @ParameterizedTest(name = "argsLength: {0}")
     @DisplayName("Validate function should not quit program if length is valid.")
@@ -588,7 +573,6 @@ public class ValidationHandlerTest {
         );
     }
 
-
     /**
      * Liste d'arguments pour les tests qui nécessitent quatre dates sous format YYYY-MM-DD.
      * Contient des dates pareilles pour tester les exceptions.
@@ -602,4 +586,19 @@ public class ValidationHandlerTest {
         );
     }
 
+    /**
+     * Liste d'arguments pour tester les montants maximums mensuels par type de soins.
+     * Contient des dates pareilles pour tester les exceptions.
+     */
+    static Stream<Arguments> claimsForClaimCounter() {
+        return Stream.of(
+                Arguments.of(400, 250.10f, 200, 125.32f, true),
+                Arguments.of(300, 150.07f, 300, 155.26f, true),
+                Arguments.of(500, 500.00f, 600, 150.00f, true),
+                Arguments.of(200, 500.01f, 300, 18.23f, false),
+                Arguments.of(100, 50.00f, 100, 155.00f, false),
+                Arguments.of(325, 350.00f, 386, 255.00f, false),
+                Arguments.of(100, 222.02f, 200, 135.00f, false)
+        );
+    }
 }

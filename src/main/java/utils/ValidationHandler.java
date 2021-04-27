@@ -30,7 +30,7 @@ public class ValidationHandler {
     protected static String claimDate;
     protected static String treatmentCost;
     protected static HashMap<String, Integer> dateCounter = new HashMap<>();
-    protected static HashMap<Integer, Float> costCounter = new HashMap<>();
+    protected static HashMap<String, Float> costCounter = new HashMap<>();
 
     public static void ValidateInvoice(Customer customer, CareReference referenceObj) {
         setVariables(customer, referenceObj);
@@ -177,15 +177,19 @@ public class ValidationHandler {
         return (ConversionUtils.convertCostStringToFloat(cost) > CLAIM_MIN_COST);
     }
 
-    public static void countMaxClaimTypeCost(int claimType, float cost){
-        if (costCounter.containsKey(claimType)) {
-            costCounter.put(claimType, costCounter.get(claimType) + cost);
+    public static void countMaxClaimTypeCost(int treatmentNumber, float cost){
+        if (costCounter.containsKey(getTreatmentCat(treatmentNumber))) {
+            costCounter.put(getTreatmentCat(treatmentNumber), costCounter.get(getTreatmentCat(treatmentNumber)) + cost);
         } else {
-            costCounter.put(claimType, cost);
+            costCounter.put(getTreatmentCat(treatmentNumber), cost);
         }
-        if (costCounter.get(claimType) > CLAIM_TYPE_MAX_MONTHLY_COST){
+        if (costCounter.get(getTreatmentCat(treatmentNumber)) > CLAIM_TYPE_MAX_MONTHLY_COST){
             throw new InvalidInvoiceException(Message.MONTHLY_TREATMENT_COST_TOO_HIGH);
         }
+    }
+
+    private static String getTreatmentCat(int treatmentNumber){
+        return presets.getAppropriateCareObject(treatmentNumber).getCareName();
     }
 
     public static void countDate(String date){
